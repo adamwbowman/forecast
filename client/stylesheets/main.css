@@ -1,0 +1,19 @@
+body {
+	padding-top: 60px;
+	background-color: #eeeeee;
+}
+p.center {
+	text-align: center;
+}
+.selected {
+	font-weight: bold;
+}
+.currentClient {
+	cursor: pointer;
+}
+.currentProject {
+	cursor: pointer;
+}
+.currentForecast {
+	cursor: pointer;
+}

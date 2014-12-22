@@ -1,0 +1,49 @@
+
+<template name="clients">
+	<div class="container">
+		<div class="row">
+			<div class="span3">
+				<h3>Clients</h3>
+				<div class="input-append">
+					<input class="span2 addClientInput" id="appendedInputButton" type="text">
+					<button class="btn addClient" type="button"> + </button>
+				</div>
+				{{#each client}}
+					<p class="currentClient {{selectedClient}}">
+					<button class="btn btn-mini deleteClient"> - </button>
+					{{name}}</p>
+				{{/each}}
+			</div>
+			<div class="span3">
+				<h3>{{currentClient}} Projects</h3>
+				<div class="input-append">
+					<input class="span2 addProjectInput" id="appendedInputButton" type="text">
+					<button class="btn addProject" type="button"> + </button>
+				</div>
+				{{#each project}}
+					<p class="currentProject {{selectedProject}}">
+					<button class="btn btn-mini deleteProject"> - </button>
+					{{name}}</p>
+				{{/each}}
+			</div>
+			<div class="span6">
+				<h3>{{currentProject}} Forecast</h3>
+				<form class="navbar-form">
+				<div class="input-append date">
+					<input type="text" id="startDate" placeholder="Start Date"><input type="text" id="endDate" placeholder="End Date"><button class="btn addForecast" type="button"> + </button>
+				</div>
+				</form>
+				{{#each forecast}}
+					<p class="currentForecast {{selectedForecast}}">
+					<button class="btn btn-mini deleteForecast"> - </button>
+					{{formatDate startDate}} - {{formatDate endDate}}: {{totalWorkDays}} workdays *** {{percentage}}
+					<select class="span1 pull-right percentage">
+						<option value="100" {{selected percentage '100'}} >100%</option>
+						<option value="50" {{selected percentage '50'}}>50%</option>
+					</select>
+					</p><br />
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</template>
