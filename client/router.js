@@ -8,6 +8,9 @@ Router.map(function() {
 	this.route('clients', {
 		path: '/clients'
 	});	
+	this.route('admin', {
+		path: '/admin'
+	});
 	//this.route('answers', { 
 	//	path: '/question/:questionId',
 	//	data: function() {
