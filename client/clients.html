@@ -36,7 +36,7 @@
 				{{#each forecast}}
 					<p class="currentForecast {{selectedForecast}}">
 					<button class="btn btn-mini deleteForecast"> - </button>
-					{{formatDate startDate}} - {{formatDate endDate}}: {{totalWorkDays}} workdays * {{percentage}}% = {{totalWorkHours}}  
+					{{formatDate startDate}} - {{formatDate endDate}}: {{totalWorkDays}} workdays * {{percentage}}%
 					<select class="span1 pull-right percentage">
 						<option value="100" {{selected percentage '100'}} >100%</option>
 						<option value="50" {{selected percentage '50'}}>50%</option>
