@@ -110,7 +110,6 @@ Template.clients.events({
 		Forecast.update(this._id, 
 			{$set: {percentage: parseInt($('.percentage').val()) }}
 		);
-		console.log( Forecast.find({_id: this._id}).fetch() )
 	}
 });
 
