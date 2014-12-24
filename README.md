@@ -1,6 +1,6 @@
 
-## Boilerplate
-Boilerplate for Meteor.
+## Forecast
+Forecast for Meteor.
 
 If you're interested in working on this project, first grab Meteor here:
 
