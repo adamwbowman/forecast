@@ -38,6 +38,24 @@
 					{{/if}}
 				{{/each}}
 			</div>
+			<div class="span3">
+				<h3>Locations</h3>
+				<div class="input-append">
+					<input class="span2 addLocationInput" id="appendedInputButton" type="text">
+					<button class="btn addLocation" type="button">+</button>
+				</div>
+				{{#each location}}
+					{{#if selectedLocation}}
+						<div class="input-prepend">
+							<span class="add-on deleteLocation"><i class="icon-trash"></i></span>
+							<input class="span2 editLocationInput" id="inputIcon" type="text" value="{{name}}">
+						</div>
+					{{else}}
+						<p class="currentLocation">
+						{{name}}</p>
+					{{/if}}
+				{{/each}}
+			</div>
 		</div>
 	</div>
 </template>

@@ -1,8 +1,10 @@
 
 Session.setDefault('currentClient', null);
+Session.setDefault('currentProduct', null);
+Session.setDefault('currentLocation', null);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* clients
+/* admin
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 // Helpers 
@@ -18,6 +20,12 @@ Template.admin.helpers({
 	},
 	selectedProduct: function () {
 		return Session.equals('currentProduct', this._id) ? 'selected' : '';
+	},
+	location: function () {
+		return Locations.find({}, {sort: {name: 1}}).fetch();
+	},
+	selectedLocation: function () {
+		return Session.equals('currentLocation', this._id) ? 'selected' : '';
 	}
 });
 
@@ -54,6 +62,9 @@ Template.admin.events({
 	'click .deleteClient': function () {
 		Clients.remove({_id: this._id});
 	},
+
+
+
 	'click .addProduct': function (evt, template) {
 		var productName = template.find('.addProductInput').value;
 		if (productName.length > 0) {
@@ -84,5 +95,39 @@ Template.admin.events({
 	},
 	'click .deleteProduct': function () {
 		Products.remove({_id: this._id});
-	}
+	},
+
+
+
+	'click .addLocation': function (evt, template) {
+		var locationName = template.find('.addLocationInput').value;
+		if (locationName.length > 0) {
+			Locations.insert({name: locationName});
+			template.find('.addLocationInput').value = '';
+		}
+	},
+	'keypress input.addLocationInput': function (evt, template) {
+		if (evt.which === 13) {
+			var locationName = template.find('.addLocationInput').value;
+			if (locationName.length > 0) {
+				Locations.insert({name: locationName});
+				template.find('.addLocationInput').value = '';
+			}
+		}
+	},
+	'keypress input.editLocationInput': function (evt, template) {
+		if (evt.which === 13) {
+			var locationName = template.find('.editLocationInput').value;
+			if (locationName.length > 0) {
+				Locations.update(this._id, {$set: {name: locationName}});
+				Session.set('currentLocation', null);
+			}
+		}
+	},
+	'click .currentLocation': function (evt, template) {
+		Session.set('currentLocation', this._id);
+	},
+	'click .deleteLocation': function () {
+		Locations.remove({_id: this._id});
+	}	
 });
