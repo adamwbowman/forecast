@@ -5,15 +5,9 @@ body {
 p.center {
 	text-align: center;
 }
-.selected {
-	font-weight: bold;
-}
 .currentClient {
 	cursor: pointer;
 }
-.currentProject {
-	cursor: pointer;
-}
-.currentForecast {
+.add-on {
 	cursor: pointer;
 }

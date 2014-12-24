@@ -1,0 +1,43 @@
+
+<template name="admin">
+	<div class="container">
+		<div class="row">
+			<div class="span3">
+				<h3>Clients</h3>
+				<div class="input-append">
+					<input class="span2 addClientInput" id="appendedInputButton" type="text">
+					<button class="btn addClient" type="button">+</button>
+				</div>
+				{{#each client}}
+					{{#if selectedClient}}
+						<div class="input-prepend">
+							<span class="add-on deleteClient"><i class="icon-trash"></i></span>
+							<input class="span2 editClientInput" id="inputIcon" type="text" value="{{name}}">
+						</div>
+					{{else}}
+						<p class="currentClient">
+						{{name}}</p>
+					{{/if}}
+				{{/each}}
+			</div>
+			<div class="span3">
+				<h3>Products</h3>
+				<div class="input-append">
+					<input class="span2 addProductInput" id="appendedInputButton" type="text">
+					<button class="btn addProduct" type="button">+</button>
+				</div>
+				{{#each product}}
+					{{#if selectedProduct}}
+						<div class="input-prepend">
+							<span class="add-on deleteProduct"><i class="icon-trash"></i></span>
+							<input class="span2 editProductInput" id="inputIcon" type="text" value="{{name}}">
+						</div>
+					{{else}}
+						<p class="currentProduct">
+						{{name}}</p>
+					{{/if}}
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</template>
