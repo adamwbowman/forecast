@@ -1,0 +1,21 @@
+
+<template name="projects">
+	<div class="container">
+		<div class="row">
+			<div class="span3">
+				<input id="name" type="text" placeholder="Project Name" />
+				<input id="client" type="text" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+
+				<button class="btn btn-primary submit">submit</button>
+			</div>
+			<div class="span3">
+				&nbsp;
+			</div>
+			<div class="span3">
+				{{#each project}}
+					<p><i class="icon-trash"></i> {{name}}</p>
+				{{/each}}
+			</div>			
+		</div>
+	</div>
+</template>

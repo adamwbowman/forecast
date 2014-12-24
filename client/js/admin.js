@@ -31,6 +31,8 @@ Template.admin.helpers({
 
 // Events
 Template.admin.events({
+	////////////////////////////////////////////////////////////////
+	// Clients
 	'click .addClient': function (evt, template) {
 		var clientName = template.find('.addClientInput').value;
 		if (clientName.length > 0) {
@@ -62,9 +64,8 @@ Template.admin.events({
 	'click .deleteClient': function () {
 		Clients.remove({_id: this._id});
 	},
-
-
-
+	////////////////////////////////////////////////////////////////
+	// Products
 	'click .addProduct': function (evt, template) {
 		var productName = template.find('.addProductInput').value;
 		if (productName.length > 0) {
@@ -96,9 +97,8 @@ Template.admin.events({
 	'click .deleteProduct': function () {
 		Products.remove({_id: this._id});
 	},
-
-
-
+	////////////////////////////////////////////////////////////////
+	// Locations
 	'click .addLocation': function (evt, template) {
 		var locationName = template.find('.addLocationInput').value;
 		if (locationName.length > 0) {
