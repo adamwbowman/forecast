@@ -14,6 +14,11 @@ Template.projects.helpers({
 		var zzz = _.chain(xxx).pluck('name').value();
 		return JSON.stringify(zzz);
 	},
+	locations: function () {
+		var xxx = Locations.find({}).fetch();
+		var zzz = _.chain(xxx).pluck('name').value();
+		return JSON.stringify(zzz);
+	},
 });
 
 // Events
