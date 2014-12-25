@@ -1,0 +1,14 @@
+
+<template name="home">
+	<div class="container">
+		<div class="row">
+			{{#each project}}
+				<div class="span3 card">
+					{{client}}: {{name}} <br />
+					{{product}}: {{location}} <br />
+					{{formatStandardDate date}}
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</template>

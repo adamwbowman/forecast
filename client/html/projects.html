@@ -7,7 +7,10 @@
 
 				<input id="client" type="text" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
 
-<p>region</p>
+				<label class="checkbox inline"><input type="checkbox" id="EMEA">EMEA</label>
+				<label class="checkbox inline"><input type="checkbox" id="APAC">APAC</label>
+				<label class="checkbox inline"><input type="checkbox" id="Americas">Americas</label>
+				<br /><br />
 
 				<input id="location" type="text" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
 
@@ -15,7 +18,6 @@
 
 <p>description</p>
 <p>detail</p>
-<p>date</p>
 <p>history</p>
 <p>createdBy</p>
 <p>editedBy</p>
@@ -30,7 +32,16 @@
 			</div>
 			<div class="span3">
 				{{#each project}}
-					<p><i class="icon-trash"></i> {{name}}, {{client}}, {{location}}</p>
+					<p><i class="icon-trash"></i> 
+						{{name}}, 
+						{{client}},
+						{{EMEA}},
+						{{APAC}},
+						{{Americas}}, 
+						{{location}},
+						{{product}},
+						{{formatStandardDate date}}
+					</p>
 				{{/each}}
 			</div>			
 		</div>

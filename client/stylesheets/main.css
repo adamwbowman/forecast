@@ -11,3 +11,6 @@ p.center {
 .add-on {
 	cursor: pointer;
 }
+.card {
+	border: 1px solid #000;
+}

@@ -11,6 +11,9 @@ Router.map(function() {
 	this.route('clients', {
 		path: '/clients'
 	});	
+	this.route('home', {
+		path: '/home'
+	});	
 	this.route('projects', {
 		path: '/projects'
 	});	
