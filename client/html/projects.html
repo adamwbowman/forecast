@@ -4,16 +4,33 @@
 		<div class="row">
 			<div class="span3">
 				<input id="name" type="text" placeholder="Project Name" />
+
 				<input id="client" type="text" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+
+<p>region</p>
+
 				<input id="location" type="text" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
+
+				<input id="product" type="text" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
+
+<p>description</p>
+<p>detail</p>
+<p>date</p>
+<p>history</p>
+<p>createdBy</p>
+<p>editedBy</p>
+<p>watch</p>
+<p>follow</p>
+
+
 				<button class="btn btn-primary submit">submit</button>
 			</div>
 			<div class="span3">
-				&nbsp;
+				&nbsp;	
 			</div>
 			<div class="span3">
 				{{#each project}}
-					<p><i class="icon-trash"></i> {{name}}</p>
+					<p><i class="icon-trash"></i> {{name}}, {{client}}, {{location}}</p>
 				{{/each}}
 			</div>			
 		</div>
