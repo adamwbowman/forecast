@@ -11,3 +11,6 @@ deepwell:bootstrap-datepicker2
 mrt:momentjs
 
 bootstrap
+accounts-base
+accounts-password
+accounts-ui
