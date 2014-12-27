@@ -6,7 +6,7 @@
 // Helpers 
 Template.home.helpers({
 	project: function () {
-		return Projects.find().fetch();
+		return Projects.find({}, {limit: 3}).fetch();
 	}
 });
 
