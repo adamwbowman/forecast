@@ -18,9 +18,6 @@
 
 <p>description</p>
 <p>detail</p>
-<p>history</p>
-<p>createdBy</p>
-<p>editedBy</p>
 <p>watch</p>
 <p>follow</p>
 
@@ -33,6 +30,7 @@
 			<div class="span3">
 				{{#each project}}
 					<p><i class="icon-trash"></i> 
+						{{_id}},
 						{{name}}, 
 						{{client}},
 						{{EMEA}},
@@ -40,10 +38,31 @@
 						{{Americas}}, 
 						{{location}},
 						{{product}},
+						{{createdBy}},
+						{{createdByEmail}},
 						{{formatStandardDate date}}
 					</p>
+
+						{{#each listHistory _id}}
+							<p><i class="icon-chevron-down"></i> 
+								{{_id}},
+								{{projectId}},
+								{{name}}, 
+								{{client}},
+								{{EMEA}},
+								{{APAC}},
+								{{Americas}}, 
+								{{location}},
+								{{product}},
+								{{createdBy}},
+								{{createdByEmail}},
+								{{formatStandardDate date}}
+							</p>
+						{{/each}}
+
 				{{/each}}
-			</div>			
+
+			</div>
 		</div>
 	</div>
 </template>
