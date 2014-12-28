@@ -8,6 +8,12 @@ p.center {
 .currentClient {
 	cursor: pointer;
 }
+.currentProduct {
+	cursor: pointer;
+}
+.currentLocation {
+	cursor: pointer;
+}
 .add-on {
 	cursor: pointer;
 }
