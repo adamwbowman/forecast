@@ -24,12 +24,12 @@
 
 				<button class="btn btn-primary submit">submit</button>
 			</div>
-			<div class="span3">
+			<div class="span1">
 				&nbsp;	
 			</div>
-			<div class="span3">
+			<div class="span8">
 				{{#each project}}
-					<p><i class="icon-trash"></i> 
+					<p class="span8"><i class="icon-trash"></i> 
 						{{_id}},
 						{{name}}, 
 						{{client}},
@@ -44,7 +44,7 @@
 					</p>
 
 						{{#each listHistory _id}}
-							<p class="span2"><i class="icon-chevron-down"></i> 
+							<p class="span7 offset1"><i class="icon-chevron-down"></i> 
 								{{_id}},
 								{{projectId}},
 								{{name}}, 
