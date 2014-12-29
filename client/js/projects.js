@@ -25,6 +25,9 @@ Template.projects.helpers({
 		var namePluck = _.chain(productColl).pluck('name').value();
 		return JSON.stringify(namePluck);
 	},
+	service: function () {
+		return Services.find({projectId: Session.get('currentProject')}).fetch();
+	},
 	editProject: function () {
 		return Projects.find({_id: Session.get('currentProject')}).fetch();
 	},
@@ -69,6 +72,17 @@ Template.projects.events({
 		template.find('#location').value = '';
 		template.find('#product').value = '';
 	},
+	'click .addRequest': function (evt, template) {
+		Services.insert({
+			projectId: this._id,
+			startDate: template.find('#startDate').value,
+			endDate: template.find('#endDate').value,
+			name: template.find('.addServiceInput').value,
+			createdBy: Meteor.userId(),
+			createdByEmail: getUserEmail(),
+			date: new Date,			
+		});
+	},
 	'click .save': function (evt, template) {
 		var projectId = Projects.update(this._id, {
 			name: template.find('#edname').value,
@@ -111,6 +125,19 @@ Template.projects.events({
 	}
 });
 
+Template.projects.rendered = function() {
+	$('#startDate').datepicker({
+		autoclose: true,
+	    todayHighlight: true,
+	    daysOfWeekDisabled: "0,6"
+	});
+	$('#endDate').datepicker({
+		autoclose: true,
+	    todayHighlight: true,
+	    daysOfWeekDisabled: "0,6"
+	});
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Functions
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -120,6 +147,10 @@ Handlebars.registerHelper("formatStandardDate", function(date) {
 
 Handlebars.registerHelper("listHistory", function(id) {
 	return Histories.find({projectId: id}, {sort: {date: -1}}).fetch();
+});
+
+Handlebars.registerHelper("listService", function(id) {
+	return Services.find({projectId: id}, {sort: {date: -1}}).fetch();
 });
 
 

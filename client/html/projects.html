@@ -32,6 +32,11 @@
 						{{name}}: {{client}}: '{{EMEA}},{{APAC}},{{Americas}}': {{location}}: {{product}}<br />
 						{{createdByEmail}}: {{date}}
 					</p>
+					<p>
+					{{#each listService _id}}
+						- {{name}} <br />
+					{{/each}}
+					</p>
 						{{#each listHistory _id}}
 							<p class="currentHistory"> &nbsp; &nbsp; &nbsp; <i class="icon-chevron-down"></i> 
 							{{name}}: {{client}}: '{{EMEA}},{{APAC}},{{Americas}}': {{location}}: {{product}}<br /> &nbsp; &nbsp; &nbsp; 
@@ -40,6 +45,24 @@
 				{{/each}}
 			</div>
 			<div class="span3">
+				<label> + Request Service</label>
+					<div class="input-append date">
+						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
+					</div>
+				{{#each editProject}}
+
+					<div class="input-append">
+						<input class="span2 addServiceInput" id="appendedInputButton" type="text">
+						<button class="btn addRequest" type="button">+</button>
+					</div>
+					<div> 
+					{{#each service}}
+						- {{name}}: ({{startDate}}-{{endDate}}) {{createdByEmail}}: {{date}} <br />
+					{{/each}}
+					</div>
+				{{/each}}
+
+				<br /><br />
 				<label> + Edit</label>
 				{{#each editProject}}
 
