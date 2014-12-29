@@ -14,6 +14,9 @@ p.center {
 .currentLocation {
 	cursor: pointer;
 }
+.currentProject {
+	cursor: pointer;
+}
 .add-on {
 	cursor: pointer;
 }

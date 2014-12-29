@@ -3,6 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="span3">
+				<label> + Add</label>
 				<input id="name" type="text" placeholder="Project Name" />
 
 				<input id="client" type="text" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
@@ -16,52 +17,55 @@
 
 				<input id="product" type="text" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
 
-<p>description</p>
-<p>detail</p>
-<p>watch</p>
-<p>follow</p>
-
+				<p>description</p>
+				<p>detail</p>
+				<p>watch</p>
+				<p>follow</p>
 
 				<button class="btn btn-primary submit">submit</button>
-			</div>
-			<div class="span1">
-				&nbsp;	
-			</div>
-			<div class="span8">
-				{{#each project}}
-					<p class="span8"><i class="icon-trash"></i> 
-						{{_id}},
-						{{name}}, 
-						{{client}},
-						{{EMEA}},
-						{{APAC}},
-						{{Americas}}, 
-						{{location}},
-						{{product}},
-						{{createdBy}},
-						{{createdByEmail}},
-						{{formatStandardDate date}}
-					</p>
 
+			</div>
+			<div class="span3">
+				<br />
+				{{#each project}}
+					<p class="currentProject"><i class="icon-trash"></i> 
+						{{_id}}<br />
+						{{name}}
+					</p>
 						{{#each listHistory _id}}
-							<p class="span7 offset1"><i class="icon-chevron-down"></i> 
-								{{_id}},
-								{{projectId}},
-								{{name}}, 
-								{{client}},
-								{{EMEA}},
-								{{APAC}},
-								{{Americas}}, 
-								{{location}},
-								{{product}},
-								{{createdBy}},
-								{{createdByEmail}},
-								{{formatStandardDate date}}
+							<p><i class="icon-chevron-down"></i> 
+								{{_id}}<br />
+								{{projectId}}<br />
+								{{name}}
 							</p>
 						{{/each}}
+				{{/each}}
+			</div>
+			<div class="span3">
+				<label> + Edit</label>
+				{{#each selectedProject}}
+
+				<input id="edname" type="text" value="{{name}}" />
+
+				<input id="edclient" type="text" value="{{client}}" />
+
+				<label class="checkbox inline"><input type="checkbox" id="edEMEA" checked="{{EMEA}}">EMEA</label>
+				<label class="checkbox inline"><input type="checkbox" id="edAPAC" checked="{{APAC}}">APAC</label>
+				<label class="checkbox inline"><input type="checkbox" id="edAmericas" checked="{{Americas}}">Americas</label>
+				<br /><br />
+
+				<input id="edlocation" type="text" value='{{location}}' />
+
+				<input id="edproduct" type="text" value='{{product}}' />
+
+				<p>description</p>
+				<p>detail</p>
+				<p>watch</p>
+				<p>follow</p>
+
+				<button class="btn btn-primary save">save</button>
 
 				{{/each}}
-
 			</div>
 		</div>
 	</div>

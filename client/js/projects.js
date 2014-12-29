@@ -1,4 +1,5 @@
 
+Session.setDefault('currentProject', null);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* projects
@@ -24,6 +25,9 @@ Template.projects.helpers({
 		var namePluck = _.chain(productColl).pluck('name').value();
 		return JSON.stringify(namePluck);
 	},
+	selectedProject: function () {
+		return Projects.find({_id: Session.get('currentProject')}).fetch();
+	}
 });
 
 // Events
@@ -61,9 +65,46 @@ Template.projects.events({
 		$('#Americas').removeAttr('checked');
 		template.find('#location').value = '';
 		template.find('#product').value = '';
+	},
+	'click .save': function (evt, template) {
+		var projectId = Projects.update(this._id, {
+			name: template.find('#edname').value,
+			client: template.find('#edclient').value,
+			EMEA: $('#edEMEA').prop('checked'),
+			APAC: $('#edAPAC').prop('checked'),
+			Americas: $('#edAmericas').prop('checked'),
+			location: template.find('#edlocation').value,
+			product: template.find('#edproduct').value,
+			createdBy: Meteor.userId(),
+			createdByEmail: getUserEmail(),
+			date: new Date,
+		}, projectId);
+		Histories.insert({
+			projectId: this._id,
+			name: this.name,
+			client: this.client,
+			EMEA: this.EMEA,
+			APAC: this.APAC,
+			Americas: this.Americas,
+			location: this.location,
+			product: this.product,
+			createdBy: this.createdBy,
+			createdByEmail: this.createdByEmail,
+			date: this.date,			
+		}); 
+		template.find('#edname').value = '';
+		template.find('#edclient').value = '';
+		$('#edEMEA').removeAttr('checked');
+		$('#edAPAC').removeAttr('checked');
+		$('#edAmericas').removeAttr('checked');
+		template.find('#edlocation').value = '';
+		template.find('#edproduct').value = '';
 	}, 
 	'click .icon-trash': function (evt, template) {
 		Projects.remove({_id: this._id});
+	},
+	'click .currentProject': function (evt, template) {
+		Session.set('currentProject', this._id);
 	}
 });
 
@@ -75,8 +116,7 @@ Handlebars.registerHelper("formatStandardDate", function(date) {
 });
 
 Handlebars.registerHelper("listHistory", function(id) {
-	console.log(id);
-	return Histories.find({projectId: id}).fetch();
+	return Histories.find({projectId: id}, {sort: {date: -1}}).fetch();
 });
 
 
