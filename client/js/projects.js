@@ -25,8 +25,11 @@ Template.projects.helpers({
 		var namePluck = _.chain(productColl).pluck('name').value();
 		return JSON.stringify(namePluck);
 	},
-	selectedProject: function () {
+	editProject: function () {
 		return Projects.find({_id: Session.get('currentProject')}).fetch();
+	},
+	selectedProject: function () {
+		return Session.equals('currentProject', this._id) ? 'selected' : '';
 	}
 });
 

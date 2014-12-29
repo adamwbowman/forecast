@@ -23,3 +23,6 @@ p.center {
 .card {
 	border: 1px solid #000;
 }
+.selected {
+	font-weight: bold;
+}

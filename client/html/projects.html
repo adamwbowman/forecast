@@ -28,22 +28,22 @@
 			<div class="span3">
 				<br />
 				{{#each project}}
-					<p class="currentProject"><i class="icon-trash"></i> 
+					<p class="currentProject {{selectedProject}}"><i class="icon-trash"></i> 
 						{{_id}}<br />
 						{{name}}
 					</p>
 						{{#each listHistory _id}}
-							<p><i class="icon-chevron-down"></i> 
+							<p class="currentHistory"> &nbsp; &nbsp; <i class="icon-chevron-down"></i> 
 								{{_id}}<br />
-								{{projectId}}<br />
-								{{name}}
+								 &nbsp; &nbsp; {{projectId}}<br />
+								 &nbsp; &nbsp; {{name}}
 							</p>
 						{{/each}}
 				{{/each}}
 			</div>
 			<div class="span3">
 				<label> + Edit</label>
-				{{#each selectedProject}}
+				{{#each editProject}}
 
 				<input id="edname" type="text" value="{{name}}" />
 
