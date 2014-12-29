@@ -25,19 +25,17 @@
 				<button class="btn btn-primary submit">submit</button>
 
 			</div>
-			<div class="span3">
+			<div class="span6">
 				<br />
 				{{#each project}}
 					<p class="currentProject {{selectedProject}}"><i class="icon-trash"></i> 
-						{{_id}}<br />
-						{{name}}
+						{{name}}: {{client}}: '{{EMEA}},{{APAC}},{{Americas}}': {{location}}: {{product}}<br />
+						{{createdByEmail}}: {{date}}
 					</p>
 						{{#each listHistory _id}}
-							<p class="currentHistory"> &nbsp; &nbsp; <i class="icon-chevron-down"></i> 
-								{{_id}}<br />
-								 &nbsp; &nbsp; {{projectId}}<br />
-								 &nbsp; &nbsp; {{name}}
-							</p>
+							<p class="currentHistory"> &nbsp; &nbsp; &nbsp; <i class="icon-chevron-down"></i> 
+							{{name}}: {{client}}: '{{EMEA}},{{APAC}},{{Americas}}': {{location}}: {{product}}<br /> &nbsp; &nbsp; &nbsp; 
+							{{createdByEmail}}: {{date}}						</p>
 						{{/each}}
 				{{/each}}
 			</div>
