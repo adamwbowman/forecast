@@ -17,6 +17,9 @@ Router.map(function() {
 	this.route('projects', {
 		path: '/projects'
 	});	
+	this.route('teammates', {
+		path: '/teammates'
+	});	
 	//this.route('answers', { 
 	//	path: '/question/:questionId',
 	//	data: function() {

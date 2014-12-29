@@ -2,6 +2,7 @@
 Session.setDefault('currentClient', null);
 Session.setDefault('currentProduct', null);
 Session.setDefault('currentLocation', null);
+Session.setDefault('currentTeammate', null);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* admin
@@ -26,7 +27,13 @@ Template.admin.helpers({
 	},
 	selectedLocation: function () {
 		return Session.equals('currentLocation', this._id) ? 'selected' : '';
-	}
+	},
+	teammate: function () {
+		return Teammates.find({}, {sort: {name: 1}}).fetch();
+	},
+	selectedTeammate: function () {
+		return Session.equals('currentTeammate', this._id) ? 'selected' : '';
+	},
 });
 
 // Events
@@ -129,5 +136,38 @@ Template.admin.events({
 	},
 	'click .deleteLocation': function () {
 		Locations.remove({_id: this._id});
-	}	
+	},
+	////////////////////////////////////////////////////////////////
+	// Teammates
+	'click .addTeammate': function (evt, template) {
+		var teammateName = template.find('.addTeammateInput').value;
+		if (teammateName.length > 0) {
+			Teammates.insert({name: teammateName});
+			template.find('.addTeammateInput').value = '';
+		}
+	},
+	'keypress input.addTeammateInput': function (evt, template) {
+		if (evt.which === 13) {
+			var teammateName = template.find('.addTeammateInput').value;
+			if (teammateName.length > 0) {
+				Teammates.insert({name: teammateName});
+				template.find('.addTeammateInput').value = '';
+			}
+		}
+	},
+	'keypress input.editTeammateInput': function (evt, template) {
+		if (evt.which === 13) {
+			var teammateName = template.find('.editTeammateInput').value;
+			if (teammateName.length > 0) {
+				Teammates.update(this._id, {$set: {name: teammateName}});
+				Session.set('currentTeammate', null);
+			}
+		}
+	},
+	'click .currentTeammate': function (evt, template) {
+		Session.set('currentTeammate', this._id);
+	},
+	'click .deleteTeammate': function () {
+		Teammates.remove({_id: this._id});
+	}		
 });

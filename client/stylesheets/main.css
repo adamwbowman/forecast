@@ -17,6 +17,9 @@ p.center {
 .currentProject {
 	cursor: pointer;
 }
+.currentTeammate {
+	cursor: pointer;
+}
 .add-on {
 	cursor: pointer;
 }
