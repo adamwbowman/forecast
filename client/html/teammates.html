@@ -8,15 +8,31 @@
 					<p class="currentTeammate {{selectedTeammate}}">{{name}}</p>
 				{{/each}}
 			</div>
-			{{#each currentTeammate}}
 			<div class="span3">
+			{{#each currentTeammate}}
+	
 				<input id="product" type="text" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}"/><br /><br />
 				<input id="location" type="text" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' value="{{location}}" /><br /><br />
 				Availability Percentage<br /><br />
+
+
+			{{/each}}
+
 				Unavailability<br /><br />
+				<div class="input-append date">
+					<input type="text" id="startDate" placeholder="Start Date"><input type="text" id="endDate" placeholder="End Date"><button class="btn addUnavailable" type="button"> + </button>
+				</div>
+				{{#each unavailable}}
+				<div>
+					<p class="currentUnavailable {{selectedUnavailable}}"></p>
+					<button class="btn btn-mini deleteUnavailable"> - </button>
+					{{unavailable}}
+					<!-- {{startDate}} - {{endDate}} -->
+				</div>
+				{{/each}}
+
 				<button type="button" class="btn btn-primary save">Save</button>
 			</div>
-			{{/each}}
 		</div>
 	</div>
 </template>
