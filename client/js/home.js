@@ -9,6 +9,15 @@ var cal = new CalHeatMap();
 Template.home.helpers({
 	project: function () {
 		return Projects.find({}, {limit: 3}).fetch();
+	},
+	updateChart: function () {
+		var teammatesColl = Teammates.find().fetch(); 
+		var flattenedColl = _.chain(teammatesColl).pluck('unavailable').uniq().flatten().value();
+		var formattedColl = {};
+		_.each(flattenedColl, function (item) {
+			formattedColl[dateToUnix(item)] = 15;
+		});
+		cal.update(formattedColl);
 	}
 });
 
@@ -23,7 +32,7 @@ Template.home.rendered = function () {
 		// itemSelector: "#example-g",
 		domain: "month",
 		subDomain: "x_day",
-		data: formatForChart(),
+		data: {},
 		start: new Date(2015, 0, 5),
 		cellSize: 20,
 		cellPadding: 5,
@@ -40,7 +49,6 @@ Template.home.rendered = function () {
 		legend: [1, 4, 7, 10]
 	});
 // teammates('Singleview');
-formatForChart();
 }
 
 var dateToUnix = function (date) {
@@ -61,14 +69,4 @@ var teammates = function (product) {
 	_.each(idTeammates, function (index) {
 		console.log(index._id);
 	})
-}
-
-var formatForChart = function () {
-	var teammatesColl = Teammates.find().fetch(); 
-	var flattenedColl = _.chain(teammatesColl).pluck('unavailable').uniq().flatten().value();
-	var formattedColl = {};
-	_.each(flattenedColl, function (item) {
-		formattedColl[dateToUnix(item)] = 15;
-	});
-	return formattedColl;
 }
