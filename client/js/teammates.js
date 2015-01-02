@@ -91,7 +91,7 @@ Template.teammates.events({
 		$('#startDate').val(dateFromUnix(this.startDate));
 		$('#endDate').val(dateFromUnix(this.endDate));
 	},
-	'click .deleteForecast': function () {
+	'click .deleteUnavailable': function () {
 		console.log('I need to do this')
 	},	
 });
