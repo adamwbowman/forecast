@@ -1,6 +1,8 @@
 
 Session.setDefault('currentTeammate', null);
 
+var cal = new CalHeatMap();
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* admin
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -29,7 +31,14 @@ Template.teammates.helpers({
 	},
 	unavailable: function () {
 		var currentTeammate = Session.get('currentTeammate');
-		return Teammates.find({_id: currentTeammate}).fetch(); 
+		var xxx = Teammates.find({_id: currentTeammate}).fetch(); 
+		var xxx = _.chain(xxx).pluck('unavailable').flatten(true).value();
+		var unavails = [];
+		_.each(xxx, function (index) {
+			unavails.push(_.first(index) + ' - ' + _.last(index));
+		});
+
+		return unavails;
 	},
 	selectedUnavailable: function () {
 		return Session.equals('currentTeammate', this._id) ? 'selected' : '';
@@ -59,10 +68,11 @@ Template.teammates.events({
 	},
 	'click .currentTeammate': function (evt, template) {
 		Session.set('currentTeammate', this._id);
+		cal.update(formatForChart());
 	},
-	'click .deleteTeammate': function () {
-		Teammates.remove({_id: this._id});
-	},
+	// 'click .deleteTeammate': function () {
+	// 	Teammates.remove({_id: this._id});
+	// },
 	'click .addUnavailable': function () {
 		var startDate = $('#startDate').val();
 		var endDate =  $('#endDate').val();
@@ -75,13 +85,14 @@ Template.teammates.events({
 			$('#startDate').val('');
 			$('#endDate').val('');
 		}
+		cal.update(formatForChart());
 	},
 	'click .currentUnavailable': function () {
 		$('#startDate').val(dateFromUnix(this.startDate));
 		$('#endDate').val(dateFromUnix(this.endDate));
 	},
 	'click .deleteForecast': function () {
-		console.log('do this')
+		console.log('I need to do this')
 	},	
 });
 
@@ -96,6 +107,26 @@ Template.teammates.rendered = function() {
 	    todayHighlight: true,
 	    daysOfWeekDisabled: "0,6"
 	});
+
+
+	cal.init({
+		domain: "month",
+		subDomain: "day",
+		data: formatForChart(),
+		start: new Date(2015, 0, 5),
+		cellSize: 20,
+		cellPadding: 5,
+		domainGutter: 20,
+		range: 3,
+		domainDynamicDimension: false,
+		domainLabelFormat: function(date) {
+			moment.lang("en");
+			return moment(date).format("MMMM").toUpperCase();
+		},
+		subDomainTextFormat: "%d",
+		legend: [1, 4, 7, 10]
+	});
+
 }
 
 
@@ -137,4 +168,14 @@ var convertToDays = function (startDate, endDate) {
 		firstDate = firstDate.add(1, 'days');
 	}
 	return workDays;
+}
+var formatForChart = function () {
+	var currentTeammate = Session.get('currentTeammate');
+	var teammatesColl = Teammates.find({_id: currentTeammate}).fetch(); 
+	var flattenedColl = _.chain(teammatesColl).pluck('unavailable').flatten().value();
+	var formattedColl = {};
+	_.each(flattenedColl, function (item) {
+		formattedColl[dateToUnix(item)] = 15;
+	});
+	return formattedColl;
 }

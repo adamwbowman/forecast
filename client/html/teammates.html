@@ -18,20 +18,24 @@
 
 			{{/each}}
 
-				Unavailability<br /><br />
+				<label>Unavailability</label>
 				<div class="input-append date">
-					<input type="text" id="startDate" placeholder="Start Date"><input type="text" id="endDate" placeholder="End Date"><button class="btn addUnavailable" type="button"> + </button>
+					<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date"><button class="btn addUnavailable" type="button"> + </button>
 				</div>
 				{{#each unavailable}}
 				<div>
 					<p class="currentUnavailable {{selectedUnavailable}}"></p>
 					<button class="btn btn-mini deleteUnavailable"> - </button>
-					{{unavailable}}
+					{{this}}
 					<!-- {{startDate}} - {{endDate}} -->
 				</div>
 				{{/each}}
 
+				<br />
 				<button type="button" class="btn btn-primary save">Save</button>
+			</div>
+			<div class="span6">
+				<div id="cal-heatmap"></div>
 			</div>
 		</div>
 	</div>

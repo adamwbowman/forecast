@@ -1,4 +1,6 @@
 
+var cal = new CalHeatMap();
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* home
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -17,17 +19,16 @@ Template.home.helpers({
 // });
 
 Template.home.rendered = function () {
-	var cal = new CalHeatMap();
 	cal.init({
 		// itemSelector: "#example-g",
 		domain: "month",
 		subDomain: "x_day",
-		data: {947122579: 2},
-		start: new Date(2000, 0, 5),
+		data: formatForChart(),
+		start: new Date(2015, 0, 5),
 		cellSize: 20,
 		cellPadding: 5,
 		domainGutter: 20,
-		range: 2,
+		range: 6,
 		domainDynamicDimension: false,
 		previousSelector: "#example-g-PreviousDomain-selector",
 		nextSelector: "#example-g-NextDomain-selector",
@@ -38,7 +39,19 @@ Template.home.rendered = function () {
 		subDomainTextFormat: "%d",
 		legend: [1, 4, 7, 10]
 	});
-teammates('Singleview');
+// teammates('Singleview');
+formatForChart();
+}
+
+var dateToUnix = function (date) {
+	if (date != '') {
+		return moment(date).unix();
+	}
+}
+var dateFromUnix = function (date) {
+	if (date != '') {
+		return moment.unix(date).format("MM/DD/YYYY");
+	}
 }
 
 var teammates = function (product) {
@@ -48,4 +61,14 @@ var teammates = function (product) {
 	_.each(idTeammates, function (index) {
 		console.log(index._id);
 	})
+}
+
+var formatForChart = function () {
+	var teammatesColl = Teammates.find().fetch(); 
+	var flattenedColl = _.chain(teammatesColl).pluck('unavailable').uniq().flatten().value();
+	var formattedColl = {};
+	_.each(flattenedColl, function (item) {
+		formattedColl[dateToUnix(item)] = 15;
+	});
+	return formattedColl;
 }
