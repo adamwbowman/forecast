@@ -64,15 +64,30 @@ Template.requests.events({
 			product: template.find('#product').value,
 			startDate: template.find('#startDate').value,
 			endDate: template.find('#endDate').value,
+			description: template.find('#description').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
 			date: new Date,
 		}, RequestId);
+		Histories.insert({
+			requestId: RequestId,
+			service: template.find('#service').value(),
+			client: template.find('#client').value,
+			product: template.find('#product').value,
+			startDate: template.find('#startDate').value,
+			endDate: template.find('#endDate').value,
+			description: template.find('#description').value,
+			createdBy: Meteor.userId(),
+			createdByEmail: getUserEmail(),
+			date: new Date,			
+		}); 
+		template.find('#service').value = '';
 		template.find('#client').value = '';
 		template.find('#product').value = '';
 		template.find('#startDate').value = '';
 		template.find('#endDate').value = '';
-	},
+		template.find('#description').value = '';
+	},	
 	'click .card': function (evt, template) {
 		Session.set('currentId', this._id);
 		Session.set('create', false);

@@ -28,7 +28,7 @@
 					<div class="input-append date">
 						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
 					</div>
-					<p>description</p>
+					<input id="description" type="text" class="span4" placeholder="Description" />
 					<button class="btn btn-primary pull-right createRequest">Create Request</button>
 				{{/if}}
 
@@ -41,7 +41,7 @@
 						<div class="input-append date">
 							<input type="text" id="startDate" placeholder="Start Date" value="{{startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{endDate}}">
 						</div>
-						<p>description</p>
+						<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
 						<button class="btn btn-danger pull-left deleteRequest">Delete Request</button>
 						<button class="btn btn-primary pull-right editRequest">Edit Request</button>
 					{{/each}}
@@ -55,7 +55,7 @@
 					<div class="input-append date">
 						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
 					</div>
-					<p>description</p>
+					<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
 					<input id="project" type="text" class="span4" placeholder="Project" data-provide="typeahead" autocomplete="off" data-source='{{projects}}' />
 					<input id="teammate" type="text" class="span4" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' />
 					<button class="btn btn-primary pull-right bookRequest">Book Request</button>
