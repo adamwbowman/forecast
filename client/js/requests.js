@@ -50,6 +50,9 @@ Template.requests.helpers({
 	selectedId: function () {
 		return Session.equals('currentId', this._id) ? 'selected' : '';
 	},
+	editRequest: function () {
+		return Requests.find({_id: Session.get('currentId')}).fetch();
+	}
 });
 
 // Events

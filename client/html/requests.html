@@ -33,15 +33,18 @@
 				{{/if}}
 
 				{{#if pageEditState}}
-					<h4> - Edit your Request</h4>
-					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
-					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
-					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
-					<div class="input-append date">
-						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
-					</div>
-					<p>description</p>
-					<button class="btn btn-primary pull-right editRequest">Edit Request</button>
+					{{#each editRequest}}
+						<h4> - Edit your Request</h4>
+						<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' value="{{service}}" />
+						<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" />
+						<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}" />
+						<div class="input-append date">
+							<input type="text" id="startDate" placeholder="Start Date" value="{{startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{endDate}}">
+						</div>
+						<p>description</p>
+						<button class="btn btn-danger pull-left deleteRequest">Delete Request</button>
+						<button class="btn btn-primary pull-right editRequest">Edit Request</button>
+					{{/each}}
 				{{/if}}
 
 				{{#if pageBookState}}
