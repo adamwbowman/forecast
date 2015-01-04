@@ -4,7 +4,7 @@ body {
 }
 .sidecard {
 	background-color: #F8F8F8;
-	padding: 10px 10px 15px 10px
+	padding: 10px 10px 15px 10px;
 }
 .sidecard:hover {
 	background-color: #D4D4D4;
@@ -12,10 +12,12 @@ body {
 }
 .homecard {
 	background-color: #F8F8F8;
-	padding: 10px 10px 15px 10px
+	padding: 10px 10px 15px 10px;
+	height: 200px;
 }
 .homecard:hover {
 	background-color: #D4D4D4;
+	border-color: black;
 	cursor: pointer;
 }
 
