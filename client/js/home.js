@@ -8,7 +8,7 @@
 // Helpers 
 Template.home.helpers({
 	trend: function () {
-		return Projects.find({}, {limit: 4}).fetch();
+		return Projects.find({}, {limit: 4, sort:{'date': -1}}).fetch();
 	},
 	// updateChart: function () {
 	// 	var teammatesColl = Teammates.find().fetch(); 
