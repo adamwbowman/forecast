@@ -45,21 +45,23 @@
 				{{/if}}
 
 				{{#if pageEditState}}
-					<h4> - Edit Project</h4>
-					<input id="name" type="text" class="span4" placeholder="Project Name" />
-					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' /><br />
-					<label class="checkbox inline"><input type="checkbox" id="EMEA">EMEA</label>
-					<label class="checkbox inline"><input type="checkbox" id="APAC">APAC</label>
-					<label class="checkbox inline"><input type="checkbox" id="Americas">Americas</label>
-					<br /><br />
-					<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
-					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
-					<p>description</p>
-					<p>detail</p>
-					<p>watch</p>
-					<p>follow</p>
-					<button class="btn btn-danger pull-left deleteProject">Delete Project</button>
-					<button class="btn btn-primary pull-right editProject">Create Project</button>
+					{{#each editProject}}
+						<h4> - Edit Project</h4>
+						<input id="name" type="text" class="span4" placeholder="Project Name" value="{{name}}" />
+						<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" /><br />
+						<label class="checkbox inline"><input type="checkbox" id="EMEA" checked="{{EMEA}}">EMEA</label>
+						<label class="checkbox inline"><input type="checkbox" id="APAC" checked="{{APAC}}">APAC</label>
+						<label class="checkbox inline"><input type="checkbox" id="Americas" checked="{{Americas}}">Americas</label>
+						<br /><br />
+						<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}'  value="{{location}}" />
+						<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}" />
+						<p>description</p>
+						<p>detail</p>
+						<p>watch</p>
+						<p>follow</p>
+						<button class="btn btn-danger pull-left deleteProject">Delete Project</button>
+						<button class="btn btn-primary pull-right editProject">Create Project</button>
+					{{/each}}
 				{{/if}}
 
 
