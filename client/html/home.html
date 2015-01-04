@@ -22,9 +22,20 @@
 			{{/each}}
 			</ul>
 		</div>
-		<hr>
-		<div class="row">Recent</div>
-		<hr>
+		<div class="row"><h3>Recent</h3></div>
+		<div class="row">
+			<ul class="thumbnails">
+			{{#each recent}}
+				<li class="span3">
+					<div class="thumbnail homecard">
+						<b>{{client}}: {{name}}</b><br />
+						{{product}}: {{location}} <br />
+						{{formatStandardDate date}}
+					</div>
+				</li>
+			{{/each}}
+			</ul>
+		</div>
 		<div class="row">Largest Forecast</div>
 		<hr>
 		<div class="row">Top Searches</div>

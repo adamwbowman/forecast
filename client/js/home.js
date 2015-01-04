@@ -10,6 +10,9 @@ Template.home.helpers({
 	trend: function () {
 		return Projects.find({}, {limit: 4, sort:{'date': -1}}).fetch();
 	},
+	recent: function () {
+		return Projects.find({}, {limit: 4, sort:{'date': -1}}).fetch();
+	},
 	// updateChart: function () {
 	// 	var teammatesColl = Teammates.find().fetch(); 
 	// 	var flattenedColl = _.chain(teammatesColl).pluck('unavailable').uniq().flatten().value();
