@@ -7,6 +7,63 @@
 				<ul class="thumbnails">
 					{{#each request}}
 					<li class="span3">
+						<div class="thumbnail sidecard {{selectedId}}">
+							<a href="#" class="card"><strong>{{client}}: {{product}}</strong></a><p>{{startDate}} through {{endDate}}</p>
+							<div class="btn-group pull-right">
+								<button type="button" class="btn btn-mini btn-warning">Review</button>
+								<button type="button" class="btn btn-mini btn-success book">Book</button>
+							</div>
+							<!-- {{_id}}, {{date}} -->
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+			<div class="span4 offset1">
+				{{#if pageCreateState}}
+					<label> + Add</label>
+					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
+					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
+					<div class="input-append date">
+						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
+					</div>
+					<p>description</p>
+					<button class="btn btn-primary pull-right createRequest">Create Request</button>
+				{{/if}}
+
+				{{#if pageEditState}}
+					<label> + Edit</label>
+					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
+					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
+					<div class="input-append date">
+						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
+					</div>
+					<p>description</p>
+					<button class="btn btn-primary pull-right editRequest">Edit Request</button>
+				{{/if}}
+
+				{{#if pageBookState}}
+					<label> + Booking</label>
+					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
+					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
+					<div class="input-append date">
+						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
+					</div>
+					<p>description</p>
+					<input id="project" type="text" class="span4" placeholder="Project" data-provide="typeahead" autocomplete="off" data-source='{{projects}}' />
+					<input id="teammate" type="text" class="span4" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' />
+					<button class="btn btn-primary pull-right bookRequest">Book Request</button>
+				{{/if}}
+
+			</div>
+			<div class="span3 offset1">
+				<h3>My Bookings</h3>
+				<ul class="thumbnails">
+					{{#each booking}}
+					<li class="span3">
 						<div class="thumbnail sidecard">
 							<p class=""><b>{{client}}: {{product}}</b><br />{{startDate}} through {{endDate}}</p>
 							<div class="btn-group pull-right">
@@ -18,23 +75,6 @@
 					</li>
 					{{/each}}
 				</ul>
-			</div>
-			<div class="span3">
-				<label> + Add</label>
-
-				<input id="service" type="text" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
-
-				<input id="client" type="text" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
-
-				<input id="product" type="text" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
-
-				<div class="input-append date">
-					<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
-				</div>
-
-				<p>description</p>
-
-				<button class="btn btn-primary pull-right createRequest">Create Request</button>
 			</div>
 		</div>
 	</div>

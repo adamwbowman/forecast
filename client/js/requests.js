@@ -1,4 +1,9 @@
 
+Session.setDefault('create', true);
+Session.setDefault('book', false);
+Session.setDefault('edit', false);
+Session.setDefault('currentId', null);
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* requests
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -23,6 +28,28 @@ Template.requests.helpers({
 		var namePluck = _.chain(productColl).pluck('name').value();
 		return JSON.stringify(namePluck);
 	},
+	projects: function () {
+		var projectColl = Projects.find({}).fetch();
+		var namePluck = _.chain(projectColl).pluck('name').value();
+		return JSON.stringify(namePluck);
+	},
+	teammates: function () {
+		var teammateColl = Teammates.find({}).fetch();
+		var namePluck = _.chain(teammateColl).pluck('name').value();
+		return JSON.stringify(namePluck);
+	},
+	pageCreateState: function () {
+		return Session.get('create');
+	},
+	pageBookState: function () {
+		return Session.get('book');
+	},
+	pageEditState: function () {
+		return Session.get('edit');
+	},
+	selectedId: function () {
+		return Session.equals('currentId', this._id) ? 'selected' : '';
+	},
 });
 
 // Events
@@ -42,6 +69,18 @@ Template.requests.events({
 		template.find('#product').value = '';
 		template.find('#startDate').value = '';
 		template.find('#endDate').value = '';
+	},
+	'click .card': function (evt, template) {
+		Session.set('currentId', this._id);
+		Session.set('create', false);
+		Session.set('book', false);
+		Session.set('edit', true);
+	},
+	'click .book': function (evt, template) {
+		Session.set('currentId', this._id);
+		Session.set('create', false);
+		Session.set('book', true);
+		Session.set('edit', false);
 	},
 	'click .deleteRequest': function (evt, template) {
 		Requests.remove({_id: this._id});
