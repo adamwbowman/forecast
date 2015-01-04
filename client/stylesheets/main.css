@@ -2,6 +2,25 @@ body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 }
+.sidecard {
+	background-color: #F8F8F8;
+	padding: 10px 10px 15px 10px
+}
+.sidecard:hover {
+	background-color: #D4D4D4;
+	cursor: pointer;
+}
+.homecard {
+	background-color: #F8F8F8;
+	padding: 10px 10px 15px 10px
+}
+.homecard:hover {
+	background-color: #D4D4D4;
+	cursor: pointer;
+}
+
+
+
 p.center {
 	text-align: center;
 }
@@ -25,14 +44,4 @@ p.center {
 }
 .selected {
 	font-weight: bold;
-}
-
-
-.sidecard {
-	background-color: #F8F8F8;
-	padding: 10px 10px 15px 10px
-}
-.sidecard:hover {
-	background-color: #D4D4D4;
-	cursor: pointer;
 }

@@ -8,13 +8,13 @@
 		</div>
 		<div class="row">Current Forecast</div>
 		<hr>
-		<div class="row">Trending</div>
+		<div class="row"><h3>Trending</h3></div>
 		<div class="row">
 			<ul class="thumbnails">
 			{{#each trend}}
 				<li class="span3">
-					<div class="thumbnail">
-						{{client}}: {{name}} <br />
+					<div class="thumbnail homecard">
+						<b>{{client}}: {{name}}</b><br />
 						{{product}}: {{location}} <br />
 						{{formatStandardDate date}}
 					</div>
