@@ -1,4 +1,6 @@
 
+Session.setDefault('create', true);
+Session.setDefault('edit', false);
 Session.setDefault('currentProject', null);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -54,7 +56,13 @@ Template.projects.helpers({
 		if (project == 'TSM') {
 			return true;
 		};
-	}
+	},
+	pageCreateState: function () {
+		return Session.get('create');
+	},
+	pageEditState: function () {
+		return Session.get('edit');
+	},
 });
 
 // Events
@@ -143,7 +151,12 @@ Template.projects.events({
 	},
 	'click .currentProject': function (evt, template) {
 		Session.set('currentProject', this._id);
-	}
+	},
+	'click .card': function (evt, template) {
+		Session.set('currentProject', this._id);
+		Session.set('create', false);
+		Session.set('edit', true);
+	},
 });
 
 Template.projects.rendered = function() {

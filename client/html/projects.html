@@ -3,12 +3,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="span3">
-				<h3>Projects</h3>
+				<h4>Projects</h4>
 				<ul class="thumbnails">
 					{{#each project}}
 					<li class="span3">
-						<div class="thumbnail sidecard">
-							<p class=""><b>{{client}}: {{name}}</b><br />{{location}}</p>
+						<div class="thumbnail sidecard {{selectedProject}}">
+							<a href="#" class="card"><strong>{{client}}: {{name}}</strong></a><p>{{location}}</p>
 							<div class="btn-group pull-right">
 								{{#if isSV}}
 								<button type="button" class="btn btn-mini btn-inverse">Singleview</button>
@@ -26,27 +26,42 @@
 					{{/each}}
 				</ul>
 			</div>
-			<div class="span3">
-				<label> + Add</label>
-				<input id="name" type="text" placeholder="Project Name" />
+			<div class="span4 offset1">
+				{{#if pageCreateState}}
+					<h4> + Create a Project</h4>
+					<input id="name" type="text" class="span4" placeholder="Project Name" />
+					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+					<label class="checkbox inline"><input type="checkbox" id="EMEA">EMEA</label>
+					<label class="checkbox inline"><input type="checkbox" id="APAC">APAC</label>
+					<label class="checkbox inline"><input type="checkbox" id="Americas">Americas</label>
+					<br /><br />
+					<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
+					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
+					<p>description</p>
+					<p>detail</p>
+					<p>watch</p>
+					<p>follow</p>
+					<button class="btn btn-primary pull-right createProject">Create Project</button>
+				{{/if}}
 
-				<input id="client" type="text" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+				{{#if pageEditState}}
+					<h4> - Edit Project</h4>
+					<input id="name" type="text" class="span4" placeholder="Project Name" />
+					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' /><br />
+					<label class="checkbox inline"><input type="checkbox" id="EMEA">EMEA</label>
+					<label class="checkbox inline"><input type="checkbox" id="APAC">APAC</label>
+					<label class="checkbox inline"><input type="checkbox" id="Americas">Americas</label>
+					<br /><br />
+					<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
+					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
+					<p>description</p>
+					<p>detail</p>
+					<p>watch</p>
+					<p>follow</p>
+					<button class="btn btn-danger pull-left deleteProject">Delete Project</button>
+					<button class="btn btn-primary pull-right editProject">Create Project</button>
+				{{/if}}
 
-				<label class="checkbox inline"><input type="checkbox" id="EMEA">EMEA</label>
-				<label class="checkbox inline"><input type="checkbox" id="APAC">APAC</label>
-				<label class="checkbox inline"><input type="checkbox" id="Americas">Americas</label>
-				<br /><br />
-
-				<input id="location" type="text" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
-
-				<input id="product" type="text" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
-
-				<p>description</p>
-				<p>detail</p>
-				<p>watch</p>
-				<p>follow</p>
-
-				<button class="btn btn-primary pull-right createProject">Create Project</button>
 
 			</div>
 <!-- 			<div class="span3">

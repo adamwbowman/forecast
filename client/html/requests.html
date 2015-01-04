@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="span3">
-				<h3>My Requests</h3>
+				<h4>My Requests</h4>
 				<ul class="thumbnails">
 					{{#each request}}
 					<li class="span3">
@@ -21,7 +21,7 @@
 			</div>
 			<div class="span4 offset1">
 				{{#if pageCreateState}}
-					<label> + Add</label>
+					<h4> + Request a Service</h4>
 					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
 					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
 					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
@@ -33,7 +33,7 @@
 				{{/if}}
 
 				{{#if pageEditState}}
-					<label> + Edit</label>
+					<h4> - Edit your Request</h4>
 					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
 					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
 					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
@@ -45,7 +45,7 @@
 				{{/if}}
 
 				{{#if pageBookState}}
-					<label> + Booking</label>
+					<h4> + Book a Service</h4>
 					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
 					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
 					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
@@ -60,7 +60,7 @@
 
 			</div>
 			<div class="span3 offset1">
-				<h3>My Bookings</h3>
+				<h4>My Bookings</h4>
 				<ul class="thumbnails">
 					{{#each booking}}
 					<li class="span3">
