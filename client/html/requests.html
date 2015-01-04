@@ -1,0 +1,41 @@
+
+<template name="requests">
+	<div class="container">
+		<div class="row">
+			<div class="span3">
+				<h3>My Requests</h3>
+				<ul class="thumbnails">
+					{{#each request}}
+					<li class="span3">
+						<div class="thumbnail sidecard">
+							<p class=""><b>{{client}}: {{product}}</b><br />{{startDate}} through {{endDate}}</p>
+							<div class="btn-group pull-right">
+								<button type="button" class="btn btn-mini btn-warning">Review</button>
+								<button type="button" class="btn btn-mini btn-success">Book</button>
+							</div>
+							<!-- {{_id}}, {{date}} -->
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+			<div class="span3">
+				<label> + Add</label>
+
+				<input id="service" type="text" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
+
+				<input id="client" type="text" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+
+				<input id="product" type="text" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
+
+				<div class="input-append date">
+					<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
+				</div>
+
+				<p>description</p>
+
+				<button class="btn btn-primary pull-right createRequest">Create Request</button>
+			</div>
+		</div>
+	</div>
+</template>

@@ -3,6 +3,30 @@
 	<div class="container">
 		<div class="row">
 			<div class="span3">
+				<h3>Projects</h3>
+				<ul class="thumbnails">
+					{{#each project}}
+					<li class="span3">
+						<div class="thumbnail sidecard">
+							<p class=""><b>{{client}}: {{name}}</b><br />{{location}}</p>
+							<div class="btn-group pull-right">
+								{{#if isSV}}
+								<button type="button" class="btn btn-mini btn-inverse">Singleview</button>
+								{{/if}}
+								{{#if isWBMS}}
+								<button type="button" class="btn btn-mini btn-inverse">WBMS</button>
+								{{/if}}
+								{{#if isTSM}}
+								<button type="button" class="btn btn-mini btn-inverse">TSM</button>
+								{{/if}}
+							</div>
+							<!-- {{_id}}, {{date}} -->
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+			<div class="span3">
 				<label> + Add</label>
 				<input id="name" type="text" placeholder="Project Name" />
 
@@ -22,10 +46,10 @@
 				<p>watch</p>
 				<p>follow</p>
 
-				<button class="btn btn-primary submit">submit</button>
+				<button class="btn btn-primary pull-right createProject">Create Project</button>
 
 			</div>
-			<div class="span6">
+<!-- 			<div class="span3">
 				<br />
 				{{#each project}}
 					<p class="currentProject {{selectedProject}}"><i class="icon-trash"></i> 
@@ -43,8 +67,8 @@
 							{{createdByEmail}}: {{date}}						</p>
 						{{/each}}
 				{{/each}}
-			</div>
-			<div class="span3">
+			</div> -->
+<!-- 			<div class="span3">
 				<label> + Request Service</label>
 					<div class="input-append date">
 						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
@@ -87,7 +111,7 @@
 				<button class="btn btn-primary save">save</button>
 
 				{{/each}}
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>

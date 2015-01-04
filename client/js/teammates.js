@@ -17,7 +17,7 @@ Template.teammates.helpers({
 	},
 	currentTeammate: function () {
 		var currentTeammate = Session.get('currentTeammate');
-		return Teammates.find({_id: currentTeammate}).fetch();
+		return Teammates.findOne({_id: currentTeammate}).fetch();
 	},
 	products: function () {
 		var productColl = Products.find({}).fetch();
@@ -41,6 +41,7 @@ Template.teammates.helpers({
 		return unavails;
 	},
 	selectedUnavailable: function () {
+		console.log(this._id)
 		return Session.equals('currentTeammate', this._id) ? 'selected' : '';
 	},
 });

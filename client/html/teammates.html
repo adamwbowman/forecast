@@ -9,19 +9,13 @@
 				{{/each}}
 			</div>
 			<div class="span3">
-			{{#each currentTeammate}}
-	
+			{{#with currentTeammate}}
 				<input id="product" type="text" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}"/><br /><br />
 				<input id="location" type="text" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' value="{{location}}" /><br /><br />
 				Availability Percentage<br /><br />
+			{{/with}}
 
 
-			{{/each}}
-
-				<label>Schedule Unavailability</label>
-				<div class="input-append date">
-					<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date"><button class="btn addUnavailable" type="button"> + </button>
-				</div>
 				{{#each unavailable}}
 				<div>
 					<p class="currentUnavailable {{selectedUnavailable}}"></p>
@@ -37,6 +31,13 @@
 			<div class="span6">
 				<div id="cal-heatmap"></div>
 			</div>
+
+	<label>Schedule Unavailability</label>
+	<div class="input-append date">
+		<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date"><button class="btn addUnavailable" type="button"> + </button>
+	</div>
+
+
 		</div>
 	</div>
 </template>

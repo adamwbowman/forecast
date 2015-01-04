@@ -8,7 +8,7 @@ Session.setDefault('currentProject', null);
 // Helpers 
 Template.projects.helpers({
 	project: function () {
-		return Projects.find({}).fetch();
+		return Projects.find({}, {sort: {'date': -1}}).fetch();
 	},
 	clients: function () {
 		var clientColl = Clients.find({}).fetch();
@@ -33,12 +33,33 @@ Template.projects.helpers({
 	},
 	selectedProject: function () {
 		return Session.equals('currentProject', this._id) ? 'selected' : '';
+	},
+	isSV: function () {
+		var thisProject = Projects.find({_id: this._id}).fetch();
+		var project = _.chain(thisProject).pluck('product').value();
+		if (project == 'Singleview') {
+			return true;
+		};
+	},
+	isWBMS: function () {
+		var thisProject = Projects.find({_id: this._id}).fetch();
+		var project = _.chain(thisProject).pluck('product').value();
+		if (project == 'WBMS') {
+			return true;
+		};
+	},
+	isTSM: function () {
+		var thisProject = Projects.find({_id: this._id}).fetch();
+		var project = _.chain(thisProject).pluck('product').value();
+		if (project == 'TSM') {
+			return true;
+		};
 	}
 });
 
 // Events
 Template.projects.events({
-	'click .submit': function (evt, template) {
+	'click .createProject': function (evt, template) {
 		var projectId = Projects.insert({
 			name: template.find('#name').value,
 			client: template.find('#client').value,

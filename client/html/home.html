@@ -1,21 +1,32 @@
 
 <template name="home">
 	<div class="container">
-		<div id="cal-heatmap"></div>
-		<div class="row">Search</div>
 		<div class="row">
-			{{#each project}}
-				<div class="span3 card">
-					{{client}}: {{name}} <br />
-					{{product}}: {{location}} <br />
-					{{formatStandardDate date}}
-				</div>
-			{{/each}}
+			<div class="hero-unit">
+				<button type="button" class="btn btn-primary btn-large pull-right">Request our Services</button>
+			</div>
 		</div>
+		<div class="row">Current Forecast</div>
+		<hr>
 		<div class="row">Trending</div>
+		<div class="row">
+			<ul class="thumbnails">
+			{{#each trend}}
+				<li class="span3">
+					<div class="thumbnail">
+						{{client}}: {{name}} <br />
+						{{product}}: {{location}} <br />
+						{{formatStandardDate date}}
+					</div>
+				</li>
+			{{/each}}
+			</ul>
+		</div>
+		<hr>
 		<div class="row">Recent</div>
-		<div class="row">Most Used</div>
+		<hr>
+		<div class="row">Largest Forecast</div>
+		<hr>
 		<div class="row">Top Searches</div>
-		{{updateChart}}
 	</div>
 </template>
