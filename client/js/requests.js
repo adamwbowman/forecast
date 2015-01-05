@@ -11,7 +11,10 @@ Session.setDefault('currentId', null);
 // Helpers 
 Template.requests.helpers({
 	request: function () {
-		return Requests.find().fetch();
+		return Requests.find({bookingId: {$exists: false}}, {sort: {'date': 1}}).fetch();
+	},
+	booking: function () {
+		return Bookings.find({}, {sort: {'date': -1}}).fetch();
 	},
 	services: function () {
 		var serviceColl = Services.find({}).fetch();
@@ -52,6 +55,9 @@ Template.requests.helpers({
 	},
 	editRequest: function () {
 		return Requests.find({_id: Session.get('currentId')}).fetch();
+	},
+	history: function () {
+		return Histories.find({requestId: Session.get('currentId')}, {sort: {'date': -1}}).fetch();
 	}
 });
 
@@ -59,7 +65,7 @@ Template.requests.helpers({
 Template.requests.events({
 	'click .createRequest': function (evt, template) {
 		var RequestId = Requests.insert({
-			service: template.find('#service').value(),
+			service: template.find('#service').value,
 			client: template.find('#client').value,
 			product: template.find('#product').value,
 			startDate: template.find('#startDate').value,
@@ -69,9 +75,16 @@ Template.requests.events({
 			createdByEmail: getUserEmail(),
 			date: new Date,
 		}, RequestId);
-		Histories.insert({
-			requestId: RequestId,
-			service: template.find('#service').value(),
+		template.find('#service').value = '';
+		template.find('#client').value = '';
+		template.find('#product').value = '';
+		template.find('#startDate').value = '';
+		template.find('#endDate').value = '';
+		template.find('#description').value = '';
+	},
+	'click .editRequest': function (evt, template) {
+		Requests.update(this._id, {
+			service: template.find('#service').value,
 			client: template.find('#client').value,
 			product: template.find('#product').value,
 			startDate: template.find('#startDate').value,
@@ -79,16 +92,53 @@ Template.requests.events({
 			description: template.find('#description').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
-			date: new Date,			
+			date: new Date,
+		});
+		Histories.insert({
+			requestId: this._id,
+			service: this.service,
+			client: this.client,
+			product: this.product,
+			startDate: this.startDate,
+			endDate: this.endDate,
+			description: this.description,
+			createdBy: this.createdBy,
+			createdByEmail: this.createdByEmail,
+			date: this.date,			
 		}); 
+	},
+	'click .bookRequest': function (evt, template) {
+		var BookingId = Bookings.insert({
+			requestId: this._id,
+			service: template.find('#service').value,
+			client: template.find('#client').value,
+			product: template.find('#product').value,
+			startDate: template.find('#startDate').value,
+			endDate: template.find('#endDate').value,
+			description: template.find('#description').value,
+			project: template.find('#project').value,
+			teammate: template.find('#teammate').value,
+			bookedBy: Meteor.userId(),
+			bookedByEmail: getUserEmail(),
+			date: new Date,
+		}, BookingId);
+		Requests.update(this._id, {$set: {
+			bookingId: BookingId
+		}}); 
 		template.find('#service').value = '';
 		template.find('#client').value = '';
 		template.find('#product').value = '';
 		template.find('#startDate').value = '';
 		template.find('#endDate').value = '';
 		template.find('#description').value = '';
-	},	
+		template.find('#project').value = '';
+		template.find('#teammate').value = '';
+		Session.set('create', true);
+		Session.set('book', false);
+		Session.set('edit', false);
+	},
 	'click .card': function (evt, template) {
+		console.log(this._id);
 		Session.set('currentId', this._id);
 		Session.set('create', false);
 		Session.set('book', false);
