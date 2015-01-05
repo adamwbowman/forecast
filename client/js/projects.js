@@ -63,6 +63,9 @@ Template.projects.helpers({
 	pageEditState: function () {
 		return Session.get('edit');
 	},
+	history: function () {
+		return Histories.find({projectId: Session.get('currentProject')}, {sort: {'date': -1}}).fetch();
+	}
 });
 
 // Events
@@ -101,30 +104,19 @@ Template.projects.events({
 		template.find('#location').value = '';
 		template.find('#product').value = '';
 	},
-	'click .addRequest': function (evt, template) {
-		Services.insert({
-			projectId: this._id,
-			startDate: template.find('#startDate').value,
-			endDate: template.find('#endDate').value,
-			name: template.find('.addServiceInput').value,
-			createdBy: Meteor.userId(),
-			createdByEmail: getUserEmail(),
-			date: new Date,			
-		});
-	},
-	'click .save': function (evt, template) {
-		var projectId = Projects.update(this._id, {
-			name: template.find('#edname').value,
-			client: template.find('#edclient').value,
-			EMEA: $('#edEMEA').prop('checked'),
-			APAC: $('#edAPAC').prop('checked'),
-			Americas: $('#edAmericas').prop('checked'),
-			location: template.find('#edlocation').value,
-			product: template.find('#edproduct').value,
+	'click .editProject': function (evt, template) {
+		Projects.update(this._id, {
+			name: template.find('#name').value,
+			client: template.find('#client').value,
+			EMEA: $('#EMEA').prop('checked'),
+			APAC: $('#APAC').prop('checked'),
+			Americas: $('#Americas').prop('checked'),
+			location: template.find('#location').value,
+			product: template.find('#product').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
 			date: new Date,
-		}, projectId);
+		});
 		Histories.insert({
 			projectId: this._id,
 			name: this.name,
@@ -138,25 +130,24 @@ Template.projects.events({
 			createdByEmail: this.createdByEmail,
 			date: this.date,			
 		}); 
-		template.find('#edname').value = '';
-		template.find('#edclient').value = '';
-		$('#edEMEA').removeAttr('checked');
-		$('#edAPAC').removeAttr('checked');
-		$('#edAmericas').removeAttr('checked');
-		template.find('#edlocation').value = '';
-		template.find('#edproduct').value = '';
+		template.find('#name').value = '';
+		template.find('#client').value = '';
+		$('#EMEA').removeAttr('checked');
+		$('#APAC').removeAttr('checked');
+		$('#Americas').removeAttr('checked');
+		template.find('#location').value = '';
+		template.find('#product').value = '';
 	}, 
-	'click .icon-trash': function (evt, template) {
-		Projects.remove({_id: this._id});
-	},
-	'click .currentProject': function (evt, template) {
-		Session.set('currentProject', this._id);
-	},
 	'click .card': function (evt, template) {
 		Session.set('currentProject', this._id);
 		Session.set('create', false);
 		Session.set('edit', true);
 	},
+	'click .deleteProject': function () {
+		Projects.remove({_id: this._id});
+		Session.set('create', true);
+		Session.set('edit', false);
+	}
 });
 
 Template.projects.rendered = function() {

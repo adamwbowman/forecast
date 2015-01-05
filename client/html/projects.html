@@ -60,8 +60,18 @@
 						<p>watch</p>
 						<p>follow</p>
 						<button class="btn btn-danger pull-left deleteProject">Delete Project</button>
-						<button class="btn btn-primary pull-right editProject">Create Project</button>
+						<button class="btn btn-primary pull-right editProject">Edit Project</button>
 					{{/each}}
+
+
+<p><br /><br /></p>
+{{#each history}}
+	<p>
+	{{name}}:{{client}}:{{location}}:{{product}}:{{createdBy}}:{{createdByEmail}}:{{date}}
+</p>
+{{/each}}
+
+
 				{{/if}}
 
 
