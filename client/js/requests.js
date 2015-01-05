@@ -123,7 +123,18 @@ Template.requests.events({
 			date: new Date,
 		}, BookingId);
 		Requests.update(this._id, {$set: {
-			bookingId: BookingId
+			bookingId: BookingId,
+			service: this.service,
+			client: this.client,
+			product: this.product,
+			startDate: this.startDate,
+			endDate: this.endDate,
+			description: this.description,
+			project: template.find('#project').value,
+			teammate: template.find('#teammate').value,
+			bookedBy: Meteor.userId(),
+			bookedByEmail: getUserEmail(),
+			date: new Date
 		}}); 
 		template.find('#service').value = '';
 		template.find('#client').value = '';
@@ -152,6 +163,9 @@ Template.requests.events({
 	},
 	'click .deleteRequest': function (evt, template) {
 		Requests.remove({_id: this._id});
+	},
+	'click .deleteBooking': function () {
+		Bookings.remove({_id: this._id});
 	}
 });
 

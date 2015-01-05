@@ -46,12 +46,12 @@
 						<button class="btn btn-primary pull-right editRequest">Edit Request</button>
 					{{/each}}
 
-					<p><br /><br /></p>
-					{{#each history}}
-						<p>
-						{{service}}:{{client}}:{{product}}:{{startDate}}:{{endDate}}:{{description}}:{{createdBy}}:{{createdByEmail}}:{{date}}
-					</p>
-					{{/each}}
+<p><br /><br /></p>
+{{#each history}}
+	<p>
+	{{service}}:{{client}}:{{product}}:{{startDate}}:{{endDate}}:{{description}}:{{createdBy}}:{{createdByEmail}}:{{date}}
+</p>
+{{/each}}
 
 				{{/if}}
 
@@ -80,6 +80,9 @@
 					<li class="span3">
 						<div class="thumbnail sidecard">
 							<p class=""><strong>{{service}} <br /> {{client}}: {{product}}</strong><br />{{startDate}} through {{endDate}}<br />{{project}}<br />{{teammate}}</p>
+							<div class="btn-group pull-right">
+								<button type="button" class="btn btn-mini btn-danger deleteBooking">Delete</button>
+							</div>
 							<!-- {{_id}}, {{date}} -->
 						</div>
 					</li>
