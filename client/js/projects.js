@@ -71,7 +71,7 @@ Template.projects.helpers({
 // Events
 Template.projects.events({
 	'click .createProject': function (evt, template) {
-		var projectId = Projects.insert({
+		Projects.insert({
 			name: template.find('#name').value,
 			client: template.find('#client').value,
 			EMEA: $('#EMEA').prop('checked'),
@@ -82,20 +82,7 @@ Template.projects.events({
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
 			date: new Date,
-		}, projectId);
-		Histories.insert({
-			projectId: projectId,
-			name: template.find('#name').value,
-			client: template.find('#client').value,
-			EMEA: $('#EMEA').prop('checked'),
-			APAC: $('#APAC').prop('checked'),
-			Americas: $('#Americas').prop('checked'),
-			location: template.find('#location').value,
-			product: template.find('#product').value,
-			createdBy: Meteor.userId(),
-			createdByEmail: getUserEmail(),
-			date: new Date,			
-		}); 
+		});
 		template.find('#name').value = '';
 		template.find('#client').value = '';
 		$('#EMEA').removeAttr('checked');
