@@ -130,13 +130,6 @@ Template.projects.events({
 			createdByEmail: this.createdByEmail,
 			date: this.date,			
 		}); 
-		template.find('#name').value = '';
-		template.find('#client').value = '';
-		$('#EMEA').removeAttr('checked');
-		$('#APAC').removeAttr('checked');
-		$('#Americas').removeAttr('checked');
-		template.find('#location').value = '';
-		template.find('#product').value = '';
 	}, 
 	'click .card': function (evt, template) {
 		Session.set('currentProject', this._id);
