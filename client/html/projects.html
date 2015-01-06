@@ -38,7 +38,7 @@
 					<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
 					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
 					<input id="description" type="text" class="span4" placeholder="Description">
-					<input id="detail" type="text" class="span4" placeholder="Details">
+					<input id="detail" type="text" class="span4" placeholder="Detail">
 					<p>follow</p>
 					<button class="btn btn-primary pull-right createProject">Create Project</button>
 				{{/if}}
@@ -54,8 +54,8 @@
 						<br /><br />
 						<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}'  value="{{location}}" />
 						<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}" />
-						<input id="description" type="text" class="span4" placeholder="Description">
-						<input id="detail" type="text" class="span4" placeholder="Details">	
+						<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
+						<input id="detail" type="text" class="span4" placeholder="Detail" value="{{detail}}" />	
 						<p>follow</p>
 						<button class="btn btn-danger pull-left deleteProject">Delete Project</button>
 						<button class="btn btn-primary pull-right editProject">Edit Project</button>

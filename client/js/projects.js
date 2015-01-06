@@ -92,6 +92,8 @@ Template.projects.events({
 		$('#Americas').removeAttr('checked');
 		template.find('#location').value = '';
 		template.find('#product').value = '';
+		template.find('#description').value = '';
+		template.find('#detail').value = '';
 	},
 	'click .editProject': function (evt, template) {
 		Projects.update(this._id, {
