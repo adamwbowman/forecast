@@ -18,7 +18,11 @@ Router.map(function() {
 		path: '/projects'
 	});	
 	this.route('requests', {
-		path: '/requests'
+		path: '/requests',
+        onBeforeAction: function (pause) {
+        	Session.set('currentId', null);
+        	this.render('requests');
+        }
 	});	
 	this.route('teammates', {
 		path: '/teammates'
