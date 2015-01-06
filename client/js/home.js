@@ -13,6 +13,15 @@ Template.home.helpers({
 	recent: function () {
 		return Projects.find({}, {limit: 4, sort:{'date': -1}}).fetch();
 	},
+	isEMEA: function () {
+		return Projects.find({_id: this._id, 'EMEA': true}).fetch();
+	},
+	isAPAC: function () {
+		return Projects.find({_id: this._id, 'APAC': true}).fetch();
+	},
+	isAmericas: function () {
+		return Projects.find({_id: this._id, 'Americas': true}).fetch();
+	},
 	// updateChart: function () {
 	// 	var teammatesColl = Teammates.find().fetch(); 
 	// 	var flattenedColl = _.chain(teammatesColl).pluck('unavailable').uniq().flatten().value();

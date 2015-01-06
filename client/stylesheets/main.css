@@ -13,7 +13,7 @@ body {
 .homecard {
 	background-color: #F8F8F8;
 	padding: 10px 10px 15px 10px;
-	height: 200px;
+	/*height: 200px;*/
 }
 .homecard:hover {
 	background-color: #D4D4D4;

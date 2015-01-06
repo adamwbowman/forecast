@@ -15,7 +15,11 @@ Router.map(function() {
 		path: '/home'
 	});	
 	this.route('projects', {
-		path: '/projects'
+		path: '/projects',
+        onBeforeAction: function (pause) {
+        	Session.set('currentProject', null);
+        	this.render('projects');
+        }
 	});	
 	this.route('requests', {
 		path: '/requests',

@@ -14,24 +14,28 @@
 			{{#each trend}}
 				<li class="span3">
 					<div class="thumbnail homecard">
-						<a href="#" class="card"><strong>{{client}}: {{name}}</strong></a><p>{{product}}: {{location}} </p><p>{{formatStandardDate date}}</p>
+						<a href="#" class="card"><strong>{{client}}: {{name}}</strong></a><p>{{description}}</p><br /><p>{{location}}</p><br /><p>followers</p>
+						<div class="btn-group pull-left">
+							{{#if isEMEA}}
+							<button type="button" class="btn btn-mini btn-info">EMEA</button>
+							{{/if}}
+							{{#if isAPAC}}
+							<button type="button" class="btn btn-mini btn-success">APAC</button>
+							{{/if}}
+							{{#if isAmericas}}
+							<button type="button" class="btn btn-mini btn-warning">Americas</button>
+							{{/if}}
+						</div>
+						<div class="btn-group pull-right">
+							<button type="button" class="btn btn-mini btn-inverse">{{product}}</button>
+						</div>
 					</div>
 				</li>
 			{{/each}}
 			</ul>
 		</div>
-		<div class="row"><h3>Recent</h3></div>
-		<div class="row">
-			<ul class="thumbnails">
-			{{#each recent}}
-				<li class="span3">
-					<div class="thumbnail homecard">
-						<a href="#" class="card"><strong>{{client}}: {{name}}</strong></a><p>{{product}}: {{location}} </p><p>{{formatStandardDate date}}</p>
-					</div>
-				</li>
-			{{/each}}
-			</ul>
-		</div>
+		<div class="row">Recent</div>
+		<hr>
 		<div class="row">Largest Forecast</div>
 		<hr>
 		<div class="row">Top Searches</div>
