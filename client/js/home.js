@@ -25,10 +25,14 @@ Template.home.helpers({
 });
 
 // Events
-// Template.home.events({
-// 	'click .addAnswer': function (evt) {
-// 	}
-// });
+Template.home.events({
+	'click .requestButton': function (evt) {
+		Router.go('/requests');
+	},
+	'click .card': function () {
+		console.log('/id/' + this._id);
+	}
+});
 
 Template.home.rendered = function () {
 	// cal.init({

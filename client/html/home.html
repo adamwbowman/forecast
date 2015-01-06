@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="hero-unit">
-				<button type="button" class="btn btn-primary btn-large pull-right">Request our Services</button>
+				<button type="button" class="btn btn-primary btn-large pull-right requestButton">Request our Services</button>
 			</div>
 		</div>
 		<div class="row">Current Forecast</div>
@@ -14,9 +14,7 @@
 			{{#each trend}}
 				<li class="span3">
 					<div class="thumbnail homecard">
-						<b>{{client}}: {{name}}</b><br />
-						{{product}}: {{location}} <br />
-						{{formatStandardDate date}}
+						<a href="#" class="card"><strong>{{client}}: {{name}}</strong></a><p>{{product}}: {{location}} </p><p>{{formatStandardDate date}}</p>
 					</div>
 				</li>
 			{{/each}}
@@ -28,9 +26,7 @@
 			{{#each recent}}
 				<li class="span3">
 					<div class="thumbnail homecard">
-						<b>{{client}}: {{name}}</b><br />
-						{{product}}: {{location}} <br />
-						{{formatStandardDate date}}
+						<a href="#" class="card"><strong>{{client}}: {{name}}</strong></a><p>{{product}}: {{location}} </p><p>{{formatStandardDate date}}</p>
 					</div>
 				</li>
 			{{/each}}

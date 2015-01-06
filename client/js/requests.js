@@ -163,6 +163,9 @@ Template.requests.events({
 	},
 	'click .deleteRequest': function (evt, template) {
 		Requests.remove({_id: this._id});
+		Session.set('create', true);
+		Session.set('book', false);
+		Session.set('edit', false);
 	},
 	'click .deleteBooking': function () {
 		Bookings.remove({_id: this._id});
