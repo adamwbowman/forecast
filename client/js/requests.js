@@ -149,7 +149,6 @@ Template.requests.events({
 		Session.set('edit', false);
 	},
 	'click .card': function (evt, template) {
-		console.log(this._id);
 		Session.set('currentId', this._id);
 		Session.set('create', false);
 		Session.set('book', false);

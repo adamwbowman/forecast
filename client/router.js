@@ -31,6 +31,9 @@ Router.map(function() {
 	this.route('teammates', {
 		path: '/teammates'
 	});	
+	this.route('viewAll', {
+		path: '/viewAll'
+	});	
 	//this.route('answers', { 
 	//	path: '/question/:questionId',
 	//	data: function() {

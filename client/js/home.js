@@ -38,9 +38,9 @@ Template.home.events({
 	'click .requestButton': function (evt) {
 		Router.go('/requests');
 	},
-	'click .card': function () {
-		console.log('/id/' + this._id);
-	}
+	// 'click .card': function (evt) {
+	// 	Router.go('/viewAll');
+	// }
 });
 
 Template.home.rendered = function () {
