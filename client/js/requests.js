@@ -108,6 +108,8 @@ Template.requests.events({
 		}); 
 	},
 	'click .bookRequest': function (evt, template) {
+		var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
+		var projectId = _.chain(projectColl).pluck('_id').flatten().value();
 		var BookingId = Bookings.insert({
 			requestId: this._id,
 			service: template.find('#service').value,
@@ -116,6 +118,7 @@ Template.requests.events({
 			startDate: template.find('#startDate').value,
 			endDate: template.find('#endDate').value,
 			description: template.find('#description').value,
+			projectId: projectId[0],
 			project: template.find('#project').value,
 			teammate: template.find('#teammate').value,
 			bookedBy: Meteor.userId(),

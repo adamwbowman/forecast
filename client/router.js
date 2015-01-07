@@ -32,13 +32,9 @@ Router.map(function() {
 		path: '/teammates'
 	});	
 	this.route('viewAll', {
-		path: '/viewAll'
+		path: '/viewAll/:id',
+		data: function () {
+			return Projects.findOne({_id: this.params.id});
+		}
 	});	
-	//this.route('answers', { 
-	//	path: '/question/:questionId',
-	//	data: function() {
-	//		Meteor.call('tallyViewQuestion', this.params.questionId);
-	//		Session.set('questionId', this.params.questionId); 
-	//	}
-	//});
 });
