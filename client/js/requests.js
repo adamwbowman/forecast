@@ -73,6 +73,7 @@ Template.requests.events({
 			startDate: dateToUnix(startDate),
 			endDate: dateToUnix(endDate),
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
+			dayList: convertToDays(dateToUnix(startDate), dateToUnix(endDate)),
 			description: template.find('#description').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
@@ -95,6 +96,7 @@ Template.requests.events({
 			startDate: dateToUnix(startDate),
 			endDate: dateToUnix(endDate),
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
+			dayList: convertToDays(dateToUnix(startDate), dateToUnix(endDate)),
 			description: template.find('#description').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
@@ -107,7 +109,8 @@ Template.requests.events({
 			product: this.product,
 			startDate: this.startDates,
 			endDate: this.endDate,
-			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),                     	
+			totalWorkDays: calcWorkingDays(dateToUnix(this.startDate), dateToUnix(this.endDate)), 
+			dayList: convertToDays(dateToUnix(this.startDate), dateToUnix(this.endDate)),                  	
 			description: this.description,
 			createdBy: this.createdBy,
 			createdByEmail: this.createdByEmail,
@@ -127,6 +130,7 @@ Template.requests.events({
 			startDate: dateToUnix(startDate),
 			endDate: dateToUnix(endDate),
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
+			dayList: convertToDays(dateToUnix(startDate), dateToUnix(endDate)),
 			description: template.find('#description').value,
 			projectId: projectId[0],
 			project: template.find('#project').value,
@@ -143,6 +147,7 @@ Template.requests.events({
 			startDate: this.startDate,
 			endDate: this.endDate,
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
+			dayList: convertToDays(dateToUnix(startDate), dateToUnix(endDate)),
 			description: this.description,
 			project: template.find('#project').value,
 			teammate: template.find('#teammate').value,
@@ -246,5 +251,21 @@ var calcWorkingDays = function (startDate, endDate) {
 	}
 	return workDays;
 }
-
-
+var convertToDays = function (startDate, endDate) {
+	var startDate = moment.unix(startDate);
+	var endDate = moment.unix(endDate);
+	var dateDiff = moment(endDate).diff(moment(startDate));
+	var duration = moment.duration(dateDiff);
+	var days = duration.asDays();
+	days = (parseInt(days)+1);
+	var firstDate = moment(startDate);
+	var workDays = [];
+	while (days > 0) {
+		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
+			workDays.push(moment(firstDate).format("MM/DD/YYYY"));
+		}
+		days -= 1;
+		firstDate = firstDate.add(1, 'days');
+	}
+	return workDays;
+}
