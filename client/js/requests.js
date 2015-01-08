@@ -64,12 +64,15 @@ Template.requests.helpers({
 // Events
 Template.requests.events({
 	'click .createRequest': function (evt, template) {
+		var startDate = template.find('#startDate').value;
+		var endDate = template.find('#endDate').value;
 		var RequestId = Requests.insert({
 			service: template.find('#service').value,
 			client: template.find('#client').value,
 			product: template.find('#product').value,
-			startDate: template.find('#startDate').value,
-			endDate: template.find('#endDate').value,
+			startDate: dateToUnix(startDate),
+			endDate: dateToUnix(endDate),
+			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
 			description: template.find('#description').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
@@ -83,12 +86,15 @@ Template.requests.events({
 		template.find('#description').value = '';
 	},
 	'click .editRequest': function (evt, template) {
+		var startDate = template.find('#startDate').value;
+		var endDate = template.find('#endDate').value;
 		Requests.update(this._id, {
 			service: template.find('#service').value,
 			client: template.find('#client').value,
 			product: template.find('#product').value,
-			startDate: template.find('#startDate').value,
-			endDate: template.find('#endDate').value,
+			startDate: dateToUnix(startDate),
+			endDate: dateToUnix(endDate),
+			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
 			description: template.find('#description').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
@@ -99,8 +105,9 @@ Template.requests.events({
 			service: this.service,
 			client: this.client,
 			product: this.product,
-			startDate: this.startDate,
+			startDate: this.startDates,
 			endDate: this.endDate,
+			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),                     	
 			description: this.description,
 			createdBy: this.createdBy,
 			createdByEmail: this.createdByEmail,
@@ -108,6 +115,8 @@ Template.requests.events({
 		}); 
 	},
 	'click .bookRequest': function (evt, template) {
+		var startDate = template.find('#startDate').value;
+		var endDate = template.find('#endDate').value;	
 		var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
 		var projectId = _.chain(projectColl).pluck('_id').flatten().value();
 		var BookingId = Bookings.insert({
@@ -115,8 +124,9 @@ Template.requests.events({
 			service: template.find('#service').value,
 			client: template.find('#client').value,
 			product: template.find('#product').value,
-			startDate: template.find('#startDate').value,
-			endDate: template.find('#endDate').value,
+			startDate: dateToUnix(startDate),
+			endDate: dateToUnix(endDate),
+			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
 			description: template.find('#description').value,
 			projectId: projectId[0],
 			project: template.find('#project').value,
@@ -132,6 +142,7 @@ Template.requests.events({
 			product: this.product,
 			startDate: this.startDate,
 			endDate: this.endDate,
+			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
 			description: this.description,
 			project: template.find('#project').value,
 			teammate: template.find('#teammate').value,
@@ -187,6 +198,13 @@ Template.requests.rendered = function() {
 	});
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Functions
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+Handlebars.registerHelper("formatDate", function(date) {
+	return moment.unix(date).format("MM/DD/YYYY");
+});
+
 
 //////////////////////////////////////////////////////////////////////////////////
 // Methods...
@@ -200,3 +218,33 @@ var getUserEmail = function (item) {
 		return 'anon'
 	}
 };
+var dateToUnix = function (date) {
+	if (date != '') {
+		return moment(date).unix();
+	}
+}
+var dateFromUnix = function (date) {
+	if (date != '') {
+		return moment.unix(date).format("MM/DD/YYYY");
+	}
+}
+var calcWorkingDays = function (startDate, endDate) {
+	var startDate = moment.unix(startDate);
+	var endDate = moment.unix(endDate);
+	var dateDiff = moment(endDate).diff(moment(startDate));
+	var duration = moment.duration(dateDiff);
+	var days = duration.asDays();
+	days = (parseInt(days)+1);
+	var firstDate = moment(startDate);
+	var workDays = 0;
+	while (days > 0) {
+		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
+			workDays += 1;
+		}
+		days -= 1;
+		firstDate = firstDate.add(1, 'days');
+	}
+	return workDays;
+}
+
+

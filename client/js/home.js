@@ -22,6 +22,9 @@ Template.home.helpers({
 	isAmericas: function () {
 		return Projects.find({_id: this._id, 'Americas': true}).fetch();
 	},
+	bookingDate: function () {
+		return Bookings.find().fetch();
+	}
 	// updateChart: function () {
 	// 	var teammatesColl = Teammates.find().fetch(); 
 	// 	var flattenedColl = _.chain(teammatesColl).pluck('unavailable').uniq().flatten().value();
@@ -37,10 +40,7 @@ Template.home.helpers({
 Template.home.events({
 	'click .requestButton': function (evt) {
 		Router.go('/requests');
-	},
-	// 'click .card': function (evt) {
-	// 	Router.go('/viewAll');
-	// }
+	}
 });
 
 Template.home.rendered = function () {

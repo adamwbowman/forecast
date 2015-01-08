@@ -8,7 +8,8 @@
 					{{#each request}}
 					<li class="span3">
 						<div class="thumbnail sidecard {{selectedId}}">
-							<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a><p>{{startDate}} through {{endDate}}</p>
+							<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a><p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+							<p>Duration: {{totalWorkDays}} days</p>
 							<div class="btn-group pull-right">
 								<button type="button" class="btn btn-mini btn-warning">Review</button>
 								<button type="button" class="btn btn-mini btn-success book">Book</button>
@@ -38,7 +39,7 @@
 						<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" />
 						<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}" />
 						<div class="input-append date">
-							<input type="text" id="startDate" placeholder="Start Date" value="{{startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{endDate}}">
+							<input type="text" id="startDate" placeholder="Start Date" value="{{formatDate startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{formatDate endDate}}">
 						</div>
 						<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
 						<button class="btn btn-danger pull-left deleteRequest">Delete Request</button>
@@ -61,7 +62,7 @@
 						<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" />
 						<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}" />
 						<div class="input-append date">
-							<input type="text" id="startDate" placeholder="Start Date" value="{{startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{endDate}}">
+							<input type="text" id="startDate" placeholder="Start Date" value="{{formatDate startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{formatDate endDate}}">
 						</div>
 						<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
 						<h4> + Assignment </h4>
@@ -78,7 +79,7 @@
 					{{#each booking}}
 					<li class="span3">
 						<div class="thumbnail sidecard">
-							<p class=""><strong>{{service}} <br /> {{client}}: {{product}}</strong><br />{{startDate}} through {{endDate}}<br />{{project}}<br />{{teammate}}</p>
+							<p class=""><strong>{{service}} <br /> {{client}}: {{product}}</strong><br />{{formatDate startDate}} through {{formatDate endDate}}<br />{{project}}<br />{{teammate}}</p><p>Duration: {{totalWorkDays}} days</p>
 							<div class="btn-group pull-right">
 								<button type="button" class="btn btn-mini btn-danger deleteBooking">Delete</button>
 							</div>
