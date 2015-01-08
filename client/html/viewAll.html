@@ -2,14 +2,42 @@
 <template name="viewAll">
 	<div class="container">
 		<div class="row">
-			<div class="hero-unit">
+			<div class="span8 offset1">
+				<strong>{{client}}: {{name}}</strong><br />
+				{{description}}
+				<hr>
+				{{detail}}
+			</div>
+			<div class="span2">
+				follows<br />
+				views<br />
+				lead<br />
+			</div>
+		</div>
+		<div class="row">
+			<div class="span11 offset1">
+				<br /><br />
+					Location: {{location}} <br />
+					Project:{{product}} <br />
+					CreatedBy: {{createdByEmail}} <br />
+					Date: {{date}} <br />
+				<br /><br />
 
-	{{_id}}:{{name}}:{{client}}:{{location}}:{{product}}:{{description}}:{{detail}}:{{createdBy}}:{{createdByEmail}}:{{date}}
+				{{#each request}}
+					<strong>
+						{{service}}<br />
+						{{teammate}}<br />
+					</strong>
+					{{startDate}} through {{endDate}}<br /><br/>
+				{{/each}}
 <br /><br />
-{{#each request}}
-	{{name}}
-{{/each}}
-
+				{{#each related}}
+					<strong>
+						{{name}}<br />
+						{{teammate}}<br />
+					</strong>
+					{{startDate}} through {{endDate}}
+				{{/each}}
 			</div>
 		</div>
 	</div>

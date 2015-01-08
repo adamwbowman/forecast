@@ -2,6 +2,7 @@
 Session.setDefault('currentClient', null);
 Session.setDefault('currentProduct', null);
 Session.setDefault('currentLocation', null);
+Session.setDefault('currentService', null);
 Session.setDefault('currentTeammate', null);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -27,6 +28,12 @@ Template.admin.helpers({
 	},
 	selectedLocation: function () {
 		return Session.equals('currentLocation', this._id) ? 'selected' : '';
+	},
+	service: function () {
+		return Services.find({}, {sort: {name: 1}}).fetch();
+	},
+	selectedService: function () {
+		return Session.equals('currentService', this._id) ? 'selected' : '';
 	},
 	teammate: function () {
 		return Teammates.find({}, {sort: {name: 1}}).fetch();
@@ -136,6 +143,39 @@ Template.admin.events({
 	},
 	'click .deleteLocation': function () {
 		Locations.remove({_id: this._id});
+	},
+	////////////////////////////////////////////////////////////////
+	// Services
+	'click .addService': function (evt, template) {
+		var serviceName = template.find('.addServiceInput').value;
+		if (serviceName.length > 0) {
+			Services.insert({name: serviceName});
+			template.find('.addServiceInput').value = '';
+		}
+	},
+	'keypress input.addServiceInput': function (evt, template) {
+		if (evt.which === 13) {
+			var serviceName = template.find('.addServiceInput').value;
+			if (serviceName.length > 0) {
+				Services.insert({name: serviceName});
+				template.find('.addServiceInput').value = '';
+			}
+		}
+	},
+	'keypress input.editServiceInput': function (evt, template) {
+		if (evt.which === 13) {
+			var serviceName = template.find('.editServiceInput').value;
+			if (ServiceName.length > 0) {
+				Services.update(this._id, {$set: {name: serviceName}});
+				Session.set('currentService', null);
+			}
+		}
+	},
+	'click .currentService': function (evt, template) {
+		Session.set('currentService', this._id);
+	},
+	'click .deleteService': function () {
+		Services.remove({_id: this._id});
 	},
 	////////////////////////////////////////////////////////////////
 	// Teammates

@@ -2,6 +2,7 @@
 <template name="admin">
 	<div class="container">
 		<div class="row">
+
 			<div class="span3">
 				<h3>Clients</h3>
 				<div class="input-append">
@@ -20,24 +21,7 @@
 					{{/if}}
 				{{/each}}
 			</div>
-			<div class="span3">
-				<h3>Products</h3>
-				<div class="input-append">
-					<input class="span2 addProductInput" id="appendedInputButton" type="text">
-					<button class="btn addProduct" type="button">+</button>
-				</div>
-				{{#each product}}
-					{{#if selectedProduct}}
-						<div class="input-prepend">
-							<span class="add-on deleteProduct"><i class="icon-trash"></i></span>
-							<input class="span2 editProductInput" id="inputIcon" type="text" value="{{name}}">
-						</div>
-					{{else}}
-						<p class="currentProduct">
-						{{name}}</p>
-					{{/if}}
-				{{/each}}
-			</div>
+
 			<div class="span3">
 				<h3>Locations</h3>
 				<div class="input-append">
@@ -56,6 +40,45 @@
 					{{/if}}
 				{{/each}}
 			</div>
+
+			<div class="span3">
+				<h3>Products</h3>
+				<div class="input-append">
+					<input class="span2 addProductInput" id="appendedInputButton" type="text">
+					<button class="btn addProduct" type="button">+</button>
+				</div>
+				{{#each product}}
+					{{#if selectedProduct}}
+						<div class="input-prepend">
+							<span class="add-on deleteProduct"><i class="icon-trash"></i></span>
+							<input class="span2 editProductInput" id="inputIcon" type="text" value="{{name}}">
+						</div>
+					{{else}}
+						<p class="currentProduct">
+						{{name}}</p>
+					{{/if}}
+				{{/each}}
+			</div>
+
+			<div class="span3">
+				<h3>Services</h3>
+				<div class="input-append">
+					<input class="span2 addServiceInput" id="appendedInputButton" type="text">
+					<button class="btn addService" type="button">+</button>
+				</div>
+				{{#each service}}
+					{{#if selectedService}}
+						<div class="input-prepend">
+							<span class="add-on deleteService"><i class="icon-trash"></i></span>
+							<input class="span2 editServiceInput" id="inputIcon" type="text" value="{{name}}">
+						</div>
+					{{else}}
+						<p class="currentService">
+						{{name}}</p>
+					{{/if}}
+				{{/each}}
+			</div>
+
 			<div class="span3">
 				<h3>Teammates</h3>
 				<div class="input-append">
@@ -74,6 +97,7 @@
 					{{/if}}
 				{{/each}}
 			</div>
+
 		</div>
 	</div>
 </template>
