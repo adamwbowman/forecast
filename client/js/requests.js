@@ -120,6 +120,7 @@ Template.requests.events({
 	'click .bookRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;	
+		fillCalendar(dateToUnix(startDate), dateToUnix(endDate));
 		var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
 		var projectId = _.chain(projectColl).pluck('_id').flatten().value();
 		var BookingId = Bookings.insert({
@@ -201,8 +202,8 @@ Template.requests.rendered = function() {
 	    todayHighlight: true,
 	    daysOfWeekDisabled: "0,6"
 	});
-// createCalendar(dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
-// fillCalendar(dateToUnix('01/01/2015'), dateToUnix('01/15/2015'))
+// createCalendar(dateToUnix('01/01/2015'), dateToUnix('05/01/2015'));
+// fillCalendar(dateToUnix('01/20/2015'), dateToUnix('01/23/2015'))
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -307,6 +308,8 @@ var createCalendar = function (startDate, endDate) {
 	// console.log( workDays );
 	console.log( Calendar.find().count() );
 }
+
+
 var fillCalendar = function (startDate, endDate) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
@@ -315,14 +318,10 @@ var fillCalendar = function (startDate, endDate) {
 	var days = duration.asDays();
 	days = (parseInt(days)+1);
 	var firstDate = moment(startDate);
-	var workDays = [];
 	while (days > 0) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
-			workDays.push(moment(firstDate).format("MM/DD/YYYY"));
-			console.log( moment(firstDate).unix() );
 			var unixdate = moment(firstDate).unix()
 			var xxx = Calendar.find({date: unixdate}).fetch();
-			console.log(xxx[0]._id);
 			Calendar.update(xxx[0]._id, {$inc: {score: 1}});
 		}
 		days -= 1;

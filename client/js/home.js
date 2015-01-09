@@ -22,19 +22,7 @@ Template.home.helpers({
 	isAmericas: function () {
 		return Projects.find({_id: this._id, 'Americas': true}).fetch();
 	},
-	bookingDate: function () {
-		return Bookings.find().fetch();
-		// var bookingColl = Bookings.find().fetch();
-		// var xxx = _.chain(bookingColl).pluck('dayList').flatten(true).value();
-		// return JSON.stringify(xxx)
-	},
-	weightedList: function () {
-		var bookingColl = Bookings.find().fetch();
-		var allBookings = _.chain(bookingColl).pluck('dayList').flatten(true).value();
-		var allDates = _.chain(bookingColl).pluck('dayList').flatten(true).uniq().value();
-		console.log(allBookings.length)
-		console.log(allDates.length)
-	},
+
 
 	calendarWeight: function () {
 		var calendarColl = Calendar.find().fetch();
@@ -47,6 +35,7 @@ Template.home.helpers({
 		// console.log(formattedColl);
 		cal.update(formattedColl);
 	},
+
 
 	updateChart: function () {
 		var bookingColl = Bookings.find().fetch(); 
@@ -90,8 +79,8 @@ Template.home.rendered = function () {
 		domainGutter: 20,
 		range: 6,
 		domainDynamicDimension: false,
-		previousSelector: "#example-g-PreviousDomain-selector",
-		nextSelector: "#example-g-NextDomain-selector",
+		// previousSelector: "#example-g-PreviousDomain-selector",
+		// nextSelector: "#example-g-NextDomain-selector",
 		domainLabelFormat: function(date) {
 			moment.lang("en");
 			return moment(date).format("MMMM").toUpperCase();
