@@ -202,7 +202,7 @@ Template.requests.rendered = function() {
 	    daysOfWeekDisabled: "0,6"
 	});
 createCalendar(dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
-
+fillCalendar(dateToUnix('01/01/2015'), dateToUnix('01/15/2015'))
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -307,4 +307,26 @@ var createCalendar = function (startDate, endDate) {
 	// console.log( workDays );
 	console.log( Calendar.find().count() );
 }
-
+var fillCalendar = function (startDate, endDate) {
+	var startDate = moment.unix(startDate);
+	var endDate = moment.unix(endDate);
+	var dateDiff = moment(endDate).diff(moment(startDate));
+	var duration = moment.duration(dateDiff);
+	var days = duration.asDays();
+	days = (parseInt(days)+1);
+	var firstDate = moment(startDate);
+	var workDays = [];
+	while (days > 0) {
+		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
+			workDays.push(moment(firstDate).format("MM/DD/YYYY"));
+			console.log( moment(firstDate).unix() );
+			var unixdate = moment(firstDate).unix()
+			var xxx = Calendar.find({date: unixdate}).fetch();
+			console.log(xxx[0]._id);
+			Calendar.update(xxx[0]._id, {$inc: {score: 1}});
+		}
+		days -= 1;
+		firstDate = firstDate.add(1, 'days');
+	}
+	// console.log( workDays );
+}
