@@ -1,5 +1,5 @@
 
-//var cal = new CalHeatMap();
+var cal = new CalHeatMap();
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* home
@@ -24,7 +24,21 @@ Template.home.helpers({
 	},
 	bookingDate: function () {
 		return Bookings.find().fetch();
-	}
+		// var bookingColl = Bookings.find().fetch();
+		// var xxx = _.chain(bookingColl).pluck('dayList').flatten(true).value();
+		// return JSON.stringify(xxx)
+	},
+	updateChart: function () {
+		var bookingColl = Bookings.find().fetch(); 
+		var flattenedColl = _.chain(bookingColl).pluck('dayList').uniq().flatten(true).value();
+		var formattedColl = {};
+		_.each(flattenedColl, function (item) {
+			formattedColl[dateToUnix(item)] = 15;
+		});
+		console.log(formattedColl);
+		cal.update(formattedColl);
+	},
+	// TEAMMATES CHART
 	// updateChart: function () {
 	// 	var teammatesColl = Teammates.find().fetch(); 
 	// 	var flattenedColl = _.chain(teammatesColl).pluck('unavailable').uniq().flatten().value();
@@ -44,26 +58,27 @@ Template.home.events({
 });
 
 Template.home.rendered = function () {
-	// cal.init({
-	// 	// itemSelector: "#example-g",
-	// 	domain: "month",
-	// 	subDomain: "x_day",
-	// 	data: {},
-	// 	start: new Date(2015, 0, 5),
-	// 	cellSize: 20,
-	// 	cellPadding: 5,
-	// 	domainGutter: 20,
-	// 	range: 6,
-	// 	domainDynamicDimension: false,
-	// 	previousSelector: "#example-g-PreviousDomain-selector",
-	// 	nextSelector: "#example-g-NextDomain-selector",
-	// 	domainLabelFormat: function(date) {
-	// 		moment.lang("en");
-	// 		return moment(date).format("MMMM").toUpperCase();
-	// 	},
-	// 	subDomainTextFormat: "%d",
-	// 	legend: [1, 4, 7, 10]
-	// });
+	cal.init({
+		itemSelector: "#example-g",
+		domain: "month",
+		// subDomain: "day",
+		subDomain: "x_day",
+		data: {},
+		start: new Date(2015, 0, 5),
+		cellSize: 20,
+		cellPadding: 2,
+		domainGutter: 20,
+		range: 6,
+		domainDynamicDimension: false,
+		previousSelector: "#example-g-PreviousDomain-selector",
+		nextSelector: "#example-g-NextDomain-selector",
+		domainLabelFormat: function(date) {
+			moment.lang("en");
+			return moment(date).format("MMMM").toUpperCase();
+		},
+		subDomainTextFormat: "%d",
+		legend: [1, 4, 7, 10]
+	});
 }
 
 var dateToUnix = function (date) {

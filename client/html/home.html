@@ -7,10 +7,37 @@
 			</div>
 		</div>
 		<div class="row">Current Forecast</div>
-		<div>
-			{{#each bookingDate}}
-				{{startDate}}
-			{{/each}}
+		<div class="row">
+			<div class="span2">
+				{{#each bookingDate}}
+					{{this.dayList}}
+				{{/each}}
+
+
+				{{updateChart}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="span10">
+				<button id="example-g-PreviousDomain-selector" style="margin-bottom: 10px;" class="btn"><i class="icon icon-chevron-left"></i></button>
+				<button id="example-g-NextDomain-selector" style="margin-bottom: 10px;" class="btn"><i class="icon icon-chevron-right"></i></button>
+				<div id="example-g"></div>
+				<p></p>
+				<style>
+					#example-g .graph-label {
+						font-weight: bold;
+						font-size: 18px;
+					}
+					#example-g .subdomain-text {
+						fill: #fff;
+						opacity: 0;
+					}
+					#example-g g:hover .subdomain-text {
+						opacity: 1;
+					}
+				</style>
+				<div id="cal-heatmap"></div>
+			</div>
 		</div>
 		<div class="row"><h3>Trending</h3></div>
 		<div class="row">
