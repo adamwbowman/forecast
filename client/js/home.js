@@ -28,14 +28,22 @@ Template.home.helpers({
 		// var xxx = _.chain(bookingColl).pluck('dayList').flatten(true).value();
 		// return JSON.stringify(xxx)
 	},
+	weightedList: function () {
+		var bookingColl = Bookings.find().fetch();
+		var allBookings = _.chain(bookingColl).pluck('dayList').flatten(true).value();
+		var allDates = _.chain(bookingColl).pluck('dayList').flatten(true).uniq().value();
+		console.log(allBookings.length)
+		console.log(allDates.length)
+	},
+
 	updateChart: function () {
 		var bookingColl = Bookings.find().fetch(); 
-		var flattenedColl = _.chain(bookingColl).pluck('dayList').uniq().flatten(true).value();
+		var flattenedColl = _.chain(bookingColl).pluck('dayList').flatten(true).uniq().value();
 		var formattedColl = {};
 		_.each(flattenedColl, function (item) {
 			formattedColl[dateToUnix(item)] = 15;
 		});
-		console.log(formattedColl);
+		// console.log(formattedColl);
 		cal.update(formattedColl);
 	},
 	// TEAMMATES CHART
