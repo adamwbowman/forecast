@@ -36,6 +36,18 @@ Template.home.helpers({
 		console.log(allDates.length)
 	},
 
+	calendarWeight: function () {
+		var calendarColl = Calendar.find().fetch();
+		// console.log( calendarColl );
+
+ 		var formattedColl = {};
+		_.each(calendarColl, function (item) {
+			formattedColl[item.date] = item.score;
+		});
+		// console.log(formattedColl);
+		cal.update(formattedColl);
+	},
+
 	updateChart: function () {
 		var bookingColl = Bookings.find().fetch(); 
 		var flattenedColl = _.chain(bookingColl).pluck('dayList').flatten(true).uniq().value();

@@ -201,8 +201,8 @@ Template.requests.rendered = function() {
 	    todayHighlight: true,
 	    daysOfWeekDisabled: "0,6"
 	});
-createCalendar(dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
-fillCalendar(dateToUnix('01/01/2015'), dateToUnix('01/15/2015'))
+// createCalendar(dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
+// fillCalendar(dateToUnix('01/01/2015'), dateToUnix('01/15/2015'))
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
