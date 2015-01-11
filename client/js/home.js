@@ -21,17 +21,6 @@ Template.home.helpers({
 		return Projects.find({_id: this._id, 'Americas': true}).fetch();
 	},
 
-
-	// calendarWeight: function () {
-	// 	var calendarColl = Calendar.find().fetch();
- // 		var formattedColl = {};
-	// 	_.each(calendarColl, function (item) {
-	// 		formattedColl[item.date] = item.score;
-	// 	});
-	// 	cal.update(formattedColl);
-	// },
-
-
 	// updateChart: function () {
 	// 	var bookingColl = Bookings.find().fetch(); 
 	// 	var flattenedColl = _.chain(bookingColl).pluck('dayList').flatten(true).uniq().value();
@@ -56,9 +45,7 @@ Template.home.helpers({
 
 Template.home.rendered = function () {
 
-var cal = new CalHeatMap();	
-
-
+	var cal = new CalHeatMap();	
 
 	cal.init({
 		itemSelector: "#example-g",
@@ -86,18 +73,15 @@ var cal = new CalHeatMap();
 		subDomainTextFormat: "%d",
 		legend: [1, 3, 5, 7, 9]
 	});
-	// initialCalendarWeight();
 
-
-var calData = Meteor.autorun( function () {
+	var calData = Meteor.autorun( function () {
 		var calendarColl = Calendar.find().fetch();
- 		var formattedColl = {};
+			var formattedColl = {};
 		_.each(calendarColl, function (item) {
 			formattedColl[item.date] = item.score;
 		});
 		cal.update(formattedColl);
-		// return formattedColl
-});
+	});
 
 }
 
@@ -116,11 +100,3 @@ var dateFromUnix = function (date) {
 		return moment.unix(date).format("MM/DD/YYYY");
 	}
 }
-// var initialCalendarWeight = function () {
-// 	var calendarColl = Calendar.find().fetch();
-// 	var formattedColl = {};
-// 	_.each(calendarColl, function (item) {
-// 		formattedColl[item.date] = item.score;
-// 	});
-// 	cal.update(formattedColl);
-// }
