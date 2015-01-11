@@ -1,6 +1,4 @@
 
-var cal = new CalHeatMap();
-
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* home
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -24,14 +22,14 @@ Template.home.helpers({
 	},
 
 
-	calendarWeight: function () {
-		var calendarColl = Calendar.find().fetch();
- 		var formattedColl = {};
-		_.each(calendarColl, function (item) {
-			formattedColl[item.date] = item.score;
-		});
-		cal.update(formattedColl);
-	},
+	// calendarWeight: function () {
+	// 	var calendarColl = Calendar.find().fetch();
+ // 		var formattedColl = {};
+	// 	_.each(calendarColl, function (item) {
+	// 		formattedColl[item.date] = item.score;
+	// 	});
+	// 	cal.update(formattedColl);
+	// },
 
 
 	// updateChart: function () {
@@ -57,33 +55,50 @@ Template.home.helpers({
 });
 
 Template.home.rendered = function () {
+
+var cal = new CalHeatMap();	
+
+
+
 	cal.init({
-	itemSelector: "#example-g",
-	domain: "month",
-	subDomain: "x_day",
-	data: {},
-	start: new Date(2015, 0, 5),
-	cellSize: 20,
-	cellPadding: 2,
-	domainGutter: 0,
-	range: 6,
-	verticalOrientation: true,
-	domainDynamicDimension: false,
-	label: {
-		position: "left",
-		width: 25,
-		rotate: "left"
-	},
-	domainLabelFormat: function(date) {
-		moment.lang("en");
-		return moment(date).format("MMMM").toUpperCase();
-	},
-	legendVerticalPosition: "top",
-	legendMargin: [0,0,25,0],
-	subDomainTextFormat: "%d",
-	legend: [1, 3, 5, 7, 9]
+		itemSelector: "#example-g",
+		domain: "month",
+		subDomain: "x_day",
+		// data: calData,
+		start: new Date(2015, 0, 5),
+		cellSize: 20,
+		cellPadding: 2,
+		domainGutter: 0,
+		range: 1,
+		verticalOrientation: true,
+		domainDynamicDimension: false,
+		label: {
+			position: "left",
+			width: 25,
+			rotate: "left"
+		},
+		domainLabelFormat: function(date) {
+			moment.lang("en");
+			return moment(date).format("MMMM").toUpperCase();
+		},
+		legendVerticalPosition: "top",
+		legendMargin: [0,0,25,0],
+		subDomainTextFormat: "%d",
+		legend: [1, 3, 5, 7, 9]
 	});
-	initialCalendarWeight();
+	// initialCalendarWeight();
+
+
+var calData = Meteor.autorun( function () {
+		var calendarColl = Calendar.find().fetch();
+ 		var formattedColl = {};
+		_.each(calendarColl, function (item) {
+			formattedColl[item.date] = item.score;
+		});
+		cal.update(formattedColl);
+		// return formattedColl
+});
+
 }
 
 
@@ -101,11 +116,11 @@ var dateFromUnix = function (date) {
 		return moment.unix(date).format("MM/DD/YYYY");
 	}
 }
-var initialCalendarWeight = function () {
-	var calendarColl = Calendar.find().fetch();
-	var formattedColl = {};
-	_.each(calendarColl, function (item) {
-		formattedColl[item.date] = item.score;
-	});
-	cal.update(formattedColl);
-}
+// var initialCalendarWeight = function () {
+// 	var calendarColl = Calendar.find().fetch();
+// 	var formattedColl = {};
+// 	_.each(calendarColl, function (item) {
+// 		formattedColl[item.date] = item.score;
+// 	});
+// 	cal.update(formattedColl);
+// }

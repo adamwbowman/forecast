@@ -4,69 +4,62 @@
 		<div class="row">
 			<div class="span2">
 				<h4>Booked Work</h4>
-				<div id="example-g"></div>
-				<div id="cal-heatmap"></div>
-
-
-				{{calendarWeight}}
-
-
-
+				<div id="example-g">
+					<div id="cal-heatmap">
+<!-- 						{{calendarWeight}} -->
+					</div>
+				</div>
 			</div>
 			<div class="span9 offset1">
 
 
-		<div class="row">
-			<h4>Trending</h4>
-		</div>
-		<div class="row ">
-			<ul class="thumbnails">
-			{{#each trend}}
-				<li class="span3">
-					<div class="thumbnail homecard">
-						<a href="/viewAll/{{_id}}" class="card">
-							<strong>{{client}}: {{name}}</strong>
-						</a>
-						<p>{{description}}</p><br />
-						<p>{{location}}</p><br />
-						<p>followers</p>
-						<div class="btn-group pull-left">
-							{{#if isEMEA}}
-							<button type="button" class="btn btn-mini btn-info">EMEA</button>
-							{{/if}}
-							{{#if isAPAC}}
-							<button type="button" class="btn btn-mini btn-success">APAC</button>
-							{{/if}}
-							{{#if isAmericas}}
-							<button type="button" class="btn btn-mini btn-warning">Americas</button>
-							{{/if}}
-						</div>
-						<div class="btn-group pull-right">
-							<button type="button" class="btn btn-mini btn-inverse">{{product}}</button>
-						</div>
-					</div>
-				</li>
-			{{/each}}
-			</ul>
-		</div>
-		<div class="row">
-			Recent
-		</div>
-		<hr>
-		<div class="row">
-			Largest Forecast
-		</div>
-		<hr>
-		<div class="row">
-			Top Searches
-		</div>
-
-
-
+				<div class="row">
+					<h4>Trending</h4>
+				</div>
+				<div class="row ">
+					<ul class="thumbnails">
+					{{#each trend}}
+						<li class="span3">
+							<div class="thumbnail homecard">
+								<a href="/viewAll/{{_id}}" class="card">
+									<strong>{{client}}: {{name}}</strong>
+								</a>
+								<p>{{description}}</p><br />
+								<p>{{location}}</p><br />
+								<p>followers</p>
+								<div class="btn-group pull-left">
+									{{#if isEMEA}}
+									<button type="button" class="btn btn-mini btn-info">EMEA</button>
+									{{/if}}
+									{{#if isAPAC}}
+									<button type="button" class="btn btn-mini btn-success">APAC</button>
+									{{/if}}
+									{{#if isAmericas}}
+									<button type="button" class="btn btn-mini btn-warning">Americas</button>
+									{{/if}}
+								</div>
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-mini btn-inverse">{{product}}</button>
+								</div>
+							</div>
+						</li>
+					{{/each}}
+					</ul>
+				</div>
+				<div class="row">
+					Recent
+				</div>
+				<hr>
+				<div class="row">
+					Largest Forecast
+				</div>
+				<hr>
+				<div class="row">
+					Top Searches
+				</div>
 
 
 			</div>
 		</div>
-
 	</div>
 </template>
