@@ -20,17 +20,6 @@ Template.home.helpers({
 	isAmericas: function () {
 		return Projects.find({_id: this._id, 'Americas': true}).fetch();
 	},
-
-	// updateChart: function () {
-	// 	var bookingColl = Bookings.find().fetch(); 
-	// 	var flattenedColl = _.chain(bookingColl).pluck('dayList').flatten(true).uniq().value();
-	// 	var formattedColl = {};
-	// 	_.each(flattenedColl, function (item) {
-	// 		formattedColl[dateToUnix(item)] = 15;
-	// 	});
-	// 	// console.log(formattedColl);
-	// 	cal.update(formattedColl);
-	// },
 	// TEAMMATES CHART
 	// updateChart: function () {
 	// 	var teammatesColl = Teammates.find().fetch(); 
@@ -46,7 +35,6 @@ Template.home.helpers({
 Template.home.rendered = function () {
 
 	var cal = new CalHeatMap();	
-
 	cal.init({
 		itemSelector: "#example-g",
 		domain: "month",
@@ -56,7 +44,7 @@ Template.home.rendered = function () {
 		cellSize: 20,
 		cellPadding: 2,
 		domainGutter: 0,
-		range: 1,
+		range: 4,
 		verticalOrientation: true,
 		domainDynamicDimension: false,
 		label: {

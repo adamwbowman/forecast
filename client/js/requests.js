@@ -202,8 +202,8 @@ Template.requests.rendered = function() {
 	    todayHighlight: true,
 	    daysOfWeekDisabled: "0,6"
 	});
+// deleteCalendar();
 // createCalendar(dateToUnix('01/01/2015'), dateToUnix('05/01/2015'));
-// fillCalendar(dateToUnix('01/20/2015'), dateToUnix('01/23/2015'))
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -275,7 +275,14 @@ var convertToDays = function (startDate, endDate) {
 
 
 
-
+var deleteCalendar = function () {
+	var calendarColl = Calendar.find().fetch();
+	_.each(calendarColl, function (item) {
+		console.log(item._id);
+		Calendar.remove({_id: item._id});
+	});
+	console.log('Calendar deleted, now has ' + Calendar.find().count() + 'days.');
+}
 
 var createCalendar = function (startDate, endDate) {
 	var startDate = moment.unix(startDate);
@@ -287,26 +294,15 @@ var createCalendar = function (startDate, endDate) {
 	var firstDate = moment(startDate);
 	var workDays = [];
 
-// DELETE ALL
-// var calendarColl = Calendar.find().fetch();
-// _.each(calendarColl, function (item) {
-// 	console.log(item._id);
-// 	Calendar.remove({_id: item._id});
-// });
-
 	while (days > 0) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
-			workDays.push(moment(firstDate).format("MM/DD/YYYY"));
 			var xxx = moment(firstDate).unix();
-			// INSERT CALENDAR
-			// console.log(xxx);
-			// Calendar.insert({date: xxx});
+			Calendar.insert({date: xxx});
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
-	// console.log( workDays );
-	console.log( Calendar.find().count() );
+	console.log('Calendar created ' + Calendar.find().count() + 'days.');
 }
 
 
@@ -327,5 +323,4 @@ var fillCalendar = function (startDate, endDate) {
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
-	// console.log( workDays );
 }
