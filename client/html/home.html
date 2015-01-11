@@ -2,46 +2,34 @@
 <template name="home">
 	<div class="container">
 		<div class="row">
-			<div class="hero-unit">
-				<button type="button" class="btn btn-primary btn-large pull-right requestButton">Request our Services</button>
-			</div>
-		</div>
-		<div class="row">Current Forecast</div>
-		<div class="row">
 			<div class="span2">
-
-				<br />{{calendarWeight}}
-
-				<!-- {{updateChart}} -->
-			</div>
-		</div>
-		<div class="row">
-			<div class="span10">
+				<h4>Booked Work</h4>
 				<div id="example-g"></div>
-				<p></p>
-				<style>
-					#example-g .graph-label {
-						font-weight: bold;
-						font-size: 18px;
-					}
-					#example-g .subdomain-text {
-						fill: #fff;
-						opacity: 0;
-					}
-					#example-g g:hover .subdomain-text {
-						opacity: 1;
-					}
-				</style>
 				<div id="cal-heatmap"></div>
+
+
+				{{calendarWeight}}
+
+
+
 			</div>
-		</div>
-		<div class="row"><h3>Trending</h3></div>
+			<div class="span9 offset1">
+
+
 		<div class="row">
+			<h4>Trending</h4>
+		</div>
+		<div class="row ">
 			<ul class="thumbnails">
 			{{#each trend}}
 				<li class="span3">
 					<div class="thumbnail homecard">
-						<a href="/viewAll/{{_id}}" class="card"><strong>{{client}}: {{name}}</strong></a><p>{{description}}</p><br /><p>{{location}}</p><br /><p>followers</p>
+						<a href="/viewAll/{{_id}}" class="card">
+							<strong>{{client}}: {{name}}</strong>
+						</a>
+						<p>{{description}}</p><br />
+						<p>{{location}}</p><br />
+						<p>followers</p>
 						<div class="btn-group pull-left">
 							{{#if isEMEA}}
 							<button type="button" class="btn btn-mini btn-info">EMEA</button>
@@ -61,10 +49,24 @@
 			{{/each}}
 			</ul>
 		</div>
-		<div class="row">Recent</div>
+		<div class="row">
+			Recent
+		</div>
 		<hr>
-		<div class="row">Largest Forecast</div>
+		<div class="row">
+			Largest Forecast
+		</div>
 		<hr>
-		<div class="row">Top Searches</div>
+		<div class="row">
+			Top Searches
+		</div>
+
+
+
+
+
+			</div>
+		</div>
+
 	</div>
 </template>
