@@ -33,18 +33,17 @@ Template.home.helpers({
 });
 
 Template.home.rendered = function () {
-
 	var cal = new CalHeatMap();	
 	cal.init({
 		itemSelector: "#example-g",
 		domain: "month",
 		subDomain: "x_day",
-		// data: calData,
+		// data: calData(),
 		start: new Date(2015, 0, 5),
 		cellSize: 20,
 		cellPadding: 2,
 		domainGutter: 0,
-		range: 4,
+		range: 2,
 		verticalOrientation: true,
 		domainDynamicDimension: false,
 		label: {
@@ -62,43 +61,12 @@ Template.home.rendered = function () {
 		legend: [1, 3, 5, 7, 9]
 	});
 
-	var calendarColl = Calendar.find().fetch();
-console.log(calendarColl);
-
-	// var formattedColl = {};
-	// _.each(calendarColl, function (item) {
-	// 	formattedColl[item.date] = item.score;
-	// });
-	// console.log(formattedColl);
-	// cal.update(formattedColl);
-
-console.log('rendered');
-
-	// Calendar.find().observe({
-	//   changed: function () {
-	// 		var calendarColl = Calendar.find().fetch();
-	// 		var formattedColl = {};
-	// 		_.each(calendarColl, function (item) {
-	// 			formattedColl[item.date] = item.score;
-	// 		});
-	// 		cal.update(formattedColl);
-	//   }
-	// });
-
-}
-
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* functions
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-var dateToUnix = function (date) {
-	if (date != '') {
-		return moment(date).unix();
-	}
-}
-var dateFromUnix = function (date) {
-	if (date != '') {
-		return moment.unix(date).format("MM/DD/YYYY");
-	}
+	var calData = Meteor.autorun( function () {
+		var calendarColl = Calendar.find().fetch();
+ 		var formattedColl = {};
+		_.each(calendarColl, function (item) {
+			formattedColl[item.date] = item.score;
+		});
+		cal.update(formattedColl);
+	});
 }
