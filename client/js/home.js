@@ -62,14 +62,28 @@ Template.home.rendered = function () {
 		legend: [1, 3, 5, 7, 9]
 	});
 
-	var calData = Meteor.autorun( function () {
-		var calendarColl = Calendar.find().fetch();
-			var formattedColl = {};
-		_.each(calendarColl, function (item) {
-			formattedColl[item.date] = item.score;
-		});
-		cal.update(formattedColl);
-	});
+	var calendarColl = Calendar.find().fetch();
+console.log(calendarColl);
+
+	// var formattedColl = {};
+	// _.each(calendarColl, function (item) {
+	// 	formattedColl[item.date] = item.score;
+	// });
+	// console.log(formattedColl);
+	// cal.update(formattedColl);
+
+console.log('rendered');
+
+	// Calendar.find().observe({
+	//   changed: function () {
+	// 		var calendarColl = Calendar.find().fetch();
+	// 		var formattedColl = {};
+	// 		_.each(calendarColl, function (item) {
+	// 			formattedColl[item.date] = item.score;
+	// 		});
+	// 		cal.update(formattedColl);
+	//   }
+	// });
 
 }
 

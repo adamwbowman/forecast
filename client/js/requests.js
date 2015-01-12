@@ -203,7 +203,7 @@ Template.requests.rendered = function() {
 	    daysOfWeekDisabled: "0,6"
 	});
 // deleteCalendar();
-// createCalendar(dateToUnix('01/01/2015'), dateToUnix('05/01/2015'));
+// createCalendar(dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -316,11 +316,13 @@ var fillCalendar = function (startDate, endDate) {
 	var firstDate = moment(startDate);
 	while (days > 0) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
-			var unixdate = moment(firstDate).unix()
+			var unixdate = moment(firstDate).unix();
 			var xxx = Calendar.find({date: unixdate}).fetch();
+			console.log(xxx[0]._id);
 			Calendar.update(xxx[0]._id, {$inc: {score: 1}});
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
+	console.log('count: '+Calendar.find().count() );
 }
