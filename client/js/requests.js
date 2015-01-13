@@ -203,7 +203,7 @@ Template.requests.rendered = function() {
 	    daysOfWeekDisabled: "0,6"
 	});
 // deleteCalendar();
-// createCalendar(dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
+// createCalendar(dateToUnix('01/01/2015'), dateToUnix('02/28/2015'));
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -276,12 +276,12 @@ var convertToDays = function (startDate, endDate) {
 
 
 var deleteCalendar = function () {
-	var calendarColl = Calendar.find().fetch();
+	var calendarColl = BookingCalendar.find().fetch();
 	_.each(calendarColl, function (item) {
 		console.log(item._id);
-		Calendar.remove({_id: item._id});
+		BookingCalendar.remove({_id: item._id});
 	});
-	console.log('Calendar deleted, now has ' + Calendar.find().count() + 'days.');
+	console.log('Booking Calendar deleted, now has ' + BookingCalendar.find().count() + 'days.');
 }
 
 var createCalendar = function (startDate, endDate) {
@@ -297,12 +297,12 @@ var createCalendar = function (startDate, endDate) {
 	while (days > 0) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
 			var xxx = moment(firstDate).unix();
-			Calendar.insert({date: xxx});
+			BookingCalendar.insert({date: xxx});
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
-	console.log('Calendar created ' + Calendar.find().count() + 'days.');
+	console.log('Booking Calendar created ' + BookingCalendar.find().count() + 'days.');
 }
 
 
@@ -317,12 +317,12 @@ var fillCalendar = function (startDate, endDate) {
 	while (days > 0) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
 			var unixdate = moment(firstDate).unix();
-			var xxx = Calendar.find({date: unixdate}).fetch();
+			var xxx = BookingCalendar.find({date: unixdate}).fetch();
 			console.log(xxx[0]._id);
-			Calendar.update(xxx[0]._id, {$inc: {score: 1}});
+			BookingCalendar.update(xxx[0]._id, {$inc: {score: 1}});
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
-	console.log('count: '+Calendar.find().count() );
+	console.log('count: '+BookingCalendar.find().count() );
 }

@@ -62,7 +62,7 @@ Template.home.rendered = function () {
 	});
 
 	var calData = Meteor.autorun( function () {
-		var calendarColl = Calendar.find().fetch();
+		var calendarColl = BookingCalendar.find().fetch();
  		var formattedColl = {};
 		_.each(calendarColl, function (item) {
 			formattedColl[item.date] = item.score;
