@@ -8,5 +8,4 @@ Services = new Meteor.Collection("services");
 Teammates = new Meteor.Collection("teammates");
 Requests = new Meteor.Collection("requests");
 Bookings = new Meteor.Collection("bookings");
-
 BookingCalendar = new Meteor.Collection("bookingcalendar");
