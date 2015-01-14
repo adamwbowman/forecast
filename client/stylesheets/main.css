@@ -1,5 +1,5 @@
 body {
-	padding-top: 80px;
+	padding-top: 60px;
 	padding-bottom: 40px;
 }
 .sidecard {
@@ -32,6 +32,11 @@ body {
 				#example-g g:hover .subdomain-text {
 					opacity: 1;
 				}
+.map {
+	background-color: #D4D4D4;
+	width: 100%;
+	height: 400px;
+}
 
 .mask {
     position: absolute;

@@ -43,7 +43,7 @@ Template.home.rendered = function () {
 		cellSize: 20,
 		cellPadding: 2,
 		domainGutter: 0,
-		range: 2,
+		range: 4,
 		verticalOrientation: true,
 		domainDynamicDimension: false,
 		label: {

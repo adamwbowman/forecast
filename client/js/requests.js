@@ -182,6 +182,7 @@ Template.requests.events({
 		Session.set('edit', false);
 	},
 	'click .deleteBooking': function () {
+		removeCalendar(this.startDate, this.endDate);
 		Bookings.remove({_id: this._id});
 	}
 });
@@ -197,6 +198,39 @@ Template.requests.rendered = function() {
 	    todayHighlight: true,
 	    daysOfWeekDisabled: "0,6"
 	});
+	var cal = new CalHeatMap();	
+	cal.init({
+		itemSelector: "#example-g",
+		domain: "month",
+		subDomain: "x_day",
+		// data: calData(),
+		start: new Date(2015, 0, 5),
+		cellSize: 12,
+		cellPadding: 1,
+		domainGutter: 12,
+		range: 12,
+		verticalOrientation: false,
+		domainDynamicDimension: false,
+		displayLegend: false,
+		domainLabelFormat: function(date) {
+			moment.lang("en");
+			return moment(date).format("MMMM").toUpperCase();
+		},
+		// legendMargin: [0,0,25,0],
+		subDomainTextFormat: "%d",
+		legend: [1, 3, 5, 7, 9]
+	});
+
+	var calData = Meteor.autorun( function () {
+		var calendarColl = BookingCalendar.find().fetch();
+ 		var formattedColl = {};
+		_.each(calendarColl, function (item) {
+			formattedColl[item.date] = item.score;
+		});
+		cal.update(formattedColl);
+	});
+
+
 // deleteCalendar();
 // createCalendar(dateToUnix('01/01/2015'), dateToUnix('02/28/2015'));
 }
@@ -315,6 +349,33 @@ var fillCalendar = function (startDate, endDate) {
 			var xxx = BookingCalendar.find({date: unixdate}).fetch();
 			console.log(xxx[0]._id);
 			BookingCalendar.update(xxx[0]._id, {$inc: {score: 1}});
+		}
+		days -= 1;
+		firstDate = firstDate.add(1, 'days');
+	}
+	console.log('count: '+BookingCalendar.find().count() );
+}
+
+var removeCalendar = function (startDate, endDate) {
+	var startDate = moment.unix(startDate);
+	var endDate = moment.unix(endDate);
+	var dateDiff = moment(endDate).diff(moment(startDate));
+	var duration = moment.duration(dateDiff);
+	var days = duration.asDays();
+	days = (parseInt(days)+1);
+	var firstDate = moment(startDate);
+	while (days > 0) {
+		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
+			var unixdate = moment(firstDate).unix();
+			var xxx = BookingCalendar.find({date: unixdate}).fetch();
+			console.log(xxx[0]._id);
+			console.log(xxx[0].score);
+			console.log(xxx[0].score == 1);
+			if (xxx[0].score == 1) {
+				BookingCalendar.update(xxx[0]._id, {$unset: {score: ''}});				
+			} else {
+				BookingCalendar.update(xxx[0]._id, {$set: {score: -1}});				
+			}
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');

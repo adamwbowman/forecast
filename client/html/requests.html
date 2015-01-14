@@ -2,6 +2,16 @@
 <template name="requests">
 	<div class="container">
 		<div class="row">
+				<div id="example-g">
+					<div id="cal-heatmap">
+					</div>
+				</div>
+		</div>
+		<div class="row">
+			<div class="span12">&nbsp;
+			</div>
+		</div>
+		<div class="row">
 			<div class="span3">
 				<h4>Current Requests</h4>
 				<hr>
@@ -30,6 +40,7 @@
 			<div class="span4 offset1">
 				{{#if pageCreateState}}
 					<h4> + Request a Service</h4>
+					<hr>
 					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
 					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
 					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
@@ -43,6 +54,7 @@
 				{{#if pageEditState}}
 					{{#each editRequest}}
 						<h4> - Edit your Request</h4>
+						<hr>
 						<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' value="{{service}}" />
 						<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" />
 						<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}" />
@@ -82,7 +94,7 @@
 
 			</div>
 			<div class="span3 offset1">
-				<h4>My Bookings</h4>
+				<h4>Current Bookings</h4>
 				<hr>
 <ul class="nav nav-pills">
   <li class="active">
