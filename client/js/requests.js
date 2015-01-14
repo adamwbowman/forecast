@@ -3,6 +3,7 @@ Session.setDefault('create', true);
 Session.setDefault('book', false);
 Session.setDefault('edit', false);
 Session.setDefault('currentId', null);
+Session.setDefault('bookingsFilter', {});
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* requests
@@ -14,7 +15,7 @@ Template.requests.helpers({
 		return Requests.find({bookingId: {$exists: false}}, {sort: {'date': 1}}).fetch();
 	},
 	booking: function () {
-		return Bookings.find({}, {sort: {'date': -1}}).fetch();
+		return Bookings.find(Session.get('bookingsFilter'), {sort: {'date': -1}}).fetch();
 	},
 	services: function () {
 		var serviceColl = Services.find({}).fetch();
@@ -63,6 +64,18 @@ Template.requests.helpers({
 
 // Events
 Template.requests.events({
+	'click .bookingsAll': function (evt) {
+		Session.set('bookingsFilter', {});
+	},
+	'click .bookingsSV': function (evt) {
+		Session.set('bookingsFilter', {product: 'SV'});
+	},
+	'click .bookingsTSM': function (evt) {
+		Session.set('bookingsFilter', {product: 'TSM'});
+	},
+	'click .bookingsWBMS': function (evt) {
+		Session.set('bookingsFilter', {product: 'WBMS'});
+	},	
 	'click .createRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
