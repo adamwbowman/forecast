@@ -117,14 +117,15 @@ Template.requests.events({
 	'click .bookRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;	
-		fillCalendar(dateToUnix(startDate), dateToUnix(endDate));
+		var product = template.find('#product').value;
+		fillCalendar(dateToUnix(startDate), dateToUnix(endDate), product);
 		var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
 		var projectId = _.chain(projectColl).pluck('_id').flatten().value();
 		var BookingId = Bookings.insert({
 			requestId: this._id,
 			service: template.find('#service').value,
 			client: template.find('#client').value,
-			product: template.find('#product').value,
+			product: product,
 			startDate: dateToUnix(startDate),
 			endDate: dateToUnix(endDate),
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
@@ -182,7 +183,7 @@ Template.requests.events({
 		Session.set('edit', false);
 	},
 	'click .deleteBooking': function () {
-		removeCalendar(this.startDate, this.endDate);
+		removeCalendar(this.startDate, this.endDate, this.product);
 		Bookings.remove({_id: this._id});
 	}
 });
@@ -229,11 +230,9 @@ Template.requests.rendered = function() {
 		});
 		cal.update(formattedColl);
 	});
-
-
-// deleteCalendar();
-// createCalendar(dateToUnix('01/01/2015'), dateToUnix('02/28/2015'));
+// createCalendar(dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
 }
+
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Functions
@@ -305,7 +304,7 @@ var convertToDays = function (startDate, endDate) {
 
 
 var deleteCalendar = function () {
-	var calendarColl = BookingCalendar.find().fetch();
+	var calendarColl = BookingCalendar.find();
 	_.each(calendarColl, function (item) {
 		console.log(item._id);
 		BookingCalendar.remove({_id: item._id});
@@ -334,8 +333,7 @@ var createCalendar = function (startDate, endDate) {
 	console.log('Booking Calendar created ' + BookingCalendar.find().count() + 'days.');
 }
 
-
-var fillCalendar = function (startDate, endDate) {
+var fillCalendar = function (startDate, endDate, product) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
 	var dateDiff = moment(endDate).diff(moment(startDate));
@@ -347,16 +345,24 @@ var fillCalendar = function (startDate, endDate) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
 			var unixdate = moment(firstDate).unix();
 			var xxx = BookingCalendar.find({date: unixdate}).fetch();
-			console.log(xxx[0]._id);
 			BookingCalendar.update(xxx[0]._id, {$inc: {score: 1}});
+			if (product == 'SV') {
+				BookingCalendar.update(xxx[0]._id, {$set: {SV: 1}});
+			}
+			if (product == 'TSM') {
+				BookingCalendar.update(xxx[0]._id, {$set: {TSM: 1}});
+			}
+			if (product == 'WBMS') {
+				BookingCalendar.update(xxx[0]._id, {$set: {WBMS: 1}});
+			}
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
-	console.log('count: '+BookingCalendar.find().count() );
+	console.log('count: ' + BookingCalendar.find().count() );
 }
 
-var removeCalendar = function (startDate, endDate) {
+var removeCalendar = function (startDate, endDate, product) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
 	var dateDiff = moment(endDate).diff(moment(startDate));
@@ -376,9 +382,30 @@ var removeCalendar = function (startDate, endDate) {
 			} else {
 				BookingCalendar.update(xxx[0]._id, {$set: {score: -1}});				
 			}
+			if (product == 'SV') {
+				if (xxx[0].SV == 1) {
+					BookingCalendar.update(xxx[0]._id, {$unset: {SV: ''}});				
+				} else {
+					BookingCalendar.update(xxx[0]._id, {$set: {SV: -1}});				
+				}	
+			}
+			if (product == 'TSM') {
+				if (xxx[0].TSM == 1) {
+					BookingCalendar.update(xxx[0]._id, {$unset: {TSM: ''}});				
+				} else {
+					BookingCalendar.update(xxx[0]._id, {$set: {TSM: -1}});				
+				}	
+			}
+			if (product == 'WBMS') {
+				if (xxx[0].WBMS == 1) {
+					BookingCalendar.update(xxx[0]._id, {$unset: {WBMS: ''}});				
+				} else {
+					BookingCalendar.update(xxx[0]._id, {$set: {WBMS: -1}});				
+				}	
+			}
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
-	console.log('count: '+BookingCalendar.find().count() );
+	console.log('count: ' + BookingCalendar.find().count() );
 }
