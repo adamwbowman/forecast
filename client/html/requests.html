@@ -5,15 +5,22 @@
 
 
 			<div class="span1">
-				<ul class="nav nav-pills">
-					<li class="calendarAll"><a href="#tab2" data-toggle="tab">All</a></li>
-					<li class="calendarSV"><a href="#tab2" data-toggle="tab">SV</a></li>
-					<li class="calendarTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
-					<li class="calendarWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
-				</ul>
+				<div class="btn-group">
+					<button class="btn btn-mini calendarAll">Product</button>
+					<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a class="calendarAll">All Products</a></li>
+						<li><a class="calendarSV">Singleview</a></li>
+						<li><a class="calendarTSM">TSM</a></li>
+						<li><a class="calendarWBMS">WBMS</a></li>
+					</ul>
+				</div>
 			</div>
 
-				<div class="span11" id="example-g">
+
+				<div class="span10" id="example-g">
 					<div id="cal-heatmap">
 					</div>
 				</div>
