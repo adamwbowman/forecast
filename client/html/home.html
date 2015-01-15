@@ -16,8 +16,7 @@
 			</div>
 			<div class="span9 offset1">
 				<div class="row">
-					<div class="map">
-						map & search
+					<div id="map">
 					</div>
 				</div>
 				<div class="row">
@@ -60,11 +59,69 @@
 				<div class="row">
 					<h4>Recent</h4>
 				</div>
-				<hr>
+				<div class="row ">
+					<ul class="thumbnails">
+					{{#each recent}}
+						<li class="span3">
+							<div class="thumbnail homecard">
+								<a href="/viewAll/{{_id}}" class="card">
+									<strong>{{client}}: {{name}}</strong>
+								</a>
+								<p>{{description}}</p><br />
+								<p>{{location}}</p><br />
+								<p>followers</p>
+								<div class="btn-group pull-left">
+									{{#if isEMEA}}
+									<button type="button" class="btn btn-mini btn-info">EMEA</button>
+									{{/if}}
+									{{#if isAPAC}}
+									<button type="button" class="btn btn-mini btn-success">APAC</button>
+									{{/if}}
+									{{#if isAmericas}}
+									<button type="button" class="btn btn-mini btn-warning">Americas</button>
+									{{/if}}
+								</div>
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-mini btn-inverse">{{product}}</button>
+								</div>
+							</div>
+						</li>
+					{{/each}}
+					</ul>
+				</div>
 				<div class="row">
 					<h4>Largest Forecast</h4>
 				</div>
-				<hr>
+				<div class="row ">
+					<ul class="thumbnails">
+					{{#each largest}}
+						<li class="span3">
+							<div class="thumbnail homecard">
+								<a href="/viewAll/{{_id}}" class="card">
+									<strong>{{client}}: {{name}}</strong>
+								</a>
+								<p>{{description}}</p><br />
+								<p>{{location}}</p><br />
+								<p>followers</p>
+								<div class="btn-group pull-left">
+									{{#if isEMEA}}
+									<button type="button" class="btn btn-mini btn-info">EMEA</button>
+									{{/if}}
+									{{#if isAPAC}}
+									<button type="button" class="btn btn-mini btn-success">APAC</button>
+									{{/if}}
+									{{#if isAmericas}}
+									<button type="button" class="btn btn-mini btn-warning">Americas</button>
+									{{/if}}
+								</div>
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-mini btn-inverse">{{product}}</button>
+								</div>
+							</div>
+						</li>
+					{{/each}}
+					</ul>
+				</div>
 				<div class="row">
 					<h4>Top Searches</h4>
 				</div>

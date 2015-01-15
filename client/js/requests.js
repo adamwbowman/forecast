@@ -4,7 +4,7 @@ Session.setDefault('book', false);
 Session.setDefault('edit', false);
 Session.setDefault('currentId', null);
 Session.setDefault('calenderProduct', null);
-Session.setDefault('calenderType', 'booking');
+Session.setDefault('calenderType', 'request');
 Session.setDefault('bookingsFilter', {});
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -255,7 +255,7 @@ Template.requests.rendered = function() {
 		cellSize: 12,
 		cellPadding: 1,
 		domainGutter: 12,
-		range: 12,
+		range: 10,
 		verticalOrientation: false,
 		domainDynamicDimension: false,
 		displayLegend: false,
