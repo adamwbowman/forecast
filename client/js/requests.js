@@ -3,6 +3,7 @@ Session.setDefault('create', true);
 Session.setDefault('book', false);
 Session.setDefault('edit', false);
 Session.setDefault('currentId', null);
+Session.setDefault('calenderProduct', null);
 Session.setDefault('bookingsFilter', {});
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -75,6 +76,18 @@ Template.requests.events({
 	},
 	'click .bookingsWBMS': function (evt) {
 		Session.set('bookingsFilter', {product: 'WBMS'});
+	},	
+	'click .calendarAll': function (evt) {
+		Session.set('calenderProduct', '');
+	},
+	'click .calendarSV': function (evt) {
+		Session.set('calenderProduct', 'SV');
+	},
+	'click .calendarTSM': function (evt) {
+		Session.set('calenderProduct', 'TSM');
+	},
+	'click .calendarWBMS': function (evt) {
+		Session.set('calenderProduct', 'WBMS');
 	},	
 	'click .createRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
@@ -236,10 +249,19 @@ Template.requests.rendered = function() {
 	});
 
 	var calData = Meteor.autorun( function () {
+		var product = Session.get('calenderProduct');
 		var calendarColl = BookingCalendar.find().fetch();
  		var formattedColl = {};
 		_.each(calendarColl, function (item) {
-			formattedColl[item.date] = item.score;
+			if (product == 'SV') {
+				formattedColl[item.date] = item.SV;	
+			} else if (product == 'TSM') {
+				formattedColl[item.date] = item.TSM;	
+			} else if (product == 'WBMS') {
+				formattedColl[item.date] = item.WBMS;	
+			} else {
+				formattedColl[item.date] = item.score;
+			}
 		});
 		cal.update(formattedColl);
 	});

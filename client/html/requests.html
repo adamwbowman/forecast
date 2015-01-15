@@ -2,7 +2,18 @@
 <template name="requests">
 	<div class="container">
 		<div class="row">
-				<div id="example-g">
+
+
+			<div class="span1">
+				<ul class="nav nav-pills">
+					<li class="calendarAll"><a href="#tab2" data-toggle="tab">All</a></li>
+					<li class="calendarSV"><a href="#tab2" data-toggle="tab">SV</a></li>
+					<li class="calendarTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
+					<li class="calendarWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
+				</ul>
+			</div>
+
+				<div class="span11" id="example-g">
 					<div id="cal-heatmap">
 					</div>
 				</div>
@@ -15,12 +26,12 @@
 			<div class="span3">
 				<h4>Current Requests</h4>
 				<hr>
-<ul class="nav nav-pills">
-  <li class="active"><a href="#">SV</a>
-  </li>
-  <li><a href="#">TSM</a></li>
-  <li><a href="#">WBMS</a></li>
-</ul>
+				<ul class="nav nav-pills">
+					<li class="requestsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
+					<li class="requestsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
+					<li class="requestsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
+					<li class="requestsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
+				</ul>
 				<ul class="thumbnails">
 					{{#each request}}
 					<li class="span3">
@@ -95,12 +106,12 @@
 			<div class="span3 offset1">
 				<h4>Current Bookings</h4>
 				<hr>
-<ul class="nav nav-pills">
-  <li class="bookingsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
-  <li class="bookingsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
-  <li class="bookingsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
-  <li class="bookingsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
-</ul>
+				<ul class="nav nav-pills">
+					<li class="bookingsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
+					<li class="bookingsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
+					<li class="bookingsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
+					<li class="bookingsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
+				</ul>
 				<ul class="thumbnails">
 					{{#each booking}}
 					<li class="span3">
