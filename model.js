@@ -7,5 +7,6 @@ Histories = new Meteor.Collection("histories");
 Services = new Meteor.Collection("services");
 Teammates = new Meteor.Collection("teammates");
 Requests = new Meteor.Collection("requests");
+RequestCalendar = new Meteor.Collection("requestcalendar");
 Bookings = new Meteor.Collection("bookings");
 BookingCalendar = new Meteor.Collection("bookingcalendar");

@@ -1,4 +1,6 @@
 
+Session.setDefault('calenderType', 'booking');
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* home
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -32,6 +34,15 @@ Template.home.helpers({
 	// }
 });
 
+Template.home.events({
+	'click .bookingCalendar': function () {
+		Session.set('calenderType', 'booking');
+	},
+	'click .requestCalendar': function () {
+		Session.set('calenderType', 'request');
+	}	
+});
+
 Template.home.rendered = function () {
 	var cal = new CalHeatMap();	
 	cal.init({
@@ -62,7 +73,13 @@ Template.home.rendered = function () {
 	});
 
 	var calData = Meteor.autorun( function () {
-		var calendarColl = BookingCalendar.find().fetch();
+		var type = Session.get('calenderType');
+		if (type == 'booking') {
+			var calendarColl = BookingCalendar.find().fetch();
+		}
+		if (type == 'request') {
+			var calendarColl = RequestCalendar.find().fetch();
+ 		}
  		var formattedColl = {};
 		_.each(calendarColl, function (item) {
 			formattedColl[item.date] = item.score;

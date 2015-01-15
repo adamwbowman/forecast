@@ -4,6 +4,7 @@ Session.setDefault('book', false);
 Session.setDefault('edit', false);
 Session.setDefault('currentId', null);
 Session.setDefault('calenderProduct', null);
+Session.setDefault('calenderType', 'booking');
 Session.setDefault('bookingsFilter', {});
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -104,9 +105,16 @@ Template.requests.events({
 	'click .calendarWBMS': function (evt) {
 		Session.set('calenderProduct', 'WBMS');
 	},
+	'click .calendarBooking': function (evt) {
+		Session.set('calenderType', 'booking');
+	},
+	'click .calendarRequest': function (evt) {
+		Session.set('calenderType', 'request');
+	},
 	'click .createRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
+		fillCalendar('request', dateToUnix(startDate), dateToUnix(endDate), product);
 		var RequestId = Requests.insert({
 			service: template.find('#service').value,
 			client: template.find('#client').value,
@@ -158,7 +166,7 @@ Template.requests.events({
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
 		var product = template.find('#product').value;
-		fillCalendar(dateToUnix(startDate), dateToUnix(endDate), product);
+		fillCalendar('booking', dateToUnix(startDate), dateToUnix(endDate), product);
 		var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
 		var projectId = _.chain(projectColl).pluck('_id').flatten().value();
 		var BookingId = Bookings.insert({
@@ -261,7 +269,13 @@ Template.requests.rendered = function() {
 
 	var calData = Meteor.autorun( function () {
 		var product = Session.get('calenderProduct');
-		var calendarColl = BookingCalendar.find().fetch();
+		var type = Session.get('calenderType');
+		if (type == 'booking') {
+			var calendarColl = BookingCalendar.find().fetch();			
+		}
+		if (type == 'request') {
+			var calendarColl = RequestCalendar.find().fetch();
+ 		}
  		var formattedColl = {};
 		_.each(calendarColl, function (item) {
 			if (product == 'SV') {
@@ -276,7 +290,8 @@ Template.requests.rendered = function() {
 		});
 		cal.update(formattedColl);
 	});
-// createCalendar(dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
+// createCalendar('booking', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
+// createCalendar('request', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
 }
 
 
@@ -358,7 +373,7 @@ var deleteCalendar = function () {
 	console.log('Booking Calendar deleted, now has ' + BookingCalendar.find().count() + 'days.');
 }
 
-var createCalendar = function (startDate, endDate) {
+var createCalendar = function (calendarType, startDate, endDate) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
 	var dateDiff = moment(endDate).diff(moment(startDate));
@@ -371,15 +386,25 @@ var createCalendar = function (startDate, endDate) {
 	while (days > 0) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
 			var xxx = moment(firstDate).unix();
-			BookingCalendar.insert({date: xxx});
+			if (calendarType == 'booking') {
+				BookingCalendar.insert({date: xxx});
+			}
+			if (calendarType == 'request') {
+				RequestCalendar.insert({date: xxx});
+			}
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
-	console.log('Booking Calendar created ' + BookingCalendar.find().count() + 'days.');
+	if (calendarType == 'booking') {
+		console.log('Booking Calendar created ' + BookingCalendar.find().count() + ' days.');
+	}
+	if (calendarType == 'request') {
+		console.log('Request Calendar created ' + RequestCalendar.find().count() + ' days.');
+	}
 }
 
-var fillCalendar = function (startDate, endDate, product) {
+var fillCalendar = function (calendarType, startDate, endDate, product) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
 	var dateDiff = moment(endDate).diff(moment(startDate));
@@ -390,22 +415,36 @@ var fillCalendar = function (startDate, endDate, product) {
 	while (days > 0) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
 			var unixdate = moment(firstDate).unix();
-			var xxx = BookingCalendar.find({date: unixdate}).fetch();
-			BookingCalendar.update(xxx[0]._id, {$inc: {score: 1}});
-			if (product == 'SV') {
-				BookingCalendar.update(xxx[0]._id, {$set: {SV: 1}});
+			if (calendarType == 'booking') {
+				var xxx = BookingCalendar.find({date: unixdate}).fetch();
+				BookingCalendar.update(xxx[0]._id, {$inc: {score: 1}});
+				if (product == 'SV') {
+					BookingCalendar.update(xxx[0]._id, {$set: {SV: 1}});
+				}
+				if (product == 'TSM') {
+					BookingCalendar.update(xxx[0]._id, {$set: {TSM: 1}});
+				}
+				if (product == 'WBMS') {
+					BookingCalendar.update(xxx[0]._id, {$set: {WBMS: 1}});
+				}
 			}
-			if (product == 'TSM') {
-				BookingCalendar.update(xxx[0]._id, {$set: {TSM: 1}});
-			}
-			if (product == 'WBMS') {
-				BookingCalendar.update(xxx[0]._id, {$set: {WBMS: 1}});
+			if (calendarType == 'request') {
+				var xxx = RequestCalendar.find({date: unixdate}).fetch();
+				RequestCalendar.update(xxx[0]._id, {$inc: {score: 1}});
+				if (product == 'SV') {
+					RequestCalendar.update(xxx[0]._id, {$set: {SV: 1}});
+				}
+				if (product == 'TSM') {
+					RequestCalendar.update(xxx[0]._id, {$set: {TSM: 1}});
+				}
+				if (product == 'WBMS') {
+					RequestCalendar.update(xxx[0]._id, {$set: {WBMS: 1}});
+				}
 			}
 		}
 		days -= 1;
 		firstDate = firstDate.add(1, 'days');
 	}
-	console.log('count: ' + BookingCalendar.find().count() );
 }
 
 var removeCalendar = function (startDate, endDate, product) {
