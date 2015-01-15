@@ -60,6 +60,21 @@ Template.requests.helpers({
 	},
 	history: function () {
 		return Histories.find({requestId: Session.get('currentId')}, {sort: {'date': -1}}).fetch();
+	},
+	isSV: function () {
+		if (this.product == 'SV') {
+			return 'active' 
+		}
+	},
+	isTSM: function () {
+		if (this.product == 'TSM') {
+			return 'active' 
+		}
+	},
+	isWBMS: function () {
+		if (this.product == 'WBMS') {
+			return 'active' 
+		}
 	}
 });
 
@@ -88,14 +103,14 @@ Template.requests.events({
 	},
 	'click .calendarWBMS': function (evt) {
 		Session.set('calenderProduct', 'WBMS');
-	},	
+	},
 	'click .createRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
 		var RequestId = Requests.insert({
 			service: template.find('#service').value,
 			client: template.find('#client').value,
-			product: template.find('#product').value,
+			product: $('.btn-group .active').val(),
 			startDate: dateToUnix(startDate),
 			endDate: dateToUnix(endDate),
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
@@ -106,7 +121,6 @@ Template.requests.events({
 		}, RequestId);
 		template.find('#service').value = '';
 		template.find('#client').value = '';
-		template.find('#product').value = '';
 		template.find('#startDate').value = '';
 		template.find('#endDate').value = '';
 		template.find('#description').value = '';
@@ -117,7 +131,7 @@ Template.requests.events({
 		Requests.update(this._id, {
 			service: template.find('#service').value,
 			client: template.find('#client').value,
-			product: template.find('#product').value,
+			product: $('.btn-group .active').val(),
 			startDate: dateToUnix(startDate),
 			endDate: dateToUnix(endDate),
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
@@ -142,7 +156,7 @@ Template.requests.events({
 	},
 	'click .bookRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
-		var endDate = template.find('#endDate').value;	
+		var endDate = template.find('#endDate').value;
 		var product = template.find('#product').value;
 		fillCalendar(dateToUnix(startDate), dateToUnix(endDate), product);
 		var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
@@ -180,7 +194,6 @@ Template.requests.events({
 		}}); 
 		template.find('#service').value = '';
 		template.find('#client').value = '';
-		template.find('#product').value = '';
 		template.find('#startDate').value = '';
 		template.find('#endDate').value = '';
 		template.find('#description').value = '';
@@ -230,7 +243,6 @@ Template.requests.rendered = function() {
 		itemSelector: "#example-g",
 		domain: "month",
 		subDomain: "x_day",
-		// data: calData(),
 		start: new Date(2015, 0, 5),
 		cellSize: 12,
 		cellPadding: 1,
@@ -243,7 +255,6 @@ Template.requests.rendered = function() {
 			moment.lang("en");
 			return moment(date).format("MMMM").toUpperCase();
 		},
-		// legendMargin: [0,0,25,0],
 		subDomainTextFormat: "%d",
 		legend: [1, 3, 5, 7, 9]
 	});

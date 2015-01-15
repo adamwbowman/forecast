@@ -2,8 +2,6 @@
 <template name="requests">
 	<div class="container">
 		<div class="row">
-
-
 			<div class="span1">
 				<div class="btn-group">
 					<button class="btn btn-mini calendarAll">Product</button>
@@ -18,12 +16,10 @@
 					</ul>
 				</div>
 			</div>
-
-
-				<div class="span10" id="example-g">
-					<div id="cal-heatmap">
-					</div>
+			<div class="span10" id="example-g">
+				<div id="cal-heatmap">
 				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="span12">&nbsp;
@@ -60,7 +56,12 @@
 					<hr>
 					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
 					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
-					<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' />
+					<div class="btn-group" data-toggle="buttons-radio">
+						<button type="button" class="btn product active" id="product" value="SV">Singleview</button>
+						<button type="button" class="btn product" id="product" value="TSM">TSM</button>
+						<button type="button" class="btn product" id="product" value="WBMS">WBMS</button>
+					</div>
+					<br /><br />
 					<div class="input-append date">
 						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
 					</div>
@@ -74,7 +75,12 @@
 						<hr>
 						<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' value="{{service}}" />
 						<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" />
-						<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}" />
+						<div class="btn-group" data-toggle="buttons-radio">
+							<button type="button" class="btn product {{isSV}}" id="product" value="SV">Singleview</button>
+							<button type="button" class="btn product {{isTSM}}" id="product" value="TSM">TSM</button>
+							<button type="button" class="btn product {{isWBMS}}" id="product" value="WBMS">WBMS</button>
+						</div>
+						<br /><br />
 						<div class="input-append date">
 							<input type="text" id="startDate" placeholder="Start Date" value="{{formatDate startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{formatDate endDate}}">
 						</div>
