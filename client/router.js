@@ -2,7 +2,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Router
 Router.map(function() {
-	this.route('homepage', {
+	this.route('home', {
 		path: '/'
 	});
 	this.route('admin', {
@@ -10,9 +10,6 @@ Router.map(function() {
 	});
 	this.route('clients', {
 		path: '/clients'
-	});	
-	this.route('home', {
-		path: '/home'
 	});	
 	this.route('projects', {
 		path: '/projects',
