@@ -1,11 +1,13 @@
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* home.js
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 Session.setDefault('calenderType', 'booking');
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* home
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// Helpers 
+////////////////////////////////////////////////////////////////
+// Helpers
 Template.home.helpers({
 	trend: function () {
 		return Projects.find({}, {limit: 3}).fetch();
@@ -25,18 +27,11 @@ Template.home.helpers({
 	isAmericas: function () {
 		return Projects.find({_id: this._id, 'Americas': true}).fetch();
 	},
-	// TEAMMATES CHART
-	// updateChart: function () {
-	// 	var teammatesColl = Teammates.find().fetch(); 
-	// 	var flattenedColl = _.chain(teammatesColl).pluck('unavailable').uniq().flatten().value();
-	// 	var formattedColl = {};
-	// 	_.each(flattenedColl, function (item) {
-	// 		formattedColl[dateToUnix(item)] = 15;
-	// 	});
-	// 	cal.update(formattedColl);
-	// }
 });
 
+
+////////////////////////////////////////////////////////////////
+// Events
 Template.home.events({
 	'click .bookingCalendar': function () {
 		Session.set('calenderType', 'booking');
@@ -46,50 +41,20 @@ Template.home.events({
 	}	
 });
 
+
+////////////////////////////////////////////////////////////////
+// Rendered
 Template.home.rendered = function () {
-    // var map = L.map('map-canvas').setView([32.07593833337078, 34.799848388671875], 16);
 
-    // L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //     attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-    //                  '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-    //     maxZoom: 16
-    // }).addTo(map);
+	// Load Map
+	initMap();
 
-initMap();
-
-// var width = 960,
-//     height = 500;
-
-// var projection = d3.geo.mercator()
-//     .center([0, 5 ])
-//     .scale(900)
-//     .rotate([-180,0]);
-
-// var svg = d3.select("body").append("svg")
-//     .attr("width", width)
-//     .attr("height", height);
-
-// var path = d3.geo.path()
-//     .projection(projection);
-
-// var g = svg.append("g");
-
-// // load and display the World
-// d3.json("json/world-110m2.json", function(error, topology) {
-//     g.selectAll("path")
-//       .data(topojson.object(topology, topology.objects.countries)
-//           .geometries)
-//     .enter()
-//       .append("path")
-//       .attr("d", path)
-// });
-
+	// Load Calendar
 	var cal = new CalHeatMap();	
 	cal.init({
 		itemSelector: "#example-g",
 		domain: "month",
 		subDomain: "x_day",
-		// data: calData(),
 		start: new Date(2015, 0, 5),
 		cellSize: 20,
 		cellPadding: 2,
@@ -112,6 +77,7 @@ initMap();
 		legend: [1, 3, 5, 7, 9]
 	});
 
+	// Track Map Data Changes
 	var calData = Meteor.autorun( function () {
 		var type = Session.get('calenderType');
 		if (type == 'booking') {
@@ -128,17 +94,18 @@ initMap();
 	});
 }
 
-
+////////////////////////////////////////////////////////////////
+// Functions
 function initMap() {
-	// set up the map
+	// Set up map
 	map = new L.Map('map');
 
-	// create the tile layer with correct attribution
+	// Create the tile layer
 	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 16, attribution: osmAttrib});		
 
-	// start the map in South-East England
+	// Start the map in South-East England
 	map.setView(new L.LatLng(51.3, 0.7),9);
 	map.addLayer(osm);
 }
