@@ -1,13 +1,16 @@
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* project.js
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 Session.setDefault('create', true);
 Session.setDefault('edit', false);
 Session.setDefault('currentProject', null);
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* projects
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// Helpers 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.projects.helpers({
 	project: function () {
 		return Projects.find({}, {sort: {'date': -1}}).fetch();
@@ -68,7 +71,10 @@ Template.projects.helpers({
 	}
 });
 
-// Events
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Events
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.projects.events({
 	'click .createProject': function (evt, template) {
 		Projects.insert({
@@ -138,6 +144,10 @@ Template.projects.events({
 	}
 });
 
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Rendered
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.projects.rendered = function() {
 	$('#startDate').datepicker({
 		autoclose: true,
@@ -151,8 +161,9 @@ Template.projects.rendered = function() {
 	});
 }
 
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Functions
+/* Handlebar Helpers
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Handlebars.registerHelper("formatStandardDate", function(date) {
 	return moment(date).format("MM/DD/YYYY");
@@ -167,10 +178,9 @@ Handlebars.registerHelper("listService", function(id) {
 });
 
 
-//////////////////////////////////////////////////////////////////////////////////
-// Methods...
-
-// Using their Meteor userId, find their email address
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Functions
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */// Using their Meteor userId, find their email address
 var getUserEmail = function (item) {
 	if (Meteor.user()) {
 		var user = Meteor.user();

@@ -1,4 +1,8 @@
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* request.js
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 Session.setDefault('create', true);
 Session.setDefault('book', false);
 Session.setDefault('edit', false);
@@ -7,11 +11,10 @@ Session.setDefault('calenderProduct', null);
 Session.setDefault('calenderType', 'request');
 Session.setDefault('bookingsFilter', {});
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* requests
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// Helpers 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.requests.helpers({
 	request: function () {
 		return Requests.find({bookingId: {$exists: false}}, {sort: {'date': 1}}).fetch();
@@ -79,8 +82,12 @@ Template.requests.helpers({
 	}
 });
 
-// Events
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Events
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.requests.events({
+
+// Bookings
 	'click .bookingsAll': function (evt) {
 		Session.set('bookingsFilter', {});
 	},
@@ -93,6 +100,9 @@ Template.requests.events({
 	'click .bookingsWBMS': function (evt) {
 		Session.set('bookingsFilter', {product: 'WBMS'});
 	},	
+
+
+// Calendar
 	'click .calendarAll': function (evt) {
 		Session.set('calenderProduct', '');
 	},
@@ -111,6 +121,9 @@ Template.requests.events({
 	'click .calendarRequest': function (evt) {
 		Session.set('calenderType', 'request');
 	},
+
+
+// Request
 	'click .createRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
@@ -235,7 +248,13 @@ Template.requests.events({
 	}
 });
 
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Rendered
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.requests.rendered = function() {
+
+// Date Picker
 	$('#startDate').datepicker({
 		autoclose: true,
 	    todayHighlight: true,
@@ -246,6 +265,9 @@ Template.requests.rendered = function() {
 	    todayHighlight: true,
 	    daysOfWeekDisabled: "0,6"
 	});
+
+
+// Load Calendar
 	var cal = new CalHeatMap();	
 	cal.init({
 		itemSelector: "#example-g",
@@ -267,6 +289,8 @@ Template.requests.rendered = function() {
 		legend: [1, 3, 5, 7, 9]
 	});
 
+
+// Track Map Data Changes
 	var calData = Meteor.autorun( function () {
 		var product = Session.get('calenderProduct');
 		var type = Session.get('calenderType');
@@ -296,17 +320,16 @@ Template.requests.rendered = function() {
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Functions
+/* Handlebar Helpers
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Handlebars.registerHelper("formatDate", function(date) {
 	return moment.unix(date).format("MM/DD/YYYY");
 });
 
 
-//////////////////////////////////////////////////////////////////////////////////
-// Methods...
-
-// Using their Meteor userId, find their email address
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Functions
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 var getUserEmail = function (item) {
 	if (Meteor.user()) {
 		var user = Meteor.user();
@@ -314,17 +337,20 @@ var getUserEmail = function (item) {
 	} else {
 		return 'anon'
 	}
-};
+}
+
 var dateToUnix = function (date) {
 	if (date != '') {
 		return moment(date).unix();
 	}
 }
+
 var dateFromUnix = function (date) {
 	if (date != '') {
 		return moment.unix(date).format("MM/DD/YYYY");
 	}
 }
+
 var calcWorkingDays = function (startDate, endDate) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
@@ -343,6 +369,7 @@ var calcWorkingDays = function (startDate, endDate) {
 	}
 	return workDays;
 }
+
 var convertToDays = function (startDate, endDate) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
@@ -361,8 +388,6 @@ var convertToDays = function (startDate, endDate) {
 	}
 	return workDays;
 }
-
-
 
 var deleteCalendar = function () {
 	var calendarColl = BookingCalendar.find();

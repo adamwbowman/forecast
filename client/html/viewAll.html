@@ -1,7 +1,16 @@
 
+<!--
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* viewAll.html
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+-->
+
 <template name="viewAll">
 	<div class="container">
 		<div class="row">
+		
+
+
 			<div class="span8 offset1">
 				<strong>{{client}}: {{name}}</strong><br />
 				{{description}}
@@ -30,7 +39,8 @@
 					</strong>
 					{{startDate}} through {{endDate}}<br /><br/>
 				{{/each}}
-<br /><br />
+				
+				<br /><br />
 				{{#each related}}
 					<strong>
 						{{name}}<br />
@@ -39,6 +49,9 @@
 					{{startDate}} through {{endDate}}
 				{{/each}}
 			</div>
+
+
+
 		</div>
 	</div>
 </template>

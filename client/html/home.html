@@ -1,28 +1,39 @@
 
+<!--
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* home.html
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+-->
+
+
 <template name="home">
 	<div class="container">
 		<div class="row">
 			<div class="span2">
 
+
+<!-- Calendar -->
 				<ul class="nav nav-pills">
 					<li class="bookingCalendar active"><a href="#tab1" data-toggle="tab">Bookings</a></li>
 					<li class="requestCalendar"><a href="#tab2" data-toggle="tab">Requests</a></li>
 				</ul>
-
 				<div id="example-g">
 					<div id="cal-heatmap">
 					</div>
 				</div>
 			</div>
+<!-- Map -->
 			<div class="span9 offset1">
 				<div class="row">
 					<div id="map">
 					</div>
 				</div>
+<!-- Search Results -->
 				<div class="row">
 					<h4>Search Results</h4>
 				</div>
 				<hr>
+<!-- Trending -->
 				<div class="row">
 					<h4>Trending</h4>
 				</div>
@@ -56,6 +67,7 @@
 					{{/each}}
 					</ul>
 				</div>
+<!-- Recent -->
 				<div class="row">
 					<h4>Recent</h4>
 				</div>
@@ -89,6 +101,7 @@
 					{{/each}}
 					</ul>
 				</div>
+<!-- Largest Forecast  -->
 				<div class="row">
 					<h4>Largest Forecast</h4>
 				</div>
@@ -122,6 +135,7 @@
 					{{/each}}
 					</ul>
 				</div>
+<!-- Top Searches -->
 				<div class="row">
 					<h4>Top Searches</h4>
 				</div>

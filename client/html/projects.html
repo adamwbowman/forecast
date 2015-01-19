@@ -1,7 +1,16 @@
 
+<!--
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* projects.html
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+-->
+
+
 <template name="projects">
 	<div class="container">
 		<div class="row">
+
+<!-- Projects -->
 			<div class="span3">
 				<h4>Projects</h4>
 				<ul class="thumbnails">
@@ -20,12 +29,13 @@
 								<button type="button" class="btn btn-mini btn-inverse">TSM</button>
 								{{/if}}
 							</div>
-							<!-- {{_id}}, {{date}} -->
 						</div>
 					</li>
 					{{/each}}
 				</ul>
 			</div>
+
+<!-- Create Project -->
 			<div class="span4 offset1">
 				{{#if pageCreateState}}
 					<h4> + Create a Project</h4>
@@ -43,6 +53,7 @@
 					<button class="btn btn-primary pull-right createProject">Create Project</button>
 				{{/if}}
 
+<!-- Edit Project -->
 				{{#if pageEditState}}
 					{{#each editProject}}
 						<h4> - Edit Project</h4>

@@ -10,8 +10,9 @@ Session.setDefault('currentService', null);
 Session.setDefault('currentTeammate', null);
 
 
-////////////////////////////////////////////////////////////////
-// Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.admin.helpers({
 	client: function () {
 		return Clients.find({}, {sort: {name: 1}}).fetch();
@@ -46,12 +47,12 @@ Template.admin.helpers({
 });
 
 
-
-////////////////////////////////////////////////////////////////
-// Events
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.admin.events({
-	////////////////////////////////////////////////////////////
-	// Clients
+
+// Clients
 	'click .addClient': function (evt, template) {
 		var clientName = template.find('.addClientInput').value;
 		if (clientName.length > 0) {
@@ -83,8 +84,9 @@ Template.admin.events({
 	'click .deleteClient': function () {
 		Clients.remove({_id: this._id});
 	},
-	////////////////////////////////////////////////////////////
-	// Products
+
+
+// Products
 	'click .addProduct': function (evt, template) {
 		var productName = template.find('.addProductInput').value;
 		if (productName.length > 0) {
@@ -116,8 +118,9 @@ Template.admin.events({
 	'click .deleteProduct': function () {
 		Products.remove({_id: this._id});
 	},
-	////////////////////////////////////////////////////////////
-	// Locations
+
+
+// Locations
 	'click .addLocation': function (evt, template) {
 		var locationName = template.find('.addLocationInput').value;
 		if (locationName.length > 0) {
@@ -149,8 +152,9 @@ Template.admin.events({
 	'click .deleteLocation': function () {
 		Locations.remove({_id: this._id});
 	},
-	////////////////////////////////////////////////////////////
-	// Services
+
+
+// Services
 	'click .addService': function (evt, template) {
 		var serviceName = template.find('.addServiceInput').value;
 		if (serviceName.length > 0) {
@@ -182,8 +186,9 @@ Template.admin.events({
 	'click .deleteService': function () {
 		Services.remove({_id: this._id});
 	},
-	////////////////////////////////////////////////////////////
-	// Teammates
+
+
+// Teammates
 	'click .addTeammate': function (evt, template) {
 		var teammateName = template.find('.addTeammateInput').value;
 		if (teammateName.length > 0) {

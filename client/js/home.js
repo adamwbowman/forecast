@@ -6,8 +6,9 @@
 Session.setDefault('calenderType', 'booking');
 
 
-////////////////////////////////////////////////////////////////
-// Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.home.helpers({
 	trend: function () {
 		return Projects.find({}, {limit: 3}).fetch();
@@ -30,8 +31,9 @@ Template.home.helpers({
 });
 
 
-////////////////////////////////////////////////////////////////
-// Events
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Events
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.home.events({
 	'click .bookingCalendar': function () {
 		Session.set('calenderType', 'booking');
@@ -42,14 +44,16 @@ Template.home.events({
 });
 
 
-////////////////////////////////////////////////////////////////
-// Rendered
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Rendered
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.home.rendered = function () {
 
-	// Load Map
+// Load Map
 	initMap();
 
-	// Load Calendar
+
+// Load Calendar
 	var cal = new CalHeatMap();	
 	cal.init({
 		itemSelector: "#example-g",
@@ -77,7 +81,8 @@ Template.home.rendered = function () {
 		legend: [1, 3, 5, 7, 9]
 	});
 
-	// Track Map Data Changes
+
+// Track Map Data Changes
 	var calData = Meteor.autorun( function () {
 		var type = Session.get('calenderType');
 		if (type == 'booking') {
@@ -94,18 +99,23 @@ Template.home.rendered = function () {
 	});
 }
 
-////////////////////////////////////////////////////////////////
-// Functions
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Functions
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 function initMap() {
-	// Set up map
+
+// Set up map
 	map = new L.Map('map');
 
-	// Create the tile layer
+
+// Create the tile layer
 	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 16, attribution: osmAttrib});		
 
-	// Start the map in South-East England
+
+// Start the map in South-East England
 	map.setView(new L.LatLng(51.3, 0.7),9);
 	map.addLayer(osm);
 }

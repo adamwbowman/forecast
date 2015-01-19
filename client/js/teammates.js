@@ -1,13 +1,14 @@
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* teammates.js
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 Session.setDefault('currentTeammate', null);
 
-var cal = new CalHeatMap();
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* admin
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-// Helpers 
+/* Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.teammates.helpers({
 	teammate: function () {
 		return Teammates.find({}, {sort: {name: 1}}).fetch();
@@ -37,26 +38,18 @@ Template.teammates.helpers({
 		_.each(xxx, function (index) {
 			unavails.push(_.first(index) + ' - ' + _.last(index));
 		});
-
 		return unavails;
 	},
 	selectedUnavailable: function () {
-		console.log(this._id)
 		return Session.equals('currentTeammate', this._id) ? 'selected' : '';
 	},
 });
 
-// Events
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Events
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.teammates.events({
-	////////////////////////////////////////////////////////////////
-	// Teammates
-	// 'click .addTeammate': function (evt, template) {
-	// 	var teammateName = template.find('.addTeammateInput').value;
-	// 	if (teammateName.length > 0) {
-	// 		Teammates.insert({name: teammateName});
-	// 		template.find('.addTeammateInput').value = '';
-	// 	}
-	// 
 	'click .save': function (evt, template) {
 		var currentTeammate = Session.get('currentTeammate');
 		Teammates.update(currentTeammate, {$set: {
@@ -71,9 +64,6 @@ Template.teammates.events({
 		Session.set('currentTeammate', this._id);
 		cal.update(formatForChart());
 	},
-	// 'click .deleteTeammate': function () {
-	// 	Teammates.remove({_id: this._id});
-	// },
 	'click .addUnavailable': function () {
 		var startDate = $('#startDate').val();
 		var endDate =  $('#endDate').val();
@@ -97,7 +87,13 @@ Template.teammates.events({
 	},	
 });
 
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Rendered
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.teammates.rendered = function() {
+
+// Date Picker
 	$('#startDate').datepicker({
 		autoclose: true,
 	    todayHighlight: true,
@@ -110,6 +106,8 @@ Template.teammates.rendered = function() {
 	});
 
 
+// Load Calendar
+	var cal = new CalHeatMap();
 	cal.init({
 		domain: "month",
 		subDomain: "day",
@@ -127,12 +125,11 @@ Template.teammates.rendered = function() {
 		subDomainTextFormat: "%d",
 		legend: [1, 4, 7, 10]
 	});
-
 }
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Functions
+/* Handlebar Helper
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Handlebars.registerHelper("formatDate", function(date) {
 	return moment.unix(date).format("MM/DD/YYYY");
@@ -147,11 +144,13 @@ var dateToUnix = function (date) {
 		return moment(date).unix();
 	}
 }
+
 var dateFromUnix = function (date) {
 	if (date != '') {
 		return moment.unix(date).format("MM/DD/YYYY");
 	}
 }
+
 var convertToDays = function (startDate, endDate) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
@@ -170,6 +169,7 @@ var convertToDays = function (startDate, endDate) {
 	}
 	return workDays;
 }
+
 var formatForChart = function () {
 	var currentTeammate = Session.get('currentTeammate');
 	var teammatesColl = Teammates.find({_id: currentTeammate}).fetch(); 

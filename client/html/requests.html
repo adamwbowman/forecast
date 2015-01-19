@@ -1,7 +1,17 @@
 
+<!--
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* requests.html
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+-->
+
+
 <template name="requests">
 	<div class="container">
 		<div class="row">
+
+
+<!-- Calendar Filters-->
 			<div class="span1">
 				<div class="btn-group">
 					<button class="btn btn-mini calendarAll">Calendar</button>
@@ -27,15 +37,24 @@
 					</ul>
 				</div>
 			</div>
+
+
+<!-- Calendar -->
 			<div class="span10" id="example-g">
 				<div id="cal-heatmap">
 				</div>
 			</div>
 		</div>
+
+
+<!-- Empty Row -->
 		<div class="row">
 			<div class="span12">&nbsp;
 			</div>
 		</div>
+
+
+<!-- Requests Filters -->
 		<div class="row">
 			<div class="span3">
 				<h4>Current Requests</h4>
@@ -46,6 +65,9 @@
 					<li class="requestsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
 					<li class="requestsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
 				</ul>
+
+
+<!-- Requests -->
 				<ul class="thumbnails">
 					{{#each request}}
 					<li class="span3">
@@ -61,6 +83,9 @@
 					{{/each}}
 				</ul>
 			</div>
+
+
+<!-- Create Request -->
 			<div class="span4 offset1">
 				{{#if pageCreateState}}
 					<h4> + Request a Service</h4>
@@ -80,6 +105,8 @@
 					<button class="btn btn-primary pull-right createRequest">Create Request</button>
 				{{/if}}
 
+
+<!-- Edit Request -->
 				{{#if pageEditState}}
 					{{#each editRequest}}
 						<h4> - Edit your Request</h4>
@@ -109,6 +136,8 @@
 
 				{{/if}}
 
+
+<!-- Book Request -->
 				{{#if pageBookState}}
 					{{#each editRequest}}
 						<h4> + Book a Service</h4>
@@ -125,8 +154,10 @@
 						<button class="btn btn-primary pull-right bookRequest">Book Request</button>
 					{{/each}}
 				{{/if}}
-
 			</div>
+
+
+<!-- Bookings Filters -->
 			<div class="span3 offset1">
 				<h4>Current Bookings</h4>
 				<hr>
@@ -136,6 +167,9 @@
 					<li class="bookingsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
 					<li class="bookingsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
 				</ul>
+
+
+<!-- Bookings -->
 				<ul class="thumbnails">
 					{{#each booking}}
 					<li class="span3">
@@ -149,6 +183,9 @@
 					{{/each}}
 				</ul>
 			</div>
+
+
+			
 		</div>
 	</div>
 </template>
