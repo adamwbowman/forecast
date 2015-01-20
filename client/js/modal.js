@@ -59,19 +59,37 @@ Template.add_request.events({
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Rendered
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-Template.add_request.rendered = function() {
+Template.add_request.rendered = function () {
 
 // Date Picker
-	$('#startDate').datepicker({
-		autoclose: true,
-	    todayHighlight: true,
-	    daysOfWeekDisabled: "0,6"
-	});
-	$('#endDate').datepicker({
-		autoclose: true,
-	    todayHighlight: true,
-	    daysOfWeekDisabled: "0,6"
-	});
+	// $('#startDate').datepicker({
+	// 	autoclose: true,
+	//     todayHighlight: true,
+	//     daysOfWeekDisabled: "0,6"
+	// });
+	// $('#endDate').datepicker({
+	// 	autoclose: true,
+	//     todayHighlight: true,
+	//     daysOfWeekDisabled: "0,6"
+	// });
+$('.input-daterange').datepicker({
+    autoclose: true,
+    daysOfWeekDisabled: "0,6",
+    beforeShowDay: function (date){
+      if (date.getMonth() == (new Date()).getMonth())
+        switch (date.getDate()){
+          case 4:
+            return {
+              tooltip: 'Example tooltip',
+              classes: 'active'
+            };
+          case 8:
+            return false;
+          case 12:
+            return "green";
+        }
+    }
+});
 }
 
 
