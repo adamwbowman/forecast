@@ -19,6 +19,27 @@ Template.add_request.helpers({
 		var clientColl = Clients.find({}).fetch();
 		var namePluck = _.chain(clientColl).pluck('name').value();
 		return JSON.stringify(namePluck);
+	},
+	editRequest: function () {
+		return Requests.find({_id: Session.get('currentId')}).fetch();
+	},
+	toggleEditRequest: function () {
+		return Session.get('toggleEditRequest');
+	},
+	isSV: function () {
+		if (this.product == 'SV') {
+			return 'active' 
+		}
+	},
+	isTSM: function () {
+		if (this.product == 'TSM') {
+			return 'active' 
+		}
+	},
+	isWBMS: function () {
+		if (this.product == 'WBMS') {
+			return 'active' 
+		}
 	}
 });
 
@@ -50,9 +71,46 @@ Template.add_request.events({
 		template.find('#description').value = '';
 		Session.set('showRequestDialog', false);
 	},
+	'click .editRequest': function (evt, template) {
+		var startDate = template.find('#startDate').value;
+		var endDate = template.find('#endDate').value;
+		Requests.update(this._id, {
+			service: template.find('#service').value,
+			client: template.find('#client').value,
+			product: $('.btn-group .active').val(),
+			startDate: dateToUnix(startDate),
+			endDate: dateToUnix(endDate),
+			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
+			description: template.find('#description').value,
+			createdBy: Meteor.userId(),
+			createdByEmail: getUserEmail(),
+			date: new Date,
+		});
+		Histories.insert({
+			requestId: this._id,
+			service: this.service,
+			client: this.client,
+			product: this.product,
+			startDate: this.startDates,
+			endDate: this.endDate,
+			totalWorkDays: calcWorkingDays(dateToUnix(this.startDate), dateToUnix(this.endDate)), 
+			description: this.description,
+			createdBy: this.createdBy,
+			createdByEmail: this.createdByEmail,
+			date: this.date,			
+		}); 
+		Session.set('showRequestDialog', false);
+	},
 	'click .cancel': function (evt) {
 		Session.set('showRequestDialog', false);
-	}
+	},
+	'click .deleteRequest': function (evt, template) {
+		Requests.remove({_id: this._id});
+		Session.set('create', true);
+		Session.set('book', false);
+		Session.set('edit', false);
+		Session.set('showRequestDialog', false);
+	},
 });
 
 
@@ -91,6 +149,14 @@ Template.add_request.rendered = function () {
 		}
 	});
 }
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Handlebar Helpers
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+Handlebars.registerHelper("formatDate", function(date) {
+	return moment.unix(date).format("MM/DD/YYYY");
+});
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

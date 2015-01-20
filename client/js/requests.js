@@ -7,6 +7,7 @@ Session.setDefault('create', true);
 Session.setDefault('book', false);
 Session.setDefault('edit', false);
 Session.setDefault('currentId', null);
+Session.setDefault('toggleEditRequest', false);
 Session.setDefault('calenderProduct', null);
 Session.setDefault('calenderType', 'request');
 Session.setDefault('bookingsFilter', {});
@@ -61,6 +62,9 @@ Template.requests.helpers({
 	},
 	editRequest: function () {
 		return Requests.find({_id: Session.get('currentId')}).fetch();
+	},
+	toggleEditRequest: function () {
+		return Session.get('toggleEditRequest');
 	},
 	history: function () {
 		return Histories.find({requestId: Session.get('currentId')}, {sort: {'date': -1}}).fetch();
@@ -146,35 +150,35 @@ Template.requests.events({
 	// 	template.find('#endDate').value = '';
 	// 	template.find('#description').value = '';
 	// },
-	'click .editRequest': function (evt, template) {
-		var startDate = template.find('#startDate').value;
-		var endDate = template.find('#endDate').value;
-		Requests.update(this._id, {
-			service: template.find('#service').value,
-			client: template.find('#client').value,
-			product: $('.btn-group .active').val(),
-			startDate: dateToUnix(startDate),
-			endDate: dateToUnix(endDate),
-			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
-			description: template.find('#description').value,
-			createdBy: Meteor.userId(),
-			createdByEmail: getUserEmail(),
-			date: new Date,
-		});
-		Histories.insert({
-			requestId: this._id,
-			service: this.service,
-			client: this.client,
-			product: this.product,
-			startDate: this.startDates,
-			endDate: this.endDate,
-			totalWorkDays: calcWorkingDays(dateToUnix(this.startDate), dateToUnix(this.endDate)), 
-			description: this.description,
-			createdBy: this.createdBy,
-			createdByEmail: this.createdByEmail,
-			date: this.date,			
-		}); 
-	},
+	// 'click .editRequest': function (evt, template) {
+	// 	var startDate = template.find('#startDate').value;
+	// 	var endDate = template.find('#endDate').value;
+	// 	Requests.update(this._id, {
+	// 		service: template.find('#service').value,
+	// 		client: template.find('#client').value,
+	// 		product: $('.btn-group .active').val(),
+	// 		startDate: dateToUnix(startDate),
+	// 		endDate: dateToUnix(endDate),
+	// 		totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
+	// 		description: template.find('#description').value,
+	// 		createdBy: Meteor.userId(),
+	// 		createdByEmail: getUserEmail(),
+	// 		date: new Date,
+	// 	});
+	// 	Histories.insert({
+	// 		requestId: this._id,
+	// 		service: this.service,
+	// 		client: this.client,
+	// 		product: this.product,
+	// 		startDate: this.startDates,
+	// 		endDate: this.endDate,
+	// 		totalWorkDays: calcWorkingDays(dateToUnix(this.startDate), dateToUnix(this.endDate)), 
+	// 		description: this.description,
+	// 		createdBy: this.createdBy,
+	// 		createdByEmail: this.createdByEmail,
+	// 		date: this.date,			
+	// 	}); 
+	// },
 	'click .bookRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
@@ -225,9 +229,11 @@ Template.requests.events({
 		Session.set('edit', false);
 	},
 	'click .sidecard': function () {
-		console.log(this._id);
+		// console.log(this._id);
 	},
 	'click .card': function (evt, template) {
+		Session.set('showRequestDialog', true);
+		Session.set('toggleEditRequest', true);
 		Session.set('currentId', this._id);
 		Session.set('create', false);
 		Session.set('book', false);
@@ -237,12 +243,6 @@ Template.requests.events({
 		Session.set('currentId', this._id);
 		Session.set('create', false);
 		Session.set('book', true);
-		Session.set('edit', false);
-	},
-	'click .deleteRequest': function (evt, template) {
-		Requests.remove({_id: this._id});
-		Session.set('create', true);
-		Session.set('book', false);
 		Session.set('edit', false);
 	},
 	'click .deleteBooking': function () {
