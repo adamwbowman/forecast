@@ -11,7 +11,7 @@
 	<div class="modal">
 		<div class="modal-header">
 			<button type="button" class="close cancel">&times;</button>
-				<h3>Request a Service</h3>
+				<h3>Create a Request</h3>
 		</div>
 		{{#if currentUser}}
 			<div class="modal-body">
@@ -25,22 +25,24 @@
 				<br /><br />
 
 <div class="input-daterange" id="datepicker">
-<input type="text" class="input-small" name="start" />
-<span class="add-on">to</span>
-<input type="text" class="input-small" name="end" />
+	<input type="text" class="input-small" name="start" placeholder="Start Date" />
+	<span class="add-on">to</span>
+	<input type="text" class="input-small" name="end" placeholder="End Date" />
 </div>
 
-<!-- 				<div class="input-append date">
+<!--
+		 		<div class="input-append date">
 					<input type="text" id="startDate" placeholder="Start Date"><input type="text" id="endDate" placeholder="End Date">
-				</div> -->
+				</div> 
+-->
 				<textarea id="description" class="span5" rows="7" placeholder="Any additional details"></textarea>
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn cancel">Cancel</a>
-					<a href="#" class="btn btn-primary createRequest">Request this Service</a>
+					<a href="#" class="btn btn-primary createRequest">Create this Request</a>
 			</div>
 		{{else}}
-			<div class="alert alert-danger" role="alert"><b>Oh snap!</b> You must sign in to ask a question.</div>
+			<div class="alert alert-danger" role="alert"><b>Ooops!</b> You must sign in to ask request our services.</div>
 		{{/if}}
 	</div>
 </template>

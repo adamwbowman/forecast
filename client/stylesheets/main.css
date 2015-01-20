@@ -29,6 +29,9 @@ body {
 	background-color: #D4D4D4;
 	border-color: black;
 }
+.modal-header {
+	background-color: #F5F5F5;
+}
 				#example-g .subdomain-text {
 					fill: #fff;
 					opacity: 0;

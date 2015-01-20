@@ -124,28 +124,28 @@ Template.requests.events({
 
 
 // Request
-	'click .createRequest': function (evt, template) {
-		var startDate = template.find('#startDate').value;
-		var endDate = template.find('#endDate').value;
-		fillCalendar('request', dateToUnix(startDate), dateToUnix(endDate), product);
-		var RequestId = Requests.insert({
-			service: template.find('#service').value,
-			client: template.find('#client').value,
-			product: $('.btn-group .active').val(),
-			startDate: dateToUnix(startDate),
-			endDate: dateToUnix(endDate),
-			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
-			description: template.find('#description').value,
-			createdBy: Meteor.userId(),
-			createdByEmail: getUserEmail(),
-			date: new Date,
-		}, RequestId);
-		template.find('#service').value = '';
-		template.find('#client').value = '';
-		template.find('#startDate').value = '';
-		template.find('#endDate').value = '';
-		template.find('#description').value = '';
-	},
+	// 'click .createRequest': function (evt, template) {
+	// 	var startDate = template.find('#startDate').value;
+	// 	var endDate = template.find('#endDate').value;
+	// 	fillCalendar('request', dateToUnix(startDate), dateToUnix(endDate), product);
+	// 	var RequestId = Requests.insert({
+	// 		service: template.find('#service').value,
+	// 		client: template.find('#client').value,
+	// 		product: $('.btn-group .active').val(),
+	// 		startDate: dateToUnix(startDate),
+	// 		endDate: dateToUnix(endDate),
+	// 		totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
+	// 		description: template.find('#description').value,
+	// 		createdBy: Meteor.userId(),
+	// 		createdByEmail: getUserEmail(),
+	// 		date: new Date,
+	// 	}, RequestId);
+	// 	template.find('#service').value = '';
+	// 	template.find('#client').value = '';
+	// 	template.find('#startDate').value = '';
+	// 	template.find('#endDate').value = '';
+	// 	template.find('#description').value = '';
+	// },
 	'click .editRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
@@ -223,6 +223,9 @@ Template.requests.events({
 		Session.set('create', true);
 		Session.set('book', false);
 		Session.set('edit', false);
+	},
+	'click .sidecard': function () {
+		console.log(this._id);
 	},
 	'click .card': function (evt, template) {
 		Session.set('currentId', this._id);
