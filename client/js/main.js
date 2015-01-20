@@ -25,11 +25,3 @@ Template.modals.helpers({
 		return Session.get('showRequestDialog');
 	}
 });
-
-
-// Add Request
-Template.add_request.events({
-	'click .cancel': function (evt) {
-		Session.set('showRequestDialog', false);
-	}
-});

@@ -50,7 +50,7 @@ Template.home.events({
 Template.home.rendered = function () {
 
 // Load Map
-	initMap();
+	// initMap();
 
 
 // Load Calendar
@@ -63,7 +63,7 @@ Template.home.rendered = function () {
 		cellSize: 20,
 		cellPadding: 2,
 		domainGutter: 0,
-		range: 6,
+		range: 3,
 		verticalOrientation: true,
 		domainDynamicDimension: false,
 		label: {
