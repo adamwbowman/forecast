@@ -29,17 +29,31 @@ body {
 	background-color: #D4D4D4;
 	border-color: black;
 }
-.modal-header {
-	background-color: #F5F5F5;
+.input-daterange .add-on {
+  display: inline-block;
+  width: auto;
+  min-width: 16px;
+  height: 20px;
+  padding: 4px 5px;
+  font-weight: normal;
+  line-height: 20px;
+  text-align: center;
+  text-shadow: 0 1px 0 #ffffff;
+  vertical-align: middle;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+  margin-left: -5px;
+  margin-right: -5px;
+  margin-top: -10px;
 }
-				#example-g .subdomain-text {
-					fill: #fff;
-					opacity: 0;
-				}
+		#example-g .subdomain-text {
+			fill: #fff;
+			opacity: 0;
+		}
 
-				#example-g g:hover .subdomain-text {
-					opacity: 1;
-				}
+		#example-g g:hover .subdomain-text {
+			opacity: 1;
+		}
 #map {
 	background-color: #D4D4D4;
 	width: 100%;

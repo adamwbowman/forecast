@@ -19,29 +19,23 @@
 					<h3>Create a Request</h3>
 				{{/if}}
 		</div>
-
-
-<!-- Signed In -->
 		{{#if currentUser}}
 			<div class="modal-body">
 				{{#if toggleEditRequest}}
-
-
-<!-- Edit Request -->
 					{{#each editRequest}}
 						<input id="service" type="text" class="span5" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' value="{{service}}" />
 						<input id="client" type="text" class="span5" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" />
+						<div class="input-daterange" id="datepicker">
+							<input type="text" id="startDate" class="input-small" name="start" placeholder="Start Date" value="{{formatDate startDate}}" />
+							<span class="add-on">to</span>
+							<input type="text" id="endDate" class="input-small" name="end" placeholder="End Date" value="{{formatDate endDate}}" />
+						</div>
 						<div class="btn-group" data-toggle="buttons-radio">
 							<button type="button" class="btn product {{isSV}}" id="product" value="SV">Singleview</button>
 							<button type="button" class="btn product {{isTSM}}" id="product" value="TSM">TSM</button>
 							<button type="button" class="btn product {{isWBMS}}" id="product" value="WBMS">WBMS</button>
 						</div>
 						<br /><br />
-						<div class="input-daterange" id="datepicker">
-							<input type="text" id="startDate" class="input-small" name="start" placeholder="Start Date" value="{{formatDate startDate}}" />
-							<span class="add-on">to</span>
-							<input type="text" id="endDate" class="input-small" name="end" placeholder="End Date" value="{{formatDate endDate}}" />
-						</div>
 						<textarea id="description" class="span5" rows="7" placeholder="Any additional details" value="{{description}}" ></textarea>
 						<div class="modal-footer">
 							<a href="#" class="btn btn-danger deleteRequest pull-left">Delete Request</a>
@@ -50,22 +44,20 @@
 						</div>
 					{{/each}}
 				{{else}}
-
-
-<!-- Create Request -->
 					<input id="service" type="text" class="span5" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
 					<input id="client" type="text" class="span5" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
+					<div class="input-daterange" id="datepicker">
+						<input type="text" id="startDate" class="input-small" name="start" placeholder="Start Date" />
+						<span class="add-on">to</span>
+						<input type="text" id="endDate" class="input-small" name="end" placeholder="End Date" />
+					</div>
 					<div class="btn-group" data-toggle="buttons-radio">
 						<button type="button" class="btn product active" id="product" value="SV">Singleview</button>
 						<button type="button" class="btn product" id="product" value="TSM">TSM</button>
 						<button type="button" class="btn product" id="product" value="WBMS">WBMS</button>
 					</div>
 					<br /><br />
-					<div class="input-daterange" id="datepicker">
-						<input type="text" class="input-small" name="start" placeholder="Start Date" />
-						<span class="add-on">to</span>
-						<input type="text" class="input-small" name="end" placeholder="End Date" />
-					</div>
+
 					<textarea id="description" class="span5" rows="7" placeholder="Any additional details"></textarea>
 					<div class="modal-footer">
 						<a href="#" class="btn cancel">Cancel</a>
@@ -74,9 +66,6 @@
 				{{/if}}
 			</div>
 		{{else}}
-
-
-<!-- Not Signed In -->
 			<div class="alert alert-danger" role="alert"><b>Ooops!</b> You must sign in to ask request our services.</div>
 		{{/if}}
 	</div>

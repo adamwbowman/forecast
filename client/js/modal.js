@@ -100,15 +100,17 @@ Template.add_request.events({
 			date: this.date,			
 		}); 
 		Session.set('showRequestDialog', false);
+		Session.set('toggleEditRequest', false);
+		Session.set('currentId', null);
 	},
 	'click .cancel': function (evt) {
 		Session.set('showRequestDialog', false);
+		Session.set('toggleEditRequest', false);
+		Session.set('currentId', null);
 	},
 	'click .deleteRequest': function (evt, template) {
 		Requests.remove({_id: this._id});
-		Session.set('create', true);
-		Session.set('book', false);
-		Session.set('edit', false);
+		Session.set('currentId', null);
 		Session.set('showRequestDialog', false);
 	},
 });

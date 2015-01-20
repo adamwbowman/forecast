@@ -3,9 +3,9 @@
 /* request.js
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-Session.setDefault('create', true);
-Session.setDefault('book', false);
-Session.setDefault('edit', false);
+// Session.setDefault('create', true);
+// Session.setDefault('book', false);
+// Session.setDefault('edit', false);
 Session.setDefault('currentId', null);
 Session.setDefault('toggleEditRequest', false);
 Session.setDefault('calenderProduct', null);
@@ -41,22 +41,22 @@ Template.requests.helpers({
 	projects: function () {
 		var projectColl = Projects.find({}).fetch();
 		var namePluck = _.chain(projectColl).pluck('name').value();
-		return JSON.stringify(namePluck);
+	// pageCreateState: function () {
+	// 	return Session.get('create');
+	// },
+	// pageBookState: function () {
+	// 	return Session.get('book');
+	// },
+	// pageEditState: function () {
+	// 	return Session.get('edit');
+	// },		return JSON.stringify(namePluck);
 	},
 	teammates: function () {
 		var teammateColl = Teammates.find({}).fetch();
 		var namePluck = _.chain(teammateColl).pluck('name').value();
 		return JSON.stringify(namePluck);
 	},
-	pageCreateState: function () {
-		return Session.get('create');
-	},
-	pageBookState: function () {
-		return Session.get('book');
-	},
-	pageEditState: function () {
-		return Session.get('edit');
-	},
+
 	selectedId: function () {
 		return Session.equals('currentId', this._id) ? 'selected' : '';
 	},
@@ -224,9 +224,9 @@ Template.requests.events({
 		template.find('#description').value = '';
 		template.find('#project').value = '';
 		template.find('#teammate').value = '';
-		Session.set('create', true);
-		Session.set('book', false);
-		Session.set('edit', false);
+		// Session.set('create', true);
+		// Session.set('book', false);
+		// Session.set('edit', false);
 	},
 	'click .sidecard': function () {
 		// console.log(this._id);
@@ -235,15 +235,15 @@ Template.requests.events({
 		Session.set('showRequestDialog', true);
 		Session.set('toggleEditRequest', true);
 		Session.set('currentId', this._id);
-		Session.set('create', false);
-		Session.set('book', false);
-		Session.set('edit', true);
+		// Session.set('create', false);
+		// Session.set('book', false);
+		// Session.set('edit', true);
 	},
 	'click .book': function (evt, template) {
 		Session.set('currentId', this._id);
-		Session.set('create', false);
-		Session.set('book', true);
-		Session.set('edit', false);
+		// Session.set('create', false);
+		// Session.set('book', true);
+		// Session.set('edit', false);
 	},
 	'click .deleteBooking': function () {
 		removeCalendar(this.startDate, this.endDate, this.product);
