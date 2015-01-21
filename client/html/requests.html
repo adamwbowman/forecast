@@ -54,50 +54,103 @@
 		</div>
 
 
-<!-- Requests Filters -->
+<!-- Card Display -->
 		<div class="row">
 			<div class="span12">
-				<h4>Current Requests</h4>
-				<hr>
+
+
+
+          <div class="tabs">
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#requests" data-toggle="tab">Requests</a></li>
+              <li><a href="#bookings" data-toggle="tab">Bookings</a></li>
+            </ul>
+            <div id="content" class="tab-content">
+              <div class="tab-pane fade in active" id="requests">
+
+
+								<ul class="nav nav-pills">
+									<li class="requestsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
+									<li class="requestsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
+									<li class="requestsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
+									<li class="requestsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
+								</ul>
+
+
+				<!-- Requests -->
+								<ul class="thumbnails">
+									{{#each request}}
+										{{#if selectedBooking}}
+											<li class="span3">
+												<div class="thumbnail sidecard {{selectedId}}">
+													<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
+													<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+													<input id="teammate" type="text" class="" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' value="{{teammate}}" />								
+													<div class="btn-group pull-right">
+														<button type="button" class="btn btn-mini btn-default cancel">Cancel</button>
+														<button type="button" class="btn btn-mini btn-success bookRequest">Book</button>
+													</div>
+												</div>
+											</li>
+										{{else}}
+											<li class="span3">
+												<div class="thumbnail sidecard {{selectedId}}">
+													<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
+													<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+													<p>Duration: {{totalWorkDays}} days</p><br />
+													<div class="btn-group pull-right">
+														<button type="button" class="btn btn-mini btn-warning review">Review</button>
+														<button type="button" class="btn btn-mini btn-success book">Book</button>
+													</div>
+												</div>
+											</li>
+										{{/if}}
+									{{/each}}
+								</ul>
+
+
+              </div>
+              <div class="tab-pane fade" id="bookings">
+
+
 				<ul class="nav nav-pills">
-					<li class="requestsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
-					<li class="requestsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
-					<li class="requestsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
-					<li class="requestsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
+					<li class="bookingsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
+					<li class="bookingsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
+					<li class="bookingsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
+					<li class="bookingsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
 				</ul>
 
 
-<!-- Requests -->
 				<ul class="thumbnails">
-					{{#each request}}
-						{{#if selectedBooking}}
-							<li class="span3">
-								<div class="thumbnail sidecard {{selectedId}}">
-									<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
-									<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
-									<input id="teammate" type="text" class="" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' value="{{teammate}}" />
-									<div class="btn-group pull-right">
-										<button type="button" class="btn btn-mini btn-warning review">Review</button>
-										<button type="button" class="btn btn-mini btn-success book">Book</button>
-									</div>
-								</div>
-							</li>
-						{{else}}
-							<li class="span3">
-								<div class="thumbnail sidecard {{selectedId}}">
-									<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
-									<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
-									<p>Duration: {{totalWorkDays}} days</p>
-									<div class="btn-group pull-right">
-										<button type="button" class="btn btn-mini btn-warning review">Review</button>
-										<button type="button" class="btn btn-mini btn-success book">Book</button>
-									</div>
-								</div>
-							</li>
-						{{/if}}
+					{{#each booking}}
+					<li class="span3">
+						<div class="thumbnail sidecard">
+							<p class=""><strong>{{service}} <br /> {{client}}: {{product}}</strong><br />{{formatDate startDate}} through {{formatDate endDate}}<br />{{project}}<br />{{teammate}}</p><p>Duration: {{totalWorkDays}} days</p>
+							<div class="btn-group pull-right">
+								<button type="button" class="btn btn-mini btn-danger deleteBooking">Delete</button>
+							</div>
+						</div>
+					</li>
 					{{/each}}
 				</ul>
+
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
 			</div>
+
+
+
+
+
 
 
 <!-- Create Request -->

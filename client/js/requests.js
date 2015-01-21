@@ -198,24 +198,24 @@ Template.requests.events({
 	// 	}); 
 	// },
 	'click .bookRequest': function (evt, template) {
-		var startDate = template.find('#startDate').value;
-		var endDate = template.find('#endDate').value;
-		var product = template.find('#product').value;
-		fillCalendar('booking', dateToUnix(startDate), dateToUnix(endDate), product);
-		var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
-		var projectId = _.chain(projectColl).pluck('_id').flatten().value();
+		// var startDate = template.find('#startDate').value;
+		// var endDate = template.find('#endDate').value;
+		// var product = template.find('#product').value;
+		fillCalendar('booking', this.startDate, this.endDate, this.product);
+		// var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
+		// var projectId = _.chain(projectColl).pluck('_id').flatten().value();
 		var BookingId = Bookings.insert({
 			requestId: this._id,
-			service: template.find('#service').value,
-			client: template.find('#client').value,
-			product: product,
-			startDate: dateToUnix(startDate),
-			endDate: dateToUnix(endDate),
-			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
-			description: template.find('#description').value,
-			projectId: projectId[0],
-			project: template.find('#project').value,
-			teammate: template.find('#teammate').value,
+			service: this.service,
+			client: this.client,
+			product: this.product,
+			startDate: this.startDate,
+			endDate: this.endDate,
+			totalWorkDays: calcWorkingDays(this.startDate, this.endDate),
+			description: this.description,
+			// projectId: projectId[0],
+			// project: template.find('#project').value,
+			teammate: this.teammate,
 			bookedBy: Meteor.userId(),
 			bookedByEmail: getUserEmail(),
 			date: new Date,
@@ -227,20 +227,20 @@ Template.requests.events({
 			product: this.product,
 			startDate: this.startDate,
 			endDate: this.endDate,
-			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
+			totalWorkDays: calcWorkingDays(this.startDate, this.endDate),
 			description: this.description,
-			project: template.find('#project').value,
-			teammate: template.find('#teammate').value,
+			// project: template.find('#project').value,
+			teammate: this.teammate,
 			bookedBy: Meteor.userId(),
 			bookedByEmail: getUserEmail(),
 			date: new Date
 		}}); 
-		template.find('#service').value = '';
-		template.find('#client').value = '';
-		template.find('#startDate').value = '';
-		template.find('#endDate').value = '';
-		template.find('#description').value = '';
-		template.find('#project').value = '';
+		// template.find('#service').value = '';
+		// template.find('#client').value = '';
+		// template.find('#startDate').value = '';
+		// template.find('#endDate').value = '';
+		// template.find('#description').value = '';
+		// template.find('#project').value = '';
 		template.find('#teammate').value = '';
 		// Session.set('create', true);
 		// Session.set('book', false);
@@ -267,6 +267,9 @@ Template.requests.events({
 		// Session.set('create', false);
 		// Session.set('book', true);
 		// Session.set('edit', false);
+	},
+	'click .cancel': function () {
+		Session.set('currentBooking', null);
 	},
 	'click .deleteBooking': function () {
 		removeCalendar(this.startDate, this.endDate, this.product);
