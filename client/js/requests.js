@@ -7,10 +7,12 @@
 // Session.setDefault('book', false);
 // Session.setDefault('edit', false);
 Session.setDefault('currentId', null);
+Session.setDefault('currentBooking', null);
 Session.setDefault('toggleEditRequest', false);
 Session.setDefault('calenderProduct', null);
 Session.setDefault('calenderType', 'request');
 Session.setDefault('bookingsFilter', {});
+Session.setDefault('requestsFilter', {bookingId: {$exists: false}});
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -18,7 +20,7 @@ Session.setDefault('bookingsFilter', {});
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.requests.helpers({
 	request: function () {
-		return Requests.find({bookingId: {$exists: false}}, {sort: {'date': 1}}).fetch();
+		return Requests.find(Session.get('requestsFilter'), {sort: {'date': 1}}).fetch();
 	},
 	booking: function () {
 		return Bookings.find(Session.get('bookingsFilter'), {sort: {'date': -1}}).fetch();
@@ -56,7 +58,6 @@ Template.requests.helpers({
 		var namePluck = _.chain(teammateColl).pluck('name').value();
 		return JSON.stringify(namePluck);
 	},
-
 	selectedId: function () {
 		return Session.equals('currentId', this._id) ? 'selected' : '';
 	},
@@ -65,6 +66,9 @@ Template.requests.helpers({
 	},
 	toggleEditRequest: function () {
 		return Session.get('toggleEditRequest');
+	},
+	selectedBooking: function () {
+		return Session.equals('currentBooking', this._id) ? 'selected' : '';
 	},
 	history: function () {
 		return Histories.find({requestId: Session.get('currentId')}, {sort: {'date': -1}}).fetch();
@@ -90,6 +94,20 @@ Template.requests.helpers({
 /* Events
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.requests.events({
+
+// Requests
+	'click .requestsAll': function (evt) {
+		Session.set('requestsFilter', {bookingId: {$exists: false}, });
+	},
+	'click .requestsSV': function (evt) {
+		Session.set('requestsFilter', {bookingId: {$exists: false}, product: 'SV'});
+	},
+	'click .requestsTSM': function (evt) {
+		Session.set('requestsFilter', {bookingId: {$exists: false}, product: 'TSM'});
+	},
+	'click .requestsWBMS': function (evt) {
+		Session.set('requestsFilter', {bookingId: {$exists: false}, product: 'WBMS'});
+	},	
 
 // Bookings
 	'click .bookingsAll': function (evt) {
@@ -228,19 +246,24 @@ Template.requests.events({
 		// Session.set('book', false);
 		// Session.set('edit', false);
 	},
+	'click .review': function () {
+		console.log('review ' + this._id);
+	},
 	'click .sidecard': function () {
-		// console.log(this._id);
+		console.log('sidecard ' + this._id);
 	},
 	'click .card': function (evt, template) {
 		Session.set('showRequestDialog', true);
 		Session.set('toggleEditRequest', true);
 		Session.set('currentId', this._id);
+		console.log('card ' + this._id);
 		// Session.set('create', false);
 		// Session.set('book', false);
 		// Session.set('edit', true);
 	},
 	'click .book': function (evt, template) {
-		Session.set('currentId', this._id);
+		Session.set('currentBooking', this._id);
+		console.log('book ' + this._id);
 		// Session.set('create', false);
 		// Session.set('book', true);
 		// Session.set('edit', false);
