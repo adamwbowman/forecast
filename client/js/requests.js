@@ -3,13 +3,11 @@
 /* request.js
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// Session.setDefault('create', true);
-// Session.setDefault('book', false);
-// Session.setDefault('edit', false);
 Session.setDefault('currentId', null);
 Session.setDefault('currentBooking', null);
 Session.setDefault('toggleEditRequest', false);
 Session.setDefault('calenderProduct', null);
+Session.setDefault('isHidden', true);
 Session.setDefault('calenderType', 'booking');
 Session.setDefault('bookingsFilter', {});
 Session.setDefault('requestsFilter', {bookingId: {$exists: false}});
@@ -25,34 +23,6 @@ Template.requests.helpers({
 	booking: function () {
 		return Bookings.find(Session.get('bookingsFilter'), {sort: {'date': -1}}).fetch();
 	},
-	// services: function () {
-	// 	var serviceColl = Services.find({}).fetch();
-	// 	var namePluck = _.chain(serviceColl).pluck('name').value();
-	// 	return JSON.stringify(namePluck);
-	// },
-	// clients: function () {
-	// 	var clientColl = Clients.find({}).fetch();
-	// 	var namePluck = _.chain(clientColl).pluck('name').value();
-	// 	return JSON.stringify(namePluck);
-	// },
-	// products: function () {
-	// 	var productColl = Products.find({}).fetch();
-	// 	var namePluck = _.chain(productColl).pluck('name').value();
-	// 	return JSON.stringify(namePluck);
-	// },
-	// projects: function () {
-	// 	var projectColl = Projects.find({}).fetch();
-	// 	var namePluck = _.chain(projectColl).pluck('name').value();
-	// pageCreateState: function () {
-	// 	return Session.get('create');
-	// },
-	// pageBookState: function () {
-	// 	return Session.get('book');
-	// },
-	// pageEditState: function () {
-	// 	return Session.get('edit');
-	// },		return JSON.stringify(namePluck);
-	// },
 	teammates: function () {
 		var teammateColl = Teammates.find({}).fetch();
 		var namePluck = _.chain(teammateColl).pluck('name').value();
@@ -60,6 +30,12 @@ Template.requests.helpers({
 	},
 	selectedId: function () {
 		return Session.equals('currentId', this._id) ? 'selected' : '';
+	},
+	isHidden: function () {
+		if (Session.get('isHidden')) {
+			return 'hidden'
+		}
+		return ''
 	},
 	editRequest: function () {
 		return Requests.find({_id: Session.get('currentId')}).fetch();
@@ -72,23 +48,9 @@ Template.requests.helpers({
 	},
 	history: function () {
 		return Histories.find({requestId: Session.get('currentId')}, {sort: {'date': -1}}).fetch();
-	},
-	isSV: function () {
-		if (this.product == 'SV') {
-			return 'active' 
-		}
-	},
-	isTSM: function () {
-		if (this.product == 'TSM') {
-			return 'active' 
-		}
-	},
-	isWBMS: function () {
-		if (this.product == 'WBMS') {
-			return 'active' 
-		}
 	}
 });
+
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Events
@@ -109,6 +71,7 @@ Template.requests.events({
 		Session.set('requestsFilter', {bookingId: {$exists: false}, product: 'WBMS'});
 	},	
 
+
 // Bookings
 	'click .bookingsAll': function (evt) {
 		Session.set('bookingsFilter', {});
@@ -125,85 +88,26 @@ Template.requests.events({
 
 
 // Calendar
-	// 'click .calendarAll': function (evt) {
-	// 	Session.set('calenderProduct', '');
-	// },
-	// 'click .calendarSV': function (evt) {
-	// 	Session.set('calenderProduct', 'SV');
-	// },
-	// 'click .calendarTSM': function (evt) {
-	// 	Session.set('calenderProduct', 'TSM');
-	// },
-	// 'click .calendarWBMS': function (evt) {
-	// 	Session.set('calenderProduct', 'WBMS');
-	// },
 	'click .calendarBooking': function (evt) {
 		Session.set('calenderType', 'booking');
 	},
 	'click .calendarRequest': function (evt) {
 		Session.set('calenderType', 'request');
 	},
-
-
-// Request
-	// 'click .createRequest': function (evt, template) {
-	// 	var startDate = template.find('#startDate').value;
-	// 	var endDate = template.find('#endDate').value;
-	// 	fillCalendar('request', dateToUnix(startDate), dateToUnix(endDate), product);
-	// 	var RequestId = Requests.insert({
-	// 		service: template.find('#service').value,
-	// 		client: template.find('#client').value,
-	// 		product: $('.btn-group .active').val(),
-	// 		startDate: dateToUnix(startDate),
-	// 		endDate: dateToUnix(endDate),
-	// 		totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
-	// 		description: template.find('#description').value,
-	// 		createdBy: Meteor.userId(),
-	// 		createdByEmail: getUserEmail(),
-	// 		date: new Date,
-	// 	}, RequestId);
-	// 	template.find('#service').value = '';
-	// 	template.find('#client').value = '';
-	// 	template.find('#startDate').value = '';
-	// 	template.find('#endDate').value = '';
-	// 	template.find('#description').value = '';
-	// },
-	// 'click .editRequest': function (evt, template) {
-	// 	var startDate = template.find('#startDate').value;
-	// 	var endDate = template.find('#endDate').value;
-	// 	Requests.update(this._id, {
-	// 		service: template.find('#service').value,
-	// 		client: template.find('#client').value,
-	// 		product: $('.btn-group .active').val(),
-	// 		startDate: dateToUnix(startDate),
-	// 		endDate: dateToUnix(endDate),
-	// 		totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
-	// 		description: template.find('#description').value,
-	// 		createdBy: Meteor.userId(),
-	// 		createdByEmail: getUserEmail(),
-	// 		date: new Date,
-	// 	});
-	// 	Histories.insert({
-	// 		requestId: this._id,
-	// 		service: this.service,
-	// 		client: this.client,
-	// 		product: this.product,
-	// 		startDate: this.startDates,
-	// 		endDate: this.endDate,
-	// 		totalWorkDays: calcWorkingDays(dateToUnix(this.startDate), dateToUnix(this.endDate)), 
-	// 		description: this.description,
-	// 		createdBy: this.createdBy,
-	// 		createdByEmail: this.createdByEmail,
-	// 		date: this.date,			
-	// 	}); 
-	// },
+	'click .calendarAll': function (evt) {
+		Session.set('calenderProduct', '');
+	},
+	'click .calendarSV': function (evt) {
+		Session.set('calenderProduct', 'SV');
+	},
+	'click .calendarTSM': function (evt) {
+		Session.set('calenderProduct', 'TSM');
+	},
+	'click .calendarWBMS': function (evt) {
+		Session.set('calenderProduct', 'WBMS');
+	},
 	'click .bookRequest': function (evt, template) {
-		// var startDate = template.find('#startDate').value;
-		// var endDate = template.find('#endDate').value;
-		// var product = template.find('#product').value;
 		fillCalendar('booking', this.startDate, this.endDate, this.product);
-		// var projectColl = Projects.find({'name': template.find('#project').value }).fetch();
-		// var projectId = _.chain(projectColl).pluck('_id').flatten().value();
 		var BookingId = Bookings.insert({
 			requestId: this._id,
 			service: this.service,
@@ -213,8 +117,6 @@ Template.requests.events({
 			endDate: this.endDate,
 			totalWorkDays: calcWorkingDays(this.startDate, this.endDate),
 			description: this.description,
-			// projectId: projectId[0],
-			// project: template.find('#project').value,
 			teammate: this.teammate,
 			bookedBy: Meteor.userId(),
 			bookedByEmail: getUserEmail(),
@@ -229,47 +131,29 @@ Template.requests.events({
 			endDate: this.endDate,
 			totalWorkDays: calcWorkingDays(this.startDate, this.endDate),
 			description: this.description,
-			// project: template.find('#project').value,
 			teammate: this.teammate,
 			bookedBy: Meteor.userId(),
 			bookedByEmail: getUserEmail(),
 			date: new Date
 		}}); 
-		// template.find('#service').value = '';
-		// template.find('#client').value = '';
-		// template.find('#startDate').value = '';
-		// template.find('#endDate').value = '';
-		// template.find('#description').value = '';
-		// template.find('#project').value = '';
 		template.find('#teammate').value = '';
-		// Session.set('create', true);
-		// Session.set('book', false);
-		// Session.set('edit', false);
+		Session.set('isHidden', true);
 	},
 	'click .review': function () {
 		console.log('review ' + this._id);
-	},
-	'click .sidecard': function () {
-		console.log('sidecard ' + this._id);
 	},
 	'click .card': function (evt, template) {
 		Session.set('showRequestDialog', true);
 		Session.set('toggleEditRequest', true);
 		Session.set('currentId', this._id);
-		console.log('card ' + this._id);
-		// Session.set('create', false);
-		// Session.set('book', false);
-		// Session.set('edit', true);
 	},
 	'click .book': function (evt, template) {
 		Session.set('currentBooking', this._id);
-		console.log('book ' + this._id);
-		// Session.set('create', false);
-		// Session.set('book', true);
-		// Session.set('edit', false);
+		Session.set('isHidden', false);
 	},
 	'click .cancel': function () {
 		Session.set('currentBooking', null);
+		Session.set('isHidden', true);
 	},
 	'click .deleteBooking': function () {
 		removeCalendar(this.startDate, this.endDate, this.product);
@@ -299,7 +183,7 @@ Template.requests.rendered = function() {
 // Load Calendar
 	var cal = new CalHeatMap();	
 	cal.init({
-		itemSelector: "#example-g",
+		itemSelector: "#main-cal",
 		domain: "month",
 		subDomain: "x_day",
 		start: new Date(2015, 0, 5),
@@ -315,6 +199,23 @@ Template.requests.rendered = function() {
 			return moment(date).format("MMMM").toUpperCase();
 		},
 		subDomainTextFormat: "%d",
+		legend: [1, 3, 5, 7, 9]
+	});
+
+	var cal2 = new CalHeatMap();	
+	cal2.init({
+		itemSelector: "#second-cal",
+		domain: "month",
+		subDomain: "x_day",
+		start: new Date(2015, 0, 5),
+		cellSize: 11,
+		cellPadding: 1,
+		domainGutter: 14,
+		range: 12,
+		verticalOrientation: false,
+		domainDynamicDimension: false,
+		displayLegend: false,
+		domainLabelFormat: '',
 		legend: [1, 3, 5, 7, 9]
 	});
 
@@ -416,15 +317,6 @@ var convertToDays = function (startDate, endDate) {
 		firstDate = firstDate.add(1, 'days');
 	}
 	return workDays;
-}
-
-var deleteCalendar = function () {
-	var calendarColl = BookingCalendar.find();
-	_.each(calendarColl, function (item) {
-		console.log(item._id);
-		BookingCalendar.remove({_id: item._id});
-	});
-	console.log('Booking Calendar deleted, now has ' + BookingCalendar.find().count() + 'days.');
 }
 
 var createCalendar = function (calendarType, startDate, endDate) {

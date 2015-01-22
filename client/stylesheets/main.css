@@ -46,12 +46,12 @@ body {
   margin-right: -5px;
   margin-top: -10px;
 }
-		#example-g .subdomain-text {
+		#main-cal .subdomain-text {
 			fill: #fff;
 			opacity: 0;
 		}
 
-		#example-g g:hover .subdomain-text {
+		#main-cal g:hover .subdomain-text {
 			opacity: 1;
 		}
 #map {
