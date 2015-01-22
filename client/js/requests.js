@@ -10,7 +10,7 @@ Session.setDefault('currentId', null);
 Session.setDefault('currentBooking', null);
 Session.setDefault('toggleEditRequest', false);
 Session.setDefault('calenderProduct', null);
-Session.setDefault('calenderType', 'request');
+Session.setDefault('calenderType', 'booking');
 Session.setDefault('bookingsFilter', {});
 Session.setDefault('requestsFilter', {bookingId: {$exists: false}});
 
@@ -25,24 +25,24 @@ Template.requests.helpers({
 	booking: function () {
 		return Bookings.find(Session.get('bookingsFilter'), {sort: {'date': -1}}).fetch();
 	},
-	services: function () {
-		var serviceColl = Services.find({}).fetch();
-		var namePluck = _.chain(serviceColl).pluck('name').value();
-		return JSON.stringify(namePluck);
-	},
-	clients: function () {
-		var clientColl = Clients.find({}).fetch();
-		var namePluck = _.chain(clientColl).pluck('name').value();
-		return JSON.stringify(namePluck);
-	},
-	products: function () {
-		var productColl = Products.find({}).fetch();
-		var namePluck = _.chain(productColl).pluck('name').value();
-		return JSON.stringify(namePluck);
-	},
-	projects: function () {
-		var projectColl = Projects.find({}).fetch();
-		var namePluck = _.chain(projectColl).pluck('name').value();
+	// services: function () {
+	// 	var serviceColl = Services.find({}).fetch();
+	// 	var namePluck = _.chain(serviceColl).pluck('name').value();
+	// 	return JSON.stringify(namePluck);
+	// },
+	// clients: function () {
+	// 	var clientColl = Clients.find({}).fetch();
+	// 	var namePluck = _.chain(clientColl).pluck('name').value();
+	// 	return JSON.stringify(namePluck);
+	// },
+	// products: function () {
+	// 	var productColl = Products.find({}).fetch();
+	// 	var namePluck = _.chain(productColl).pluck('name').value();
+	// 	return JSON.stringify(namePluck);
+	// },
+	// projects: function () {
+	// 	var projectColl = Projects.find({}).fetch();
+	// 	var namePluck = _.chain(projectColl).pluck('name').value();
 	// pageCreateState: function () {
 	// 	return Session.get('create');
 	// },
@@ -52,7 +52,7 @@ Template.requests.helpers({
 	// pageEditState: function () {
 	// 	return Session.get('edit');
 	// },		return JSON.stringify(namePluck);
-	},
+	// },
 	teammates: function () {
 		var teammateColl = Teammates.find({}).fetch();
 		var namePluck = _.chain(teammateColl).pluck('name').value();
@@ -125,18 +125,18 @@ Template.requests.events({
 
 
 // Calendar
-	'click .calendarAll': function (evt) {
-		Session.set('calenderProduct', '');
-	},
-	'click .calendarSV': function (evt) {
-		Session.set('calenderProduct', 'SV');
-	},
-	'click .calendarTSM': function (evt) {
-		Session.set('calenderProduct', 'TSM');
-	},
-	'click .calendarWBMS': function (evt) {
-		Session.set('calenderProduct', 'WBMS');
-	},
+	// 'click .calendarAll': function (evt) {
+	// 	Session.set('calenderProduct', '');
+	// },
+	// 'click .calendarSV': function (evt) {
+	// 	Session.set('calenderProduct', 'SV');
+	// },
+	// 'click .calendarTSM': function (evt) {
+	// 	Session.set('calenderProduct', 'TSM');
+	// },
+	// 'click .calendarWBMS': function (evt) {
+	// 	Session.set('calenderProduct', 'WBMS');
+	// },
 	'click .calendarBooking': function (evt) {
 		Session.set('calenderType', 'booking');
 	},
@@ -303,10 +303,10 @@ Template.requests.rendered = function() {
 		domain: "month",
 		subDomain: "x_day",
 		start: new Date(2015, 0, 5),
-		cellSize: 12,
+		cellSize: 11,
 		cellPadding: 1,
-		domainGutter: 12,
-		range: 10,
+		domainGutter: 14,
+		range: 12,
 		verticalOrientation: false,
 		domainDynamicDimension: false,
 		displayLegend: false,

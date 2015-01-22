@@ -11,35 +11,25 @@
 		<div class="row">
 
 
-<!-- Calendar Filters-->
-			<div class="span1">
-				<div class="btn-group">
-					<button class="btn btn-mini calendarAll">Calendar</button>
-					<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a class="calendarBooking">Bookings</a></li>
-						<li><a class="calendarRequest">Requests</a></li>
-					</ul>
-				</div>
-				<br /><br />
-				<div class="btn-group">
-					<button class="btn btn-mini calendarAll">Product &nbsp;</button>
-					<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a class="calendarAll">All Products</a></li>
-						<li><a class="calendarSV">Singleview</a></li>
-						<li><a class="calendarTSM">TSM</a></li>
-						<li><a class="calendarWBMS">WBMS</a></li>
-					</ul>
+<!-- Calendar Filter -->
+			<div class="span12">
+				<div class="btn-group pull-right" data-toggle="buttons-radio">
+					<button type="button" class="btn calendarBooking active">Bookings</button>
+					<button type="button" class="btn calendarRequest">Requests</button>
 				</div>
 			</div>
+		</div>
 
 
+<!-- Empty Row -->
+		<div class="row">
+			<div class="span12">&nbsp;
+			</div>
+		</div>
+
+		
 <!-- Calendar -->
+		<div class="row">
 			<div class="span10" id="example-g">
 				<div id="cal-heatmap">
 				</div>
