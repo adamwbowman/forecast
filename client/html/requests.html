@@ -57,203 +57,84 @@
 <!-- Card Display -->
 		<div class="row">
 			<div class="span12">
+				<div class="tabs">
+					<ul id="myTab" class="nav nav-tabs">
 
 
-
-          <div class="tabs">
-            <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#requests" data-toggle="tab">Requests</a></li>
-              <li><a href="#bookings" data-toggle="tab">Bookings</a></li>
-            </ul>
-            <div id="content" class="tab-content">
-              <div class="tab-pane fade in active" id="requests">
-
-
-								<ul class="nav nav-pills">
-									<li class="requestsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
-									<li class="requestsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
-									<li class="requestsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
-									<li class="requestsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
-								</ul>
+<!-- Tabbed Display -->
+						<li class="active"><a href="#requests" data-toggle="tab">Requests</a></li>
+						<li><a href="#bookings" data-toggle="tab">Bookings</a></li>
+					</ul>
+					<div id="content" class="tab-content">
+						<div class="tab-pane fade in active" id="requests">
+							<ul class="nav nav-pills">
+								<li class="requestsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
+								<li class="requestsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
+								<li class="requestsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
+								<li class="requestsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
+							</ul>
 
 
-				<!-- Requests -->
-								<ul class="thumbnails">
-									{{#each request}}
-										{{#if selectedBooking}}
-											<li class="span3">
-												<div class="thumbnail sidecard {{selectedId}}">
-													<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
-													<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
-													<input id="teammate" type="text" class="" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' value="{{teammate}}" />								
-													<div class="btn-group pull-right">
-														<button type="button" class="btn btn-mini btn-default cancel">Cancel</button>
-														<button type="button" class="btn btn-mini btn-success bookRequest">Book</button>
-													</div>
-												</div>
-											</li>
-										{{else}}
-											<li class="span3">
-												<div class="thumbnail sidecard {{selectedId}}">
-													<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
-													<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
-													<p>Duration: {{totalWorkDays}} days</p><br />
-													<div class="btn-group pull-right">
-														<button type="button" class="btn btn-mini btn-warning review">Review</button>
-														<button type="button" class="btn btn-mini btn-success book">Book</button>
-													</div>
-												</div>
-											</li>
-										{{/if}}
-									{{/each}}
-								</ul>
-
-
-              </div>
-              <div class="tab-pane fade" id="bookings">
-
-
-				<ul class="nav nav-pills">
-					<li class="bookingsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
-					<li class="bookingsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
-					<li class="bookingsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
-					<li class="bookingsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
-				</ul>
-
-
-				<ul class="thumbnails">
-					{{#each booking}}
-					<li class="span3">
-						<div class="thumbnail sidecard">
-							<p class=""><strong>{{service}} <br /> {{client}}: {{product}}</strong><br />{{formatDate startDate}} through {{formatDate endDate}}<br />{{project}}<br />{{teammate}}</p><p>Duration: {{totalWorkDays}} days</p>
-							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-mini btn-danger deleteBooking">Delete</button>
-							</div>
+<!-- Requests -->
+							<ul class="thumbnails">
+								{{#each request}}
+									{{#if selectedBooking}}
+									<li class="span3">
+										<div class="thumbnail sidecard {{selectedId}}">
+											<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
+											<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+											<input id="teammate" type="text" class="" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' value="{{teammate}}" />								
+											<div class="btn-group pull-right">
+												<button type="button" class="btn btn-mini btn-default cancel">Cancel</button>
+												<button type="button" class="btn btn-mini btn-success bookRequest">Book</button>
+											</div>
+										</div>
+									</li>
+									{{else}}
+									<li class="span3">
+										<div class="thumbnail sidecard {{selectedId}}">
+											<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
+											<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+											<p>Duration: {{totalWorkDays}} days</p><br />
+											<div class="btn-group pull-right">
+												<button type="button" class="btn btn-mini btn-warning review">Review</button>
+												<button type="button" class="btn btn-mini btn-success book">Book</button>
+											</div>
+										</div>
+									</li>
+									{{/if}}
+								{{/each}}
+							</ul>
 						</div>
-					</li>
-					{{/each}}
-				</ul>
-
-
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-
-			</div>
-
-
-
-
-
-
-
-<!-- Create Request -->
-<!-- 			<div class="span4 offset1">
-				{{#if pageCreateState}}
-					<h4> + Request a Service</h4>
-					<hr>
-					<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' />
-					<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' />
-					<div class="btn-group" data-toggle="buttons-radio">
-						<button type="button" class="btn product active" id="product" value="SV">Singleview</button>
-						<button type="button" class="btn product" id="product" value="TSM">TSM</button>
-						<button type="button" class="btn product" id="product" value="WBMS">WBMS</button>
-					</div>
-					<br /><br />
-					<div class="input-append date">
-						<input type="text" id="startDate" placeholder="Start Date"><br /><input type="text" id="endDate" placeholder="End Date">
-					</div>
-					<input id="description" type="text" class="span4" placeholder="Description" />
-					<button class="btn btn-primary pull-right createRequest">Create Request</button>
-				{{/if}} -->
-
-
-<!-- Edit Request -->
-<!-- 				{{#if pageEditState}}
-					{{#each editRequest}}
-						<h4> - Edit your Request</h4>
-						<hr>
-						<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' value="{{service}}" />
-						<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" />
-						<div class="btn-group" data-toggle="buttons-radio">
-							<button type="button" class="btn product {{isSV}}" id="product" value="SV">Singleview</button>
-							<button type="button" class="btn product {{isTSM}}" id="product" value="TSM">TSM</button>
-							<button type="button" class="btn product {{isWBMS}}" id="product" value="WBMS">WBMS</button>
-						</div>
-						<br /><br />
-						<div class="input-append date">
-							<input type="text" id="startDate" placeholder="Start Date" value="{{formatDate startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{formatDate endDate}}">
-						</div>
-						<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
-						<button class="btn btn-danger pull-left deleteRequest">Delete Request</button>
-						<button class="btn btn-primary pull-right editRequest">Edit Request</button>
-					{{/each}}
-
-<p><br /><br /></p>
-{{#each history}}
-	<p>
-	{{service}}:{{client}}:{{product}}:{{startDate}}:{{endDate}}:{{description}}:{{createdBy}}:{{createdByEmail}}:{{date}}
-</p>
-{{/each}}
-
-				{{/if}}
- -->
-
-<!-- Book Request -->
-<!-- 				{{#if pageBookState}}
-					{{#each editRequest}}
-						<h4> + Book a Service</h4>
-						<input id="service" type="text" class="span4" placeholder="Request a service" data-provide="typeahead" autocomplete="off" data-source='{{services}}' value="{{service}}" />
-						<input id="client" type="text" class="span4" placeholder="Client" data-provide="typeahead" autocomplete="off" data-source='{{clients}}' value="{{client}}" />
-						<input id="product" type="text" class="span4" placeholder="Product" data-provide="typeahead" autocomplete="off" data-source='{{products}}' value="{{product}}" />
-						<div class="input-append date">
-							<input type="text" id="startDate" placeholder="Start Date" value="{{formatDate startDate}}"><br /><input type="text" id="endDate" placeholder="End Date" value="{{formatDate endDate}}">
-						</div>
-						<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
-						<h4> + Assignment </h4>
-						<input id="project" type="text" class="span4" placeholder="Project" data-provide="typeahead" autocomplete="off" data-source='{{projects}}' value="{{project}}" />
-						<input id="teammate" type="text" class="span4" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' value="{{teammate}}" />
-						<button class="btn btn-primary pull-right bookRequest">Book Request</button>
-					{{/each}}
-				{{/if}}
-			</div> -->
-
-
-<!-- Bookings Filters -->
-<!-- 			<div class="span3 offset1">
-				<h4>Current Bookings</h4>
-				<hr>
-				<ul class="nav nav-pills">
-					<li class="bookingsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
-					<li class="bookingsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
-					<li class="bookingsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
-					<li class="bookingsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
-				</ul> -->
 
 
 <!-- Bookings -->
-<!-- 				<ul class="thumbnails">
-					{{#each booking}}
-					<li class="span3">
-						<div class="thumbnail sidecard">
-							<p class=""><strong>{{service}} <br /> {{client}}: {{product}}</strong><br />{{formatDate startDate}} through {{formatDate endDate}}<br />{{project}}<br />{{teammate}}</p><p>Duration: {{totalWorkDays}} days</p>
-							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-mini btn-danger deleteBooking">Delete</button>
-							</div>
+						<div class="tab-pane fade" id="bookings">
+							<ul class="nav nav-pills">
+								<li class="bookingsAll active"><a href="#tab1" data-toggle="tab">All</a></li>
+								<li class="bookingsSV"><a href="#tab2" data-toggle="tab">SV</a></li>
+								<li class="bookingsTSM"><a href="#tab3" data-toggle="tab">TSM</a></li>
+								<li class="bookingsWBMS"><a href="#tab4" data-toggle="tab">WBMS</a></li>
+							</ul>
+							<ul class="thumbnails">
+								{{#each booking}}
+								<li class="span3">
+									<div class="thumbnail sidecard">
+										<p class=""><strong>{{service}} <br /> {{client}}: {{product}}</strong><br />{{formatDate startDate}} through {{formatDate endDate}}<br />{{project}}<br />{{teammate}}</p><p>Duration: {{totalWorkDays}} days</p>
+										<div class="btn-group pull-right">
+											<button type="button" class="btn btn-mini btn-danger deleteBooking">Delete</button>
+										</div>
+									</div>
+								</li>
+								{{/each}}
+							</ul> 
 						</div>
-					</li>
-					{{/each}}
-				</ul>
-			</div> -->
 
 
-			
+						
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
