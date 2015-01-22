@@ -3,7 +3,7 @@
 /* home.js
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-Session.setDefault('calenderType', 'booking');
+Session.setDefault('mainCalendarType', 'booking');
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -36,10 +36,10 @@ Template.home.helpers({
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.home.events({
 	'click .bookingCalendar': function () {
-		Session.set('calenderType', 'booking');
+		Session.set('mainCalendarType', 'booking');
 	},
 	'click .requestCalendar': function () {
-		Session.set('calenderType', 'request');
+		Session.set('mainCalendarType', 'request');
 	}	
 });
 
@@ -56,7 +56,7 @@ Template.home.rendered = function () {
 // Load Calendar
 	var cal = new CalHeatMap();	
 	cal.init({
-		itemSelector: "#example-g",
+		itemSelector: "#main-cal",
 		domain: "month",
 		subDomain: "x_day",
 		start: new Date(2015, 0, 5),
@@ -84,7 +84,7 @@ Template.home.rendered = function () {
 
 // Track Map Data Changes
 	var calData = Meteor.autorun( function () {
-		var type = Session.get('calenderType');
+		var type = Session.get('mainCalendarType');
 		if (type == 'booking') {
 			var calendarColl = BookingCalendar.find().fetch();
 		}

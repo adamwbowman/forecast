@@ -8,7 +8,7 @@ Session.setDefault('currentBooking', null);
 Session.setDefault('toggleEditRequest', false);
 Session.setDefault('calenderProduct', null);
 Session.setDefault('isHidden', true);
-Session.setDefault('calenderType', 'booking');
+Session.setDefault('requestCalendarType', 'request');
 Session.setDefault('bookingsFilter', {});
 Session.setDefault('requestsFilter', {bookingId: {$exists: false}});
 
@@ -89,10 +89,10 @@ Template.requests.events({
 
 // Calendar
 	'click .calendarBooking': function (evt) {
-		Session.set('calenderType', 'booking');
+		Session.set('requestCalendarType', 'booking');
 	},
 	'click .calendarRequest': function (evt) {
-		Session.set('calenderType', 'request');
+		Session.set('requestCalendarType', 'request');
 	},
 	'click .calendarAll': function (evt) {
 		Session.set('calenderProduct', '');
@@ -223,7 +223,8 @@ Template.requests.rendered = function() {
 // Track Map Data Changes
 	var calData = Meteor.autorun( function () {
 		var product = Session.get('calenderProduct');
-		var type = Session.get('calenderType');
+		var type = Session.get('requestCalendarType');
+		console.log(type);
 		if (type == 'booking') {
 			var calendarColl = BookingCalendar.find().fetch();			
 		}
