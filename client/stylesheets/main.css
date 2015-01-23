@@ -55,12 +55,21 @@ body {
 			opacity: 1;
 		}
 		
-		#main-cal .subdomain-text {
+		#board-cal .subdomain-text {
 			fill: #fff;
 			opacity: 0;
 		}
 
-		#main-cal g:hover .subdomain-text {
+		#board-cal g:hover .subdomain-text {
+			opacity: 1;
+		}
+
+		#team-cal .subdomain-text {
+			fill: #fff;
+			opacity: 0;
+		}
+
+		#team-cal g:hover .subdomain-text {
 			opacity: 1;
 		}
 #map {

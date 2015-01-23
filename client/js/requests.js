@@ -181,9 +181,9 @@ Template.requests.rendered = function() {
 
 
 // Load Calendar
-	var cal = new CalHeatMap();	
-	cal.init({
-		itemSelector: "#main-cal",
+	var boardCal = new CalHeatMap();	
+	boardCal.init({
+		itemSelector: "#board-cal",
 		domain: "month",
 		subDomain: "x_day",
 		start: new Date(2015, 0, 5),
@@ -202,9 +202,9 @@ Template.requests.rendered = function() {
 		legend: [1, 3, 5, 7, 9]
 	});
 
-	var cal2 = new CalHeatMap();	
-	cal2.init({
-		itemSelector: "#second-cal",
+	var teamCal = new CalHeatMap();	
+	teamCal.init({
+		itemSelector: "#team-cal",
 		domain: "month",
 		subDomain: "x_day",
 		start: new Date(2015, 0, 5),
@@ -221,7 +221,7 @@ Template.requests.rendered = function() {
 
 
 // Track Map Data Changes
-	var calData = Meteor.autorun( function () {
+	var boardCalData = Meteor.autorun( function () {
 		var product = Session.get('calenderProduct');
 		var type = Session.get('requestCalendarType');
 		console.log(type);
@@ -243,7 +243,7 @@ Template.requests.rendered = function() {
 				formattedColl[item.date] = item.score;
 			}
 		});
-		cal.update(formattedColl);
+		boardCal.update(formattedColl);
 	});
 // createCalendar('booking', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
 // createCalendar('request', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
