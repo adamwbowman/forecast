@@ -3,7 +3,7 @@
 /* home.js
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-Session.setDefault('mainCalendarType', 'booking');
+Session.setDefault('homeCalendarType', 'booking');
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -36,10 +36,10 @@ Template.home.helpers({
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.home.events({
 	'click .bookingCalendar': function () {
-		Session.set('mainCalendarType', 'booking');
+		Session.set('homeCalendarType', 'booking');
 	},
 	'click .requestCalendar': function () {
-		Session.set('mainCalendarType', 'request');
+		Session.set('homeCalendarType', 'request');
 	}	
 });
 
@@ -54,9 +54,9 @@ Template.home.rendered = function () {
 
 
 // Load Calendar
-	var cal = new CalHeatMap();	
-	cal.init({
-		itemSelector: "#main-cal",
+	var homeCal = new CalHeatMap();	
+	homeCal.init({
+		itemSelector: "#home-cal",
 		domain: "month",
 		subDomain: "x_day",
 		start: new Date(2015, 0, 5),
@@ -83,19 +83,19 @@ Template.home.rendered = function () {
 
 
 // Track Map Data Changes
-	var calData = Meteor.autorun( function () {
-		var type = Session.get('mainCalendarType');
-		if (type == 'booking') {
+	var homeCalData = Meteor.autorun( function () {
+		var homeType = Session.get('homeCalendarType');
+		if (homeType == 'booking') {
 			var calendarColl = BookingCalendar.find().fetch();
 		}
-		if (type == 'request') {
+		if (homeType == 'request') {
 			var calendarColl = RequestCalendar.find().fetch();
  		}
  		var formattedColl = {};
 		_.each(calendarColl, function (item) {
 			formattedColl[item.date] = item.score;
 		});
-		cal.update(formattedColl);
+		homeCal.update(formattedColl);
 	});
 }
 

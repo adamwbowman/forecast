@@ -140,7 +140,7 @@ Template.requests.events({
 		Session.set('isHidden', true);
 	},
 	'click .review': function () {
-		console.log('review ' + this._id);
+		console.log('needs to be done');
 	},
 	'click .card': function (evt, template) {
 		Session.set('showRequestDialog', true);

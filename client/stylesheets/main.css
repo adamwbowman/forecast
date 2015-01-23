@@ -46,6 +46,15 @@ body {
   margin-right: -5px;
   margin-top: -10px;
 }
+		#home-cal .subdomain-text {
+			fill: #fff;
+			opacity: 0;
+		}
+
+		#home-cal g:hover .subdomain-text {
+			opacity: 1;
+		}
+		
 		#main-cal .subdomain-text {
 			fill: #fff;
 			opacity: 0;
