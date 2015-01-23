@@ -97,7 +97,12 @@
 										<div class="thumbnail sidecard {{selectedId}}">
 											<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
 											<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
-											<input id="teammate" type="text" class="" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' value="{{teammate}}" />								
+											<select id="teammates">
+												{{#each teammates}}
+												<option value="{{_id}}">{{name}}</option>
+												{{/each}}
+											</select>
+											<!-- <input id="teammate" type="text" class="" placeholder="Teammate" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' value="{{teammate}}" /> -->
 											<div class="btn-group pull-right">
 												<button type="button" class="btn btn-mini btn-default cancel">Cancel</button>
 												<button type="button" class="btn btn-mini btn-success bookRequest">Book</button>

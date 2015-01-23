@@ -11,6 +11,7 @@ Session.setDefault('isHidden', true);
 Session.setDefault('requestCalendarType', 'request');
 Session.setDefault('bookingsFilter', {});
 Session.setDefault('requestsFilter', {bookingId: {$exists: false}});
+Session.setDefault('currentTeammate', null);
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -23,10 +24,13 @@ Template.requests.helpers({
 	booking: function () {
 		return Bookings.find(Session.get('bookingsFilter'), {sort: {'date': -1}}).fetch();
 	},
+	// teammates: function () {
+	// 	var teammateColl = Teammates.find({}).fetch();
+	// 	var namePluck = _.chain(teammateColl).pluck('name').value();
+	// 	return JSON.stringify(namePluck);
+	// },
 	teammates: function () {
-		var teammateColl = Teammates.find({}).fetch();
-		var namePluck = _.chain(teammateColl).pluck('name').value();
-		return JSON.stringify(namePluck);
+		return Teammates.find().fetch();
 	},
 	selectedId: function () {
 		return Session.equals('currentId', this._id) ? 'selected' : '';
@@ -84,6 +88,10 @@ Template.requests.events({
 	},
 	'click .bookingsWBMS': function (evt) {
 		Session.set('bookingsFilter', {product: 'WBMS'});
+	},
+	'change #teammates': function (evt, template) {
+		console.log($('#teammates').val());
+		Session.set('currentTeammate', $('#teammates').val());
 	},	
 
 
@@ -107,7 +115,8 @@ Template.requests.events({
 		Session.set('calenderProduct', 'WBMS');
 	},
 	'click .bookRequest': function (evt, template) {
-		fillCalendar('booking', this.startDate, this.endDate, this.product);
+		var teammateId = $('#teammates').val();
+		fillCalendar('booking', this.startDate, this.endDate, this.product, teammateId);
 		var BookingId = Bookings.insert({
 			requestId: this._id,
 			service: this.service,
@@ -118,6 +127,7 @@ Template.requests.events({
 			totalWorkDays: calcWorkingDays(this.startDate, this.endDate),
 			description: this.description,
 			teammate: this.teammate,
+			teammateId: teammateId,
 			bookedBy: Meteor.userId(),
 			bookedByEmail: getUserEmail(),
 			date: new Date,
@@ -136,7 +146,6 @@ Template.requests.events({
 			bookedByEmail: getUserEmail(),
 			date: new Date
 		}}); 
-		template.find('#teammate').value = '';
 		Session.set('isHidden', true);
 	},
 	'click .review': function () {
@@ -216,7 +225,12 @@ Template.requests.rendered = function() {
 		domainDynamicDimension: false,
 		displayLegend: false,
 		domainLabelFormat: '',
-		legend: [1, 3, 5, 7, 9]
+		legendColors: {
+			min: "#ededed",
+			max: "#000000",
+			empty: "#ededed"
+		},
+		legend: [1, 3]
 	});
 
 
@@ -224,7 +238,6 @@ Template.requests.rendered = function() {
 	var boardCalData = Meteor.autorun( function () {
 		var product = Session.get('calenderProduct');
 		var type = Session.get('requestCalendarType');
-		console.log(type);
 		if (type == 'booking') {
 			var calendarColl = BookingCalendar.find().fetch();			
 		}
@@ -244,6 +257,18 @@ Template.requests.rendered = function() {
 			}
 		});
 		boardCal.update(formattedColl);
+	});
+
+	var teamCalData = Meteor.autorun( function () {
+		var teammate = Session.get('currentTeammate');
+		var calendarColl = BookingCalendar.find().fetch();			
+ 		var formattedColl = {};
+		_.each(calendarColl, function (item) {
+			if (item.teammates == teammate) {
+				formattedColl[item.date] = item.score;	
+			}
+		});
+		teamCal.update(formattedColl);
 	});
 // createCalendar('booking', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
 // createCalendar('request', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
@@ -351,7 +376,7 @@ var createCalendar = function (calendarType, startDate, endDate) {
 	}
 }
 
-var fillCalendar = function (calendarType, startDate, endDate, product) {
+var fillCalendar = function (calendarType, startDate, endDate, product, teammateId) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
 	var dateDiff = moment(endDate).diff(moment(startDate));
@@ -365,6 +390,7 @@ var fillCalendar = function (calendarType, startDate, endDate, product) {
 			if (calendarType == 'booking') {
 				var xxx = BookingCalendar.find({date: unixdate}).fetch();
 				BookingCalendar.update(xxx[0]._id, {$inc: {score: 1}});
+				BookingCalendar.update(xxx[0]._id, {$set: {teammates: teammateId}});
 				if (product == 'SV') {
 					BookingCalendar.update(xxx[0]._id, {$set: {SV: 1}});
 				}
