@@ -90,7 +90,6 @@ Template.requests.events({
 		Session.set('bookingsFilter', {product: 'WBMS'});
 	},
 	'change #teammates': function (evt, template) {
-		console.log($('#teammates').val());
 		Session.set('currentTeammate', $('#teammates').val());
 	},	
 
@@ -147,6 +146,7 @@ Template.requests.events({
 			date: new Date
 		}}); 
 		Session.set('isHidden', true);
+		Session.set('currentTeammate', null);
 	},
 	'click .review': function () {
 		console.log('needs to be done');
@@ -163,6 +163,7 @@ Template.requests.events({
 	'click .cancel': function () {
 		Session.set('currentBooking', null);
 		Session.set('isHidden', true);
+		Session.set('currentTeammate', null);
 	},
 	'click .deleteBooking': function () {
 		removeCalendar(this.startDate, this.endDate, this.product);
@@ -264,7 +265,7 @@ Template.requests.rendered = function() {
 		var calendarColl = BookingCalendar.find().fetch();			
  		var formattedColl = {};
 		_.each(calendarColl, function (item) {
-			if (item.teammates == teammate) {
+			if (_.contains(item.teammates, teammate)) {
 				formattedColl[item.date] = item.score;	
 			}
 		});
@@ -359,10 +360,10 @@ var createCalendar = function (calendarType, startDate, endDate) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
 			var xxx = moment(firstDate).unix();
 			if (calendarType == 'booking') {
-				BookingCalendar.insert({date: xxx});
+				BookingCalendar.insert({date: xxx, teammates: []});
 			}
 			if (calendarType == 'request') {
-				RequestCalendar.insert({date: xxx});
+				RequestCalendar.insert({date: xxx, teammates: []});
 			}
 		}
 		days -= 1;
@@ -390,7 +391,7 @@ var fillCalendar = function (calendarType, startDate, endDate, product, teammate
 			if (calendarType == 'booking') {
 				var xxx = BookingCalendar.find({date: unixdate}).fetch();
 				BookingCalendar.update(xxx[0]._id, {$inc: {score: 1}});
-				BookingCalendar.update(xxx[0]._id, {$set: {teammates: teammateId}});
+				BookingCalendar.update(xxx[0]._id, {$push: {teammates: teammateId}});
 				if (product == 'SV') {
 					BookingCalendar.update(xxx[0]._id, {$set: {SV: 1}});
 				}
