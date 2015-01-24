@@ -21,8 +21,7 @@
 			<div class="container">
 				<a class="brand" href="/">Platform Engineering</a>
 				<div class="nav pull-left">
-					<ul class="nav">						
-						<!-- <li><a href="/clients">Clients</a></li> -->
+					<ul class="nav">					
 						<li><a href="/requests">Planning Boards</a></li>
 						<button type="button" class="btn btn-primary pull-left requestButton">Request our Services</button>
 					</ul>
@@ -37,6 +36,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="/admin">Main</a></li>
 								<li class="divider"></li>
+								<li><a href="/clients">Clients</a></li>
 								<li><a href="/teammates">Teammates</a></li>
 							</ul>
 						</li>
@@ -53,20 +53,4 @@
 	{{#if showRequestDialog}}
 		{{> add_request}}
 	{{/if}}
-</template>
-
-<template name="homepage">
-	<div class="hero-unit">
-		<h1>Home Page</h1>
-		<p>Tagline</p>
-		<p><a class="btn btn-primary btn-large">Learn more</a></p>
-	</div>
-</template>
-
-<template name="page">
-	<div class="hero-unit">
-		<h1>Page</h1>
-		<p>Tagline</p>
-		<p><a class="btn btn-primary btn-large">Learn more</a></p>
-	</div>
 </template>

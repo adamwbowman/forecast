@@ -1,0 +1,87 @@
+
+<!--
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* clients.html
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+-->
+
+
+<template name="clients">
+	<div class="container">
+		<div class="row">
+
+<!-- Projects -->
+			<div class="span3">
+				<h4>Clients</h4>
+				<ul class="thumbnails">
+					{{#each client}}
+					<li class="span3">
+						<div class="thumbnail sidecard {{selectedClient}}">
+							<a href="#" class="card"><strong>{{name}}</strong></a><p>{{location}}</p>
+							<div class="btn-group pull-right">
+								{{#if isSV}}
+								<button type="button" class="btn btn-mini btn-inverse">Singleview</button>
+								{{/if}}
+								{{#if isWBMS}}
+								<button type="button" class="btn btn-mini btn-inverse">WBMS</button>
+								{{/if}}
+								{{#if isTSM}}
+								<button type="button" class="btn btn-mini btn-inverse">TSM</button>
+								{{/if}}
+							</div>
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+
+<!-- Create Project -->
+			<div class="span4 offset1">
+				{{#if pageCreateState}}
+					<h4> + Create a Client</h4>
+					<input id="name" type="text" class="span4" placeholder="Client Name" />
+					<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
+						<div class="btn-group" data-toggle="buttons-checkbox">
+							<button type="button" class="btn product {{isSV}}" id="product" value="SV">Singleview</button>
+							<button type="button" class="btn product {{isTSM}}" id="product" value="TSM">TSM</button>
+							<button type="button" class="btn product {{isWBMS}}" id="product" value="WBMS">WBMS</button>
+						</div>
+						<br /><br />
+					<input id="description" type="text" class="span4" placeholder="Description">
+					<button class="btn btn-primary pull-right createClient">Create Client</button>
+				{{/if}}
+
+<!-- Edit Project -->
+				{{#if pageEditState}}
+					{{#each editClient}}
+						<h4> - Edit Client</h4>
+						<input id="name" type="text" class="span4" placeholder="Client Name" value="{{name}}" />
+						<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}'  value="{{location}}" />
+
+						<div class="btn-group" data-toggle="buttons-checkbox">
+							<button type="button" class="btn product {{isSV}}" id="product" value="SV">Singleview</button>
+							<button type="button" class="btn product {{isTSM}}" id="product" value="TSM">TSM</button>
+							<button type="button" class="btn product {{isWBMS}}" id="product" value="WBMS">WBMS</button>
+						</div>
+						<br /><br />
+						<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
+						<button class="btn btn-danger pull-left deleteClient">Delete Client</button>
+						<button class="btn btn-primary pull-right editClient">Edit this Client</button>
+					{{/each}}
+
+
+<p><br /><br /></p>
+{{#each history}}
+	<p>
+	{{name}}:{{client}}:{{location}}:{{product}}:{{description}}:{{detail}}:{{createdBy}}:{{createdByEmail}}:{{date}}
+</p>
+{{/each}}
+
+
+				{{/if}}
+
+
+			</div>
+		</div>
+	</div>
+</template>
