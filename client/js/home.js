@@ -11,22 +11,25 @@ Session.setDefault('homeCalendarType', 'booking');
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.home.helpers({
 	trend: function () {
-		return Projects.find({}, {limit: 3}).fetch();
+		return Clients.find({}, {limit: 3}).fetch();
+	},
+	booking: function () {
+		return Bookings.find({client: this.name}).fetch();
 	},
 	recent: function () {
-		return Projects.find({}, {limit: 3, sort:{'date': -1}}).fetch();
+		return Clients.find({}, {limit: 3, sort:{'date': -1}}).fetch();
 	},
 	largest: function () {
-		return Projects.find({}, {limit: 3, sort:{'location': 1}}).fetch();
+		return Clients.find({}, {limit: 3}).fetch();
 	},
 	isEMEA: function () {
-		return Projects.find({_id: this._id, 'EMEA': true}).fetch();
+		return Clients.find({_id: this._id, 'EMEA': true}).fetch();
 	},
 	isAPAC: function () {
-		return Projects.find({_id: this._id, 'APAC': true}).fetch();
+		return Clients.find({_id: this._id, 'APAC': true}).fetch();
 	},
 	isAmericas: function () {
-		return Projects.find({_id: this._id, 'Americas': true}).fetch();
+		return Projecsts.find({_id: this._id, 'Americas': true}).fetch();
 	},
 });
 

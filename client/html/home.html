@@ -33,24 +33,24 @@
 				<div class="row">
 					<h4>Search Results</h4>
 				</div>
-				<hr>
 <!-- Trending -->
 				<div class="row">
 					<h4>Trending</h4>
 				</div>
 				<hr>
-<!-- 				<div class="row ">
+				<div class="row ">
 					<ul class="thumbnails">
 					{{#each trend}}
 						<li class="span3">
 							<div class="thumbnail homecard">
 								<a href="/viewAll/{{_id}}" class="card">
-									<strong>{{client}}: {{name}}</strong>
+									<strong>{{name}}</strong>
 								</a>
-								<p>{{description}}</p><br />
-								<p>{{location}}</p><br />
+								{{#each booking}}
+								<p>{{product}}: {{service}}</p>
+								{{/each}}
 								<p>followers</p>
-								<div class="btn-group pull-left">
+<!-- 								<div class="btn-group pull-left">
 									{{#if isEMEA}}
 									<button type="button" class="btn btn-mini btn-info">EMEA</button>
 									{{/if}}
@@ -60,15 +60,15 @@
 									{{#if isAmericas}}
 									<button type="button" class="btn btn-mini btn-warning">Americas</button>
 									{{/if}}
-								</div>
-								<div class="btn-group pull-right">
+								</div> -->
+								<!-- <div class="btn-group pull-right">
 									<button type="button" class="btn btn-mini btn-inverse">{{product}}</button>
-								</div>
+								</div> -->
 							</div>
 						</li>
 					{{/each}}
 					</ul>
-				</div> -->
+				</div>
 <!-- Recent -->
 				<div class="row">
 					<h4>Recent</h4>
