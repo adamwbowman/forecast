@@ -8,10 +8,9 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.viewAll.helpers({
 	request: function () {
-		return Bookings.find({projectId: this._id}).fetch();
+		return Bookings.find({client: this.name}).fetch();
 	},
-	related: function () {
-		console.log(this.client)
-		return Projects.find({client: this.client, _id: {$not: this._id} }).fetch();
-	}
+	// related: function () {
+	// 	return Projects.find({client: this.client, _id: {$not: this._id} }).fetch();
+	// }
 });

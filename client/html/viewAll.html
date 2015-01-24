@@ -8,30 +8,25 @@
 <template name="viewAll">
 	<div class="container">
 		<div class="row">
-		
-
 
 			<div class="span8 offset1">
-				<strong>{{client}}: {{name}}</strong><br />
-				{{description}}
-				<hr>
-				{{detail}}
+				<h3>{{name}}</h3><br />
 			</div>
 			<div class="span2">
-				follows<br />
-				views<br />
 				lead<br />
+				followers<br />
+				views<br />
+				regional badges<br />
 			</div>
 		</div>
 		<div class="row">
 			<div class="span11 offset1">
 				<br /><br />
-					Location: {{location}} <br />
-					Project:{{product}} <br />
-					CreatedBy: {{createdByEmail}} <br />
-					Date: {{date}} <br />
+					Locations: {{locations}} <br />
+					Products: {{products}} <br />
 				<br /><br />
 
+				<h3>Current Work</h3>
 				{{#each request}}
 					<strong>
 						{{service}}<br />
@@ -39,15 +34,23 @@
 					</strong>
 					{{startDate}} through {{endDate}}<br /><br/>
 				{{/each}}
+				<br />
+				<h4>Monitored Systems</h4>
+				<br />
+				<h4>Scheduled Work</h4>	
+				<br />				
+				<h4>Past Work</h4>
+				<br />
+				<h4>Project Alumni</h4>		
 				
 				<br /><br />
-				{{#each related}}
+<!-- 				{{#each related}}
 					<strong>
 						{{name}}<br />
 						{{teammate}}<br />
 					</strong>
 					{{startDate}} through {{endDate}}
-				{{/each}}
+				{{/each}} -->
 			</div>
 
 

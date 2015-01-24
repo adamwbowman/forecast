@@ -32,7 +32,7 @@ Router.map(function() {
 	this.route('viewAll', {
 		path: '/viewAll/:id',
 		data: function () {
-			return Projects.findOne({_id: this.params.id});
+			return Clients.findOne({_id: this.params.id});
 		}
 	});	
 });
