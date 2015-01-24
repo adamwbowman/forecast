@@ -73,7 +73,11 @@ Template.requests.events({
 	},
 	'click .requestsWBMS': function (evt) {
 		Session.set('requestsFilter', {bookingId: {$exists: false}, product: 'WBMS'});
-	},	
+	},
+	// 'keyup .filter': function (evt) {
+	// 	var filterInput = $('.filter').val();
+	// 	Session.set('requestsFilter', { service: filterInput });
+	// },
 
 
 // Bookings
