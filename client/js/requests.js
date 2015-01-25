@@ -118,7 +118,10 @@ Template.requests.events({
 		Session.set('calenderProduct', 'WBMS');
 	},
 	'click .bookRequest': function (evt, template) {
-		var teammateId = $('#teammates').val();
+		var teammate = $('#teammates').val();
+		var teammateArr = teammate.split(':');
+		var teammateId = teammateArr[0];
+		var teammateName = teammateArr[1];
 		fillCalendar('booking', this.startDate, this.endDate, this.product, teammateId);
 		var BookingId = Bookings.insert({
 			requestId: this._id,
@@ -129,7 +132,7 @@ Template.requests.events({
 			endDate: this.endDate,
 			totalWorkDays: calcWorkingDays(this.startDate, this.endDate),
 			description: this.description,
-			teammate: this.teammate,
+			teammate: teammateName,
 			teammateId: teammateId,
 			bookedBy: Meteor.userId(),
 			bookedByEmail: getUserEmail(),

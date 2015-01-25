@@ -7,7 +7,7 @@
 /* Helpers
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.viewAll.helpers({
-	request: function () {
+	currentBooking: function () {
 		return Bookings.find({client: this.name}).fetch();
 	},
 	// related: function () {

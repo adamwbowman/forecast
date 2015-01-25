@@ -28,11 +28,14 @@
 
 				<h4>Current Work</h4>
 				<ul class="thumbnails">
-					{{#each request}}
+					{{#each currentBooking}}
 						<li class="span3">
 							<div class="thumbnail sidecard">
-								<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
-								<p>{{formatDate startDate}} through {{formatDate endDate}}<br />{{teammate}}</p>
+								<strong>{{product}}: {{service}}</strong>
+								<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-mini btn-info">{{teammate}}</button>
+								</div>
 							</div>
 						</li>
 					{{/each}}
