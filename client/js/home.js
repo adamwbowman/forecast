@@ -22,15 +22,6 @@ Template.home.helpers({
 	largest: function () {
 		return Clients.find({}, {limit: 3}).fetch();
 	},
-	isEMEA: function () {
-		return Clients.find({_id: this._id, 'EMEA': true}).fetch();
-	},
-	isAPAC: function () {
-		return Clients.find({_id: this._id, 'APAC': true}).fetch();
-	},
-	isAmericas: function () {
-		return Projecsts.find({_id: this._id, 'Americas': true}).fetch();
-	},
 });
 
 
