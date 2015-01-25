@@ -103,6 +103,9 @@
 												<option value="{{_id}}">{{name}}</option>
 												{{/each}}
 											</select>
+											<div class="btn-group pull-left">
+												<button type="button" class="btn btn-mini btn-info">{{client}}</button>
+											</div>
 											<div class="btn-group pull-right">
 												<button type="button" class="btn btn-mini btn-default cancel">Cancel</button>
 												<button type="button" class="btn btn-mini btn-success bookRequest">Book</button>
@@ -115,6 +118,9 @@
 											<a href="#" class="card"><strong>{{product}}: {{service}}</strong></a>
 											<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
 											<p>Duration: {{totalWorkDays}} days</p><br />
+										<div class="btn-group pull-left">
+											<button type="button" class="btn btn-mini btn-info">{{client}}</button>
+										</div>
 											<div class="btn-group pull-right">
 												<button type="button" class="btn btn-mini btn-warning review">Review</button>
 												<button type="button" class="btn btn-mini btn-success book">Book</button>
@@ -142,6 +148,9 @@
 										<strong>{{product}}: {{service}}</strong><br />
 										<p>{{formatDate startDate}} through {{formatDate endDate}}<br />{{teammate}}</p>
 										<p>Duration: {{totalWorkDays}} days</p>
+										<div class="btn-group pull-left">
+											<button type="button" class="btn btn-mini btn-info">{{client}}</button>
+										</div>
 										<div class="btn-group pull-right">
 											<button type="button" class="btn btn-mini btn-danger deleteBooking">Delete</button>
 										</div>
