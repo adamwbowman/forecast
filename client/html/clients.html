@@ -42,11 +42,12 @@
 					<input id="name" type="text" class="span4" placeholder="Client Name" />
 					<input id="location" type="text" class="span4" placeholder="Location" data-provide="typeahead" autocomplete="off" data-source='{{locations}}' />
 						<div class="btn-group" data-toggle="buttons-checkbox">
-							<button type="button" class="btn product {{isSV}}" id="product" value="SV">Singleview</button>
-							<button type="button" class="btn product {{isTSM}}" id="product" value="TSM">TSM</button>
-							<button type="button" class="btn product {{isWBMS}}" id="product" value="WBMS">WBMS</button>
+							<button type="button" class="btn product" id="product" value="SV">Singleview</button>
+							<button type="button" class="btn product" id="product" value="TSM">TSM</button>
+							<button type="button" class="btn product" id="product" value="WBMS">WBMS</button>
 						</div>
 						<br /><br />
+					<input id="lead" type="text" class="span4" placeholder="Lead" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' />
 					<input id="description" type="text" class="span4" placeholder="Description">
 					<button class="btn btn-primary pull-right createClient">Create Client</button>
 				{{/if}}
@@ -64,6 +65,7 @@
 							<button type="button" class="btn product {{isWBMS}}" id="product" value="WBMS">WBMS</button>
 						</div>
 						<br /><br />
+						<input id="lead" type="text" class="span4" placeholder="Lead" data-provide="typeahead" autocomplete="off" data-source='{{teammates}}' value="{{lead}}" />
 						<input id="description" type="text" class="span4" placeholder="Description" value="{{description}}" />
 						<button class="btn btn-danger pull-left deleteClient">Delete Client</button>
 						<button class="btn btn-primary pull-right editClient">Edit this Client</button>

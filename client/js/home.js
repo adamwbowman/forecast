@@ -11,7 +11,7 @@ Session.setDefault('homeCalendarType', 'booking');
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.home.helpers({
 	trend: function () {
-		return Clients.find({}, {limit: 3}).fetch();
+		return Clients.find({}, {limit: 3, sort:{'date': -1}}).fetch();
 	},
 	booking: function () {
 		return Bookings.find({client: this.name}).fetch();

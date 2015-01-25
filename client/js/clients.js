@@ -20,6 +20,11 @@ Template.clients.helpers({
 		var namePluck = _.chain(locationColl).pluck('name').value();
 		return JSON.stringify(namePluck);
 	},
+	teammates: function () {
+		var teammateColl = Teammates.find({}).fetch();
+		var namePluck = _.chain(teammateColl).pluck('name').value();
+		return JSON.stringify(namePluck);
+	},
 	editClient: function () {
 		return Clients.find({_id: Session.get('currentClient')}).fetch();
 	},
@@ -27,25 +32,19 @@ Template.clients.helpers({
 		return Session.equals('currentClient', this._id) ? 'selected' : '';
 	},
 	isSV: function () {
-		// var thisProject = Projects.find({_id: this._id}).fetch();
-		// var project = _.chain(thisProject).pluck('product').value();
-		// if (project == 'Singleview') {
-		// 	return true;
-		// };
+		if (_.contains(this.products, 'SV')) {
+			return 'active' 
+		}
 	},
 	isWBMS: function () {
-		// var thisProject = Projects.find({_id: this._id}).fetch();
-		// var project = _.chain(thisProject).pluck('product').value();
-		// if (project == 'WBMS') {
-		// 	return true;
-		// };
+		if (_.contains(this.products, 'WBMS')) {
+			return 'active' 
+		}
 	},
 	isTSM: function () {
-		// var thisProject = Projects.find({_id: this._id}).fetch();
-		// var project = _.chain(thisProject).pluck('product').value();
-		// if (project == 'TSM') {
-		// 	return true;
-		// };
+		if (_.contains(this.products, 'TSM')) {
+			return 'active' 
+		}
 	},
 	pageCreateState: function () {
 		return Session.get('create');
@@ -74,6 +73,7 @@ Template.clients.events({
 			location: template.find('#location').value,
 			products: products,
 			// region: $('.btn-group .active').value,
+			lead: template.find('#lead').value,
 			description: template.find('#description').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
@@ -81,6 +81,7 @@ Template.clients.events({
 		});
 		template.find('#name').value = '';
 		template.find('#location').value = '';
+		template.find('#lead').value = '';
 		template.find('#description').value = '';
 	},
 	'click .editClient': function (evt, template) {
@@ -93,6 +94,7 @@ Template.clients.events({
 			name: template.find('#name').value,
 			location: template.find('#location').value,
 			products: products,
+			lead: template.find('#lead').value,
 			description: template.find('#description').value,
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
@@ -103,11 +105,18 @@ Template.clients.events({
 			name: this.name,
 			location: this.location,
 			products: this.products,
+			lead: this.lead,
 			description: this.description,
 			createdBy: this.createdBy,
 			createdByEmail: this.createdByEmail,
 			date: this.date,			
 		}); 
+		template.find('#name').value = '';
+		template.find('#location').value = '';
+		template.find('#lead').value = '';
+		template.find('#description').value = '';
+		Session.set('create', true);
+		Session.set('edit', false);
 	}, 
 	'click .card': function (evt, template) {
 		Session.set('currentClient', this._id);
