@@ -118,10 +118,9 @@ Template.requests.events({
 		Session.set('calenderProduct', 'WBMS');
 	},
 	'click .bookRequest': function (evt, template) {
-		var teammate = $('#teammates').val();
-		var teammateArr = teammate.split(':');
-		var teammateId = teammateArr[0];
-		var teammateName = teammateArr[1];
+		var teammateId = $('#teammates').val();
+		var teammateName = Teammates.find({_id: teammateId}).fetch();
+		teammateName = _.chain(teammateName).pluck('name').value();
 		fillCalendar('booking', this.startDate, this.endDate, this.product, teammateId);
 		var BookingId = Bookings.insert({
 			requestId: this._id,
@@ -278,8 +277,8 @@ Template.requests.rendered = function() {
 		});
 		teamCal.update(formattedColl);
 	});
-// createCalendar('booking', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
-// createCalendar('request', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
+// createCalendar('booking', dateToUnix('01/01/2015'), dateToUnix('12/31/2015'));
+// createCalendar('request', dateToUnix('01/01/2015'), dateToUnix('12/31/2015'));
 }
 
 
