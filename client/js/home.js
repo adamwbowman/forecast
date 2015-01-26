@@ -80,9 +80,11 @@ Template.home.rendered = function () {
 	var homeCalData = Meteor.autorun( function () {
 		var homeType = Session.get('homeCalendarType');
 		if (homeType == 'booking') {
+			console.log('home - booking');
 			var calendarColl = BookingCalendar.find().fetch();
 		}
 		if (homeType == 'request') {
+			console.log('home - request');
 			var calendarColl = RequestCalendar.find().fetch();
  		}
  		var formattedColl = {};

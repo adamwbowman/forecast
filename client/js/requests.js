@@ -172,7 +172,7 @@ Template.requests.events({
 		Session.set('currentTeammate', null);
 	},
 	'click .deleteBooking': function () {
-		removeCalendar(this.startDate, this.endDate, this.product);
+		removeCalendar(this.startDate, this.endDate, this.product, this.teammateId);
 		Bookings.remove({_id: this._id});
 	}
 });
@@ -246,9 +246,11 @@ Template.requests.rendered = function() {
 		var product = Session.get('calenderProduct');
 		var type = Session.get('requestCalendarType');
 		if (type == 'booking') {
+			console.log('board - booking');
 			var calendarColl = BookingCalendar.find().fetch();			
 		}
 		if (type == 'request') {
+			console.log('board - request');
 			var calendarColl = RequestCalendar.find().fetch();
  		}
  		var formattedColl = {};
@@ -427,7 +429,7 @@ var fillCalendar = function (calendarType, startDate, endDate, product, teammate
 	}
 }
 
-var removeCalendar = function (startDate, endDate, product) {
+var removeCalendar = function (startDate, endDate, product, teammate) {
 	var startDate = moment.unix(startDate);
 	var endDate = moment.unix(endDate);
 	var dateDiff = moment(endDate).diff(moment(startDate));
@@ -439,9 +441,11 @@ var removeCalendar = function (startDate, endDate, product) {
 		if (firstDate.isoWeekday() !== 5 && firstDate.isoWeekday() !== 6) {
 			var unixdate = moment(firstDate).unix();
 			var xxx = BookingCalendar.find({date: unixdate}).fetch();
-			console.log(xxx[0]._id);
-			console.log(xxx[0].score);
-			console.log(xxx[0].score == 1);
+			console.log('id: '+xxx[0]._id);
+			console.log('score: '+xxx[0].score);
+			console.log('scorebln: '+xxx[0].score == 1);
+			console.log(teammate);
+			BookingCalendar.update(xxx[0]._id, {$pull: {teammates: teammate}});
 			if (xxx[0].score == 1) {
 				BookingCalendar.update(xxx[0]._id, {$unset: {score: ''}});				
 			} else {

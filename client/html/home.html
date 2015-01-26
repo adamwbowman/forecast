@@ -32,22 +32,22 @@
 <!-- Search Results -->
 				<div class="row">
 					<h4>Search Results</h4>
+					<hr>
 				</div>
 <!-- Trending -->
 				<div class="row">
 					<h4>Trending</h4>
 				</div>
-				<hr>
 				<div class="row ">
 					<ul class="thumbnails">
 					{{#each trend}}
 						<li class="span3">
 							<div class="thumbnail homecard">
 								<a href="/viewAll/{{_id}}" class="card">
-									<strong>{{name}}</strong>
+									<h4>{{name}}</h4>
 								</a>
 								{{#each booking}}
-								<p>{{product}}: {{service}}</p>
+									<button class="btn btn-danger btn-mini">{{product}}: {{service}}</button><br /><br />
 								{{/each}}
 								<p>followers</p>
 							</div>
@@ -58,8 +58,8 @@
 <!-- Recent -->
 				<div class="row">
 					<h4>Recent</h4>
+					<hr>
 				</div>
-				<hr>
 <!-- 				<div class="row ">
 					<ul class="thumbnails">
 					{{#each recent}}
@@ -93,8 +93,8 @@
 <!-- Largest Forecast  -->
 				<div class="row">
 					<h4>Largest Forecast</h4>
+					<hr>
 				</div>
-				<hr>
 <!-- 				<div class="row ">
 					<ul class="thumbnails">
 					{{#each largest}}
@@ -128,6 +128,7 @@
 <!-- Top Searches -->
 				<div class="row">
 					<h4>Top Searches</h4>
+					<hr>
 				</div>
 
 
