@@ -1,18 +1,15 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* viewAll
+/* teammate
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Helpers
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
-Template.viewAll.helpers({
+Template.teammate.helpers({
 	currentBooking: function () {
-		return Bookings.find({client: this.name}).fetch();
+		return Bookings.find({teammate: this.name}).fetch();
 	},
-	// related: function () {
-	// 	return Projects.find({client: this.client, _id: {$not: this._id} }).fetch();
-	// }
 });
 
 
@@ -20,9 +17,10 @@ Template.viewAll.helpers({
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Events
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
-Template.viewAll.events({
-	'click .teammate': function () {
-		Router.go('/teammate/'+this.teammateId);
+Template.teammate.events({
+	'click .client': function () {
+		console.log(this);
+		// Router.go('/viewAll/'+this._id);
 	},
 });
 

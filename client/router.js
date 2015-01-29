@@ -26,6 +26,12 @@ Router.map(function() {
         	this.render('requests');
         }
 	});	
+	this.route('teammate', {
+		path: '/teammate/:id',
+		data: function () {
+			return Teammates.findOne({_id: this.params.id});
+		}		
+	});		
 	this.route('teammates', {
 		path: '/teammates'
 	});	
