@@ -19,8 +19,9 @@ Template.teammate.helpers({
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.teammate.events({
 	'click .client': function () {
-		console.log(this);
-		// Router.go('/viewAll/'+this._id);
+		var clientColl = Clients.find({name: this.client}).fetch();
+		var clientId = _.chain(clientColl).pluck('_id').value();
+		Router.go('/viewAll/'+clientId);
 	},
 });
 

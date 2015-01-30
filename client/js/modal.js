@@ -51,11 +51,12 @@ Template.add_request.events({
 	'click .createRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
+		var product = $('.btn-group .active').val();
 		fillCalendar('request', dateToUnix(startDate), dateToUnix(endDate), product);
 		var RequestId = Requests.insert({
 			service: template.find('#service').value,
 			client: template.find('#client').value,
-			product: $('.btn-group .active').val(),
+			product: product,
 			startDate: dateToUnix(startDate),
 			endDate: dateToUnix(endDate),
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
@@ -74,10 +75,11 @@ Template.add_request.events({
 	'click .editRequest': function (evt, template) {
 		var startDate = template.find('#startDate').value;
 		var endDate = template.find('#endDate').value;
+		var product = $('.btn-group .active').val();
 		Requests.update(this._id, {
 			service: template.find('#service').value,
 			client: template.find('#client').value,
-			product: $('.btn-group .active').val(),
+			product: product,
 			startDate: dateToUnix(startDate),
 			endDate: dateToUnix(endDate),
 			totalWorkDays: calcWorkingDays(dateToUnix(startDate), dateToUnix(endDate)),
