@@ -401,26 +401,26 @@ var fillCalendar = function (calendarType, startDate, endDate, product, teammate
 				BookingCalendar.update(xxx[0]._id, {$inc: {score: 1}});
 				BookingCalendar.update(xxx[0]._id, {$push: {teammates: teammateId}});
 				if (product == 'SV') {
-					BookingCalendar.update(xxx[0]._id, {$set: {SV: 1}});
+					BookingCalendar.update(xxx[0]._id, {$inc: {SV: 1}});
 				}
 				if (product == 'TSM') {
-					BookingCalendar.update(xxx[0]._id, {$set: {TSM: 1}});
+					BookingCalendar.update(xxx[0]._id, {$inc: {TSM: 1}});
 				}
 				if (product == 'WBMS') {
-					BookingCalendar.update(xxx[0]._id, {$set: {WBMS: 1}});
+					BookingCalendar.update(xxx[0]._id, {$inc: {WBMS: 1}});
 				}
 			}
 			if (calendarType == 'request') {
 				var xxx = RequestCalendar.find({date: unixdate}).fetch();
 				RequestCalendar.update(xxx[0]._id, {$inc: {score: 1}});
 				if (product == 'SV') {
-					RequestCalendar.update(xxx[0]._id, {$set: {SV: 1}});
+					RequestCalendar.update(xxx[0]._id, {$inc: {SV: 1}});
 				}
 				if (product == 'TSM') {
-					RequestCalendar.update(xxx[0]._id, {$set: {TSM: 1}});
+					RequestCalendar.update(xxx[0]._id, {$inc: {TSM: 1}});
 				}
 				if (product == 'WBMS') {
-					RequestCalendar.update(xxx[0]._id, {$set: {WBMS: 1}});
+					RequestCalendar.update(xxx[0]._id, {$inc: {WBMS: 1}});
 				}
 			}
 		}
@@ -449,27 +449,27 @@ var removeCalendar = function (startDate, endDate, product, teammate) {
 			if (xxx[0].score == 1) {
 				BookingCalendar.update(xxx[0]._id, {$unset: {score: ''}});				
 			} else {
-				BookingCalendar.update(xxx[0]._id, {$set: {score: -1}});				
+				BookingCalendar.update(xxx[0]._id, {$inc: {score: -1}});				
 			}
 			if (product == 'SV') {
 				if (xxx[0].SV == 1) {
 					BookingCalendar.update(xxx[0]._id, {$unset: {SV: ''}});				
 				} else {
-					BookingCalendar.update(xxx[0]._id, {$set: {SV: -1}});				
+					BookingCalendar.update(xxx[0]._id, {$inc: {SV: -1}});				
 				}	
 			}
 			if (product == 'TSM') {
 				if (xxx[0].TSM == 1) {
 					BookingCalendar.update(xxx[0]._id, {$unset: {TSM: ''}});				
 				} else {
-					BookingCalendar.update(xxx[0]._id, {$set: {TSM: -1}});				
+					BookingCalendar.update(xxx[0]._id, {$inc: {TSM: -1}});				
 				}	
 			}
 			if (product == 'WBMS') {
 				if (xxx[0].WBMS == 1) {
 					BookingCalendar.update(xxx[0]._id, {$unset: {WBMS: ''}});				
 				} else {
-					BookingCalendar.update(xxx[0]._id, {$set: {WBMS: -1}});				
+					BookingCalendar.update(xxx[0]._id, {$inc: {WBMS: -1}});				
 				}	
 			}
 		}
