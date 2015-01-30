@@ -279,8 +279,8 @@ Template.requests.rendered = function() {
 		});
 		teamCal.update(formattedColl);
 	});
-// createCalendar('booking', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
-// createCalendar('request', dateToUnix('01/01/2015'), dateToUnix('01/31/2015'));
+// createCalendar('booking', dateToUnix('01/01/2015'), dateToUnix('02/28/2015'));
+// createCalendar('request', dateToUnix('01/01/2015'), dateToUnix('02/28/2015'));
 }
 
 
