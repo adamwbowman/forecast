@@ -1,0 +1,66 @@
+
+<!--
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* client.html
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+-->
+
+<template name="client">
+	<div class="container">
+		<div class="row">
+
+			<div class="span8 offset1">
+				<h2>{{name}}</h2><br />
+			</div>
+			<div class="span2">
+				lead: {{lead}}<br />
+				followers<br />
+				views<br />
+				regional badges<br />
+			</div>
+		</div>
+		<div class="row">
+			<div class="span11 offset1">
+				<br /><br />
+					Location: {{location}} <br />
+					Products: {{products}} <br />
+				<br /><br />
+
+				<h4>Monitored Systems</h4>
+				<br />
+				<h4>Current Work</h4>
+				<ul class="thumbnails">
+					{{#each currentBooking}}
+						<li class="span3">
+							<div class="thumbnail sidecard">
+								<strong>{{product}}: {{service}}</strong>
+								<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-mini btn-info teammate">{{teammate}}</button>
+								</div>
+							</div>
+						</li>
+					{{/each}}
+				</ul>
+				<br />
+				<h4>Scheduled Work</h4>	
+				<br />				
+				<h4>Past Work</h4>
+				<br />
+				<h4>Project Alumni</h4>		
+				
+				<br /><br />
+<!-- 				{{#each related}}
+					<strong>
+						{{name}}<br />
+						{{teammate}}<br />
+					</strong>
+					{{startDate}} through {{endDate}}
+				{{/each}} -->
+			</div>
+
+
+
+		</div>
+	</div>
+</template>

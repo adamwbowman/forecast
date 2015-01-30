@@ -35,8 +35,8 @@ Router.map(function() {
 	this.route('teammates', {
 		path: '/teammates'
 	});	
-	this.route('viewAll', {
-		path: '/viewAll/:id',
+	this.route('client', {
+		path: '/client/:id',
 		data: function () {
 			return Clients.findOne({_id: this.params.id});
 		}
