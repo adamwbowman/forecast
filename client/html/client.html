@@ -32,7 +32,7 @@
 									<li class="span3">
 										<div class="thumbnail sidecard">
 											<strong>{{product}}: {{service}}</strong>
-											<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+											<p>{{formatDate startDate}} through {{formatDate endDate}}<br />Requesting: {{formatTotalDays totalWorkDays}}</p>
 										</div>
 									</li>
 								{{/each}}
@@ -47,7 +47,7 @@
 									<li class="span3">
 										<div class="thumbnail sidecard">
 											<strong>{{product}}: {{service}}</strong>
-											<p>{{formatDate startDate}} through {{formatDate endDate}}<br />Days of Work: {{totalWorkDays}}</p>
+											<p>{{formatDate startDate}} through {{formatDate endDate}}<br />Booked: {{formatTotalDays totalWorkDays}}</p>
 											<div class="btn-group pull-right">
 												<button type="button" class="btn btn-mini btn-info teammate">{{teammate}}</button>
 											</div>

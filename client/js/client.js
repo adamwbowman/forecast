@@ -14,7 +14,7 @@ Template.client.helpers({
 		return (RequestsCount == 0) ? false : true;
 	},
 	currentRequest: function () {
-		return Requests.find({client: this.name, bookingId: ''}).fetch();
+		return Requests.find({client: this.name, bookingId: {$exists: false} }).fetch();
 	},
 	areThereBookings: function () {
 		var BookingsCount = Bookings.find({client: this.name}).count();	
@@ -56,4 +56,7 @@ Handlebars.registerHelper("formatDate", function(date) {
 Handlebars.registerHelper("formatImgName", function(lead) {
 	var xxx = lead.replace(' ', '');
 	return xxx;
+});
+Handlebars.registerHelper("formatTotalDays", function(days) {
+	return (days > 1) ? (days+' days') : (days+' day');
 });
