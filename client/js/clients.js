@@ -75,6 +75,7 @@ Template.clients.events({
 			// region: $('.btn-group .active').value,
 			lead: template.find('#lead').value,
 			description: template.find('#description').value,
+			followers: [],
 			createdBy: Meteor.userId(),
 			createdByEmail: getUserEmail(),
 			date: new Date,

@@ -43,6 +43,9 @@ Template.client.events({
 	'click .teammate': function () {
 		Router.go('/teammate/'+this.teammateId);
 	},
+	'click .follow': function () {
+		
+	}
 });
 
 
