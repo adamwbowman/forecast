@@ -29,6 +29,24 @@ body {
 	background-color: #D4D4D4;
 	border-color: black;
 }
+.clientHighlights span {
+	font-size: 50px;
+}
+.clientHighlights button {
+	width: 110px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.clientHighlights {
+	width: 140px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #9A9A9A;
+	text-align: center;
+	color: #D4D4D4;
+	margin-top: 10px;
+}
+
 .input-daterange .add-on {
   display: inline-block;
   width: auto;

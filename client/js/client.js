@@ -10,22 +10,28 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.client.helpers({
 	areThereRequests: function () {
-		var RequestsCount = Requests.find({client: this.name, bookingId: ''}).count();	
-		if (RequestsCount == 0) {
-			return false
-		} else {
-			return true
-		}
+		var RequestsCount = Requests.find({client: this.name, bookingId: {$exists: false} }).count();	
+		return (RequestsCount == 0) ? false : true;
 	},
 	currentRequest: function () {
 		return Requests.find({client: this.name, bookingId: ''}).fetch();
 	},
+	areThereBookings: function () {
+		var BookingsCount = Bookings.find({client: this.name}).count();	
+		return (BookingsCount == 0) ? false : true;
+	},	
 	currentBooking: function () {
 		return Bookings.find({client: this.name}).fetch();
 	},
-	// related: function () {
-	// 	return Projects.find({client: this.client, _id: {$not: this._id} }).fetch();
-	// }
+	isSV: function () {
+		return _.contains(this.products, 'SV');
+	},
+	isTSM: function () {
+		return _.contains(this.products, 'TSM');
+	},
+	isWBMS: function () {
+		return _.contains(this.products, 'WBMS');
+	},
 });
 
 
@@ -46,4 +52,8 @@ Template.client.events({
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Handlebars.registerHelper("formatDate", function(date) {
 	return moment.unix(date).format("MM/DD/YYYY");
+});
+Handlebars.registerHelper("formatImgName", function(lead) {
+	var xxx = lead.replace(' ', '');
+	return xxx;
 });

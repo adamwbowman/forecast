@@ -10,70 +10,96 @@
 		<div class="row">
 
 			<div class="span8 offset1">
-				<h2>{{name}}</h2><br />
+				<div class="row">
+					<div class="span8">
+						<h1>{{name}}</h1>
+					</div>
+					<div class="span8">
+						<div id="map">
+							&nbsp; map
+						</div>
+					</div>
+					<div class="span8 pull-right">
+							Location: {{location}}
+					</div>
+					<div class="span8">
+						<br /><br />
+						<h4>Monitored Systems</h4>
+						{{#if areThereRequests}}
+							<h4>Requested Work</h4>
+							<ul class="thumbnails">
+								{{#each currentRequest}}
+									<li class="span3">
+										<div class="thumbnail sidecard">
+											<strong>{{product}}: {{service}}</strong>
+											<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
+										</div>
+									</li>
+								{{/each}}
+							</ul>
+						{{/if}}
+					</div>
+					<div class="span8">
+						{{#if areThereBookings}}
+							<h4>Current Work</h4>
+							<ul class="thumbnails">
+								{{#each currentBooking}}
+									<li class="span3">
+										<div class="thumbnail sidecard">
+											<strong>{{product}}: {{service}}</strong>
+											<p>{{formatDate startDate}} through {{formatDate endDate}}<br />Days of Work: {{totalWorkDays}}</p>
+											<div class="btn-group pull-right">
+												<button type="button" class="btn btn-mini btn-info teammate">{{teammate}}</button>
+											</div>
+										</div>
+									</li>
+								{{/each}}
+							</ul>
+						{{/if}}
+					</div>
+					<div class="span8">
+						<h4>Scheduled Work</h4>	
+					</div>
+					<div class="span8">
+						<h4>Past Work</h4>
+					</div>
+					<div class="span8">
+						<h4>PE Alumni</h4>		
+					</div>
+				</div>
 			</div>
+
 			<div class="span2">
-				lead: {{lead}}<br />
-				followers<br />
-				views<br />
-				regional badges<br />
-			</div>
-		</div>
-		<div class="row">
-			<div class="span11 offset1">
-				<br /><br />
-					Location: {{location}} <br />
-					Products: {{products}} <br />
-				<br /><br />
-
-				<h4>Monitored Systems</h4>
-				<br />
-				{{#if areThereRequests}}
-					<h4>Requested Work</h4>
-					<ul class="thumbnails">
-						{{#each currentRequest}}
-							<li class="span3">
-								<div class="thumbnail sidecard">
-									<strong>{{product}}: {{service}}</strong>
-									<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
-								</div>
-							</li>
-						{{/each}}
-					</ul>
-				{{/if}}
-				<h4>Current Work</h4>
-				<ul class="thumbnails">
-					{{#each currentBooking}}
-						<li class="span3">
-							<div class="thumbnail sidecard">
-								<strong>{{product}}: {{service}}</strong>
-								<p>{{formatDate startDate}} through {{formatDate endDate}}</p>
-								<div class="btn-group pull-right">
-									<button type="button" class="btn btn-mini btn-info teammate">{{teammate}}</button>
-								</div>
-							</div>
-						</li>
-					{{/each}}
-				</ul>
-				<br />
-				<h4>Scheduled Work</h4>	
-				<br />				
-				<h4>Past Work</h4>
-				<br />
-				<h4>Project Alumni</h4>		
-				
-				<br /><br />
-<!-- 				{{#each related}}
-					<strong>
-						{{name}}<br />
-						{{teammate}}<br />
-					</strong>
-					{{startDate}} through {{endDate}}
-				{{/each}} -->
+				<div class="row">
+					<div class="span2 clientHighlights">
+						<img src="/img/{{formatImgName lead}}.png" /><br />
+						Lead Contact:<br />{{lead}}
+					</div>
+					<div class="span2 clientHighlights">
+						{{#if isSV}}
+							<button class="btn btn-default">SingleView</button>
+						{{/if}}
+						{{#if isTSM}}
+							<button class="btn btn-default">TSM</button>
+						{{/if}}
+						{{#if isWBMS}}
+							<button class="btn btn-default">WBMS</button>
+						{{/if}}
+					</div>
+					<div class="span2 clientHighlights">
+						<span>2</span><br />
+						followers
+					</div>
+					<div class="span2 clientHighlights">
+						<span>2</span><br />
+						views
+					</div>
+					<div class="span2 clientHighlights">
+						regional badges
+					</div>
+				</div>
 			</div>
 
-
-
 		</div>
-	</div>
+	</div>	
 </template>

@@ -54,7 +54,6 @@ Template.add_request.events({
 		var product = $('.btn-group .active').val();
 		fillCalendar('request', dateToUnix(startDate), dateToUnix(endDate), product);
 		var RequestId = Requests.insert({
-			bookingId: '',
 			service: template.find('#service').value,
 			client: template.find('#client').value,
 			product: product,
