@@ -39,7 +39,13 @@ Template.client.helpers({
 		return ( _.contains(followers, currentUser) ) ? '' : '-empty';
 	},
 	followers: function () {
-		return Clients.find({_id: this._id}).count();
+		var clientsColl = Clients.find({_id: this._id}).fetch();
+		var followers = _.chain(clientsColl).pluck('followers').flatten().value();
+		return followers.length;
+	},
+	views: function () {
+		var clientsColl = Clients.find({_id: this._id}).fetch();
+		return _.chain(clientsColl).pluck('views').flatten().value();
 	},
 });
 
