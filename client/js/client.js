@@ -32,6 +32,15 @@ Template.client.helpers({
 	isWBMS: function () {
 		return _.contains(this.products, 'WBMS');
 	},
+	doesFollow: function () {
+		var currentUser = Meteor.userId();
+		var clientsColl = Clients.find({_id: this._id}).fetch();
+		var followers = _.chain(clientsColl).pluck('followers').flatten().value();
+		return ( _.contains(followers, currentUser) ) ? '' : '-empty';
+	},
+	followers: function () {
+		return Clients.find({_id: this._id}).count();
+	},
 });
 
 
@@ -44,7 +53,14 @@ Template.client.events({
 		Router.go('/teammate/'+this.teammateId);
 	},
 	'click .follow': function () {
-		
+		var currentUser = Meteor.userId();
+		var clientsColl = Clients.find({_id: this._id}).fetch();
+		var followers = _.chain(clientsColl).pluck('followers').flatten().value();
+		if (_.contains(followers, currentUser)) {
+			Clients.update(this._id, {$pull: {followers: currentUser}});
+		} else {
+			Clients.update(this._id, {$push: {followers: currentUser}});
+		}
 	}
 });
 
@@ -62,4 +78,7 @@ Handlebars.registerHelper("formatImgName", function(lead) {
 });
 Handlebars.registerHelper("formatTotalDays", function(days) {
 	return (days > 1) ? (days+' days') : (days+' day');
+});
+Handlebars.registerHelper("formatFollowers", function(followers) {
+	return (followers > 1) ? ('followers') : ('follower');
 });

@@ -15,7 +15,7 @@
 						<h1>{{name}}</h1>
 					</div>
 					<div class="span1 pull-right">
-						<button class="btn btn-primary follow"><i class="icon-white icon-star-empty"></i> follow</button>
+						<button class="btn btn-primary follow"><i class="icon-white icon-star{{doesFollow}}"></i> follow</button>
 					</div>
 					<div class="span9">
 						<div id="map">
@@ -90,8 +90,8 @@
 						{{/if}}
 					</div>
 					<div class="span2 clientHighlights">
-						<span>2</span><br />
-						followers
+						<span>{{followers}}</span><br />
+						{{formatFollowers followers}}
 					</div>
 					<div class="span2 clientHighlights">
 						<span>2</span><br />
