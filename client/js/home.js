@@ -11,16 +11,34 @@ Session.setDefault('homeCalendarType', 'booking');
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 Template.home.helpers({
 	trend: function () {
-		return Clients.find({}, {limit: 3, sort:{'date': -1}}).fetch();
-	},
-	booking: function () {
-		return Bookings.find({client: this.name}).fetch();
+		return Clients.find({}, {limit: 3, sort:{'views': -1}}).fetch();
 	},
 	recent: function () {
 		return Clients.find({}, {limit: 3, sort:{'date': -1}}).fetch();
 	},
-	largest: function () {
-		return Clients.find({}, {limit: 3}).fetch();
+	bookings: function () {
+		return Bookings.find({client: this.name}).count();
+	},
+	requests: function () {
+		return Requests.find({client: this.name, bookingId: {$exists: false} }).count();
+	},
+	daysBooked: function () {
+		var bookingColl = Bookings.find({client: this.name}).fetch();
+		var workDaysColl = _.chain(bookingColl).pluck('totalWorkDays').value();
+		var days = 0;
+		_.each(workDaysColl, function (item) {
+			days += item;
+		});
+		return days;
+	},
+	daysRequested: function () {
+		var requestColl = Requests.find({client: this.name}).fetch();
+		var workDaysColl = _.chain(requestColl).pluck('totalWorkDays').value();
+		var days = 0;
+		_.each(workDaysColl, function (item) {
+			days += item;
+		});
+		return days;
 	},
 });
 

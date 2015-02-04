@@ -31,12 +31,12 @@
 				</div>
 <!-- Search Results -->
 				<div class="row">
-					<h4>Search Results</h4>
+					<h3>Search Results</h3>
 					<hr>
 				</div>
 <!-- Trending -->
 				<div class="row">
-					<h4>Trending</h4>
+					<h3>Trending</h3>
 				</div>
 				<div class="row ">
 					<ul class="thumbnails">
@@ -46,88 +46,40 @@
 								<a href="/client/{{_id}}" class="card">
 									<h4>{{name}}</h4>
 								</a>
-								{{#each booking}}
-									<button class="btn btn-danger btn-mini">{{product}}: {{service}}</button><br /><br />
-								{{/each}}
-								<p>followers</p>
-							</div>
+								<div class="span1 innerhomecard"><span>{{bookings}}</span><br />bookings</div>
+								<div class="span1 innerhomecard"><span>{{requests}}</span><br />requests</div>
+								<div class="span1 innerhomecard"><span>{{daysBooked}}</span><br />booking days</div>
+								<div class="span1 innerhomecard"><span>{{daysRequested}}</span><br />request days</div>
+						</div>
 						</li>
 					{{/each}}
 					</ul>
 				</div>
 <!-- Recent -->
 				<div class="row">
-					<h4>Recent</h4>
-					<hr>
+					<h3>Recent Updates</h3>
 				</div>
-<!-- 				<div class="row ">
+				<div class="row ">
 					<ul class="thumbnails">
 					{{#each recent}}
 						<li class="span3">
 							<div class="thumbnail homecard">
-								<a href="/viewAll/{{_id}}" class="card">
-									<strong>{{client}}: {{name}}</strong>
+								<a href="/client/{{_id}}" class="card">
+									<h4>{{name}}</h4>
 								</a>
-								<p>{{description}}</p><br />
-								<p>{{location}}</p><br />
-								<p>followers</p>
-								<div class="btn-group pull-left">
-									{{#if isEMEA}}
-									<button type="button" class="btn btn-mini btn-info">EMEA</button>
-									{{/if}}
-									{{#if isAPAC}}
-									<button type="button" class="btn btn-mini btn-success">APAC</button>
-									{{/if}}
-									{{#if isAmericas}}
-									<button type="button" class="btn btn-mini btn-warning">Americas</button>
-									{{/if}}
-								</div>
-								<div class="btn-group pull-right">
-									<button type="button" class="btn btn-mini btn-inverse">{{product}}</button>
-								</div>
-							</div>
+								<div class="span1 innerhomecard"><span>{{bookings}}</span><br />bookings</div>
+								<div class="span1 innerhomecard"><span>{{requests}}</span><br />requests</div>
+								<div class="span1 innerhomecard"><span>{{daysBooked}}</span><br />booking days</div>
+								<div class="span1 innerhomecard"><span>{{daysRequested}}</span><br />request days</div>
+						</div>
 						</li>
 					{{/each}}
 					</ul>
-				</div> -->
-<!-- Largest Forecast  -->
-				<div class="row">
-					<h4>Largest Forecast</h4>
-					<hr>
 				</div>
-<!-- 				<div class="row ">
-					<ul class="thumbnails">
-					{{#each largest}}
-						<li class="span3">
-							<div class="thumbnail homecard">
-								<a href="/viewAll/{{_id}}" class="card">
-									<strong>{{client}}: {{name}}</strong>
-								</a>
-								<p>{{description}}</p><br />
-								<p>{{location}}</p><br />
-								<p>followers</p>
-								<div class="btn-group pull-left">
-									{{#if isEMEA}}
-									<button type="button" class="btn btn-mini btn-info">EMEA</button>
-									{{/if}}
-									{{#if isAPAC}}
-									<button type="button" class="btn btn-mini btn-success">APAC</button>
-									{{/if}}
-									{{#if isAmericas}}
-									<button type="button" class="btn btn-mini btn-warning">Americas</button>
-									{{/if}}
-								</div>
-								<div class="btn-group pull-right">
-									<button type="button" class="btn btn-mini btn-inverse">{{product}}</button>
-								</div>
-							</div>
-						</li>
-					{{/each}}
-					</ul>
-				</div> -->
+
 <!-- Top Searches -->
 				<div class="row">
-					<h4>Top Searches</h4>
+					<h3>Top Searches</h3>
 					<hr>
 				</div>
 

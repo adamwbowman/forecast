@@ -18,12 +18,20 @@ body {
 .homecard {
 	background-color: #F8F8F8;
 	padding: 10px 10px 15px 10px;
-	/*height: 200px;*/
+	height: 170px;
 }
 .homecard:hover {
 	background-color: #D4D4D4;
 	border-color: black;
 	cursor: pointer;
+}
+.innerhomecard {
+	margin-top: 6px;
+	text-align: center;
+	color: #9A9A9A;
+}
+.innerhomecard span {
+	font-size: 24px;
 }
 .selected {
 	background-color: #D4D4D4;

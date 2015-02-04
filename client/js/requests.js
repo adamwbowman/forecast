@@ -150,7 +150,11 @@ Template.requests.events({
 			bookedBy: Meteor.userId(),
 			bookedByEmail: getUserEmail(),
 			date: new Date
-		}}); 
+		}});
+		var clientColl = Clients.find({name: this.client}).fetch();
+		var clientId = _.chain(clientColl).pluck('_id').value();
+		clientId = ("'"+clientId+"'")
+		Clients.update(clientId, {$set: {recentBooking: new Date}}); 
 		Session.set('isHidden', true);
 		Session.set('currentTeammate', null);
 	},
