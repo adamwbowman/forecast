@@ -27,7 +27,39 @@
 					</div>
 					<div class="span9">
 						<br /><br />
+
+
+						<h4>Development</h4>
+							<ul class="thumbnails">
+{{#each box}}
+									<li class="span1">
+										<div class="thumbnail environmentcard">
+											<strong>{{name}}<br />{{type}}<br />{{version}}</strong>
+										</div>
+									</li>
+{{/each}}
+									<li class="span1">
+										<div class="thumbnail addenvironmentcard">
+											<strong>+</strong>
+										</div>
+									</li>
+							</ul>
+
+
 						<h4>Monitored Systems</h4>
+							<ul class="thumbnails">
+{{#each monitored}}
+									<li class="span3">
+										<div class="thumbnail statuscard {{color}}">
+											<strong><a href="{{url}}" style="color:black">{{name}}</a></strong>
+										</div>
+									</li>
+{{/each}}
+							</ul>
+
+
+
+
 						{{#if areThereRequests}}
 							<h4>Requested Work</h4>
 							<ul class="thumbnails">

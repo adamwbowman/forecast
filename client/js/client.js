@@ -6,9 +6,24 @@
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Server Methods
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+// Meteor.call('getJenkins', function (err, results) {
+// 	Session.set('jobs', results.jobs)
+// });
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Helpers
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.client.helpers({
+	box: function () {
+		var clientColl = Clients.find({_id: this._id}).fetch();
+		return _.chain(clientColl).pluck('production').flatten().value();
+	},
+	monitored: function () {
+		return Session.get('jobs');
+	},
 	areThereRequests: function () {
 		var RequestsCount = Requests.find({client: this.name, bookingId: {$exists: false} }).count();	
 		return (RequestsCount == 0) ? false : true;
@@ -55,6 +70,12 @@ Template.client.helpers({
 /* Events
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.client.events({
+	'click .environmentcard': function () {
+		console.log(this);
+	},
+	'click .addenvironmentcard': function () {
+		console.log(this);
+	},
 	'click .teammate': function () {
 		Router.go('/teammate/'+this.teammateId);
 	},
@@ -87,4 +108,8 @@ Handlebars.registerHelper("formatTotalDays", function(days) {
 });
 Handlebars.registerHelper("formatFollowers", function(followers) {
 	return (followers > 1) ? ('followers') : ('follower');
+});
+Handlebars.registerHelper("formatName", function(name) {
+	var arrName = name.split('_');
+	return arrName[0]+'_'+arrName[1];
 });
