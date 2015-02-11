@@ -17,10 +17,6 @@
 /* Helpers
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
 Template.client.helpers({
-	box: function () {
-		var clientColl = Clients.find({_id: this._id}).fetch();
-		return _.chain(clientColl).pluck('production').flatten().value();
-	},
 	monitored: function () {
 		return Session.get('jobs');
 	},

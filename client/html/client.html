@@ -11,7 +11,10 @@
 
 			<div class="span9 offset1">
 				<div class="row">
-					<div class="span7">
+					<div class="span1">
+						<img src="/img/{{name}}.jpg">
+					</div>					
+					<div class="span6">
 						<h1>{{name}}</h1>
 					</div>
 					<div class="span1 pull-right">
@@ -19,31 +22,16 @@
 					</div>
 					<div class="span9">
 						<div id="map">
-							&nbsp; map
+							&nbsp; map placeholder
 						</div>
 					</div>
 					<div class="span9">
-							Location: {{location}}
+							Locations: {{location}}
 					</div>
 					<div class="span9">
 						<br /><br />
 
 
-						<h4>Development</h4>
-							<ul class="thumbnails">
-{{#each box}}
-									<li class="span1">
-										<div class="thumbnail environmentcard">
-											<strong>{{name}}<br />{{type}}<br />{{version}}</strong>
-										</div>
-									</li>
-{{/each}}
-									<li class="span1">
-										<div class="thumbnail addenvironmentcard">
-											<strong>+</strong>
-										</div>
-									</li>
-							</ul>
 
 
 						<h4>Monitored Systems</h4>
