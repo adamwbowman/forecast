@@ -8,9 +8,9 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Server Methods
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-// Meteor.call('getJenkins', function (err, results) {
-// 	Session.set('jobs', results.jobs)
-// });
+Meteor.call('getJenkins', function (err, results) {
+	Session.set('jobs', results.jobs)
+});
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

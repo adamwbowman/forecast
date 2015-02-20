@@ -33,6 +33,19 @@
 
 
 
+						<h4>System Overview</h4>
+							<ul class="thumbnails">
+									<li class="span1">
+										<div class="thumbnail statuscard {{color}}">
+											<strong><a href="{{url}}" style="color:black">APP</a></strong>
+										</div>
+									</li>
+									<li class="span1">
+										<div class="thumbnail statuscard {{color}}">
+											<strong><a href="{{url}}" style="color:black">DB</a></strong>
+										</div>
+									</li>
+							</ul>
 
 						<h4>Monitored Systems</h4>
 							<ul class="thumbnails">
@@ -46,6 +59,42 @@
 							</ul>
 
 
+
+						<h4>JIRA Calendar</h4>
+							<ul class="thumbnails">
+									<li class="span3">
+										<div class="thumbnail statuscard {{color}}">
+											<strong><a href="{{url}}" style="color:black">{{name}}</a></strong>
+										</div>
+									</li>
+							</ul>
+
+						<h4>Documents & Templates</h4>
+							<ul class="thumbnails">
+									<li class="span3">
+										<div class="thumbnail statuscard {{color}}">
+											<strong><a href="{{url}}" style="color:black">{{name}}</a></strong>
+										</div>
+									</li>
+							</ul>
+
+						<h4>FAQs</h4>
+							<ul class="thumbnails">
+									<li class="span3">
+										<div class="thumbnail statuscard {{color}}">
+											<strong><a href="{{url}}" style="color:black">{{name}}</a></strong>
+										</div>
+									</li>
+							</ul>
+
+						<h4>PE Alumni</h4>
+							<ul class="thumbnails">
+									<li class="span3">
+										<div class="thumbnail statuscard {{color}}">
+											<strong><a href="{{url}}" style="color:black">{{name}}</a></strong>
+										</div>
+									</li>
+							</ul>
 
 
 						{{#if areThereRequests}}
@@ -86,17 +135,20 @@
 					<div class="span9">
 						<h4>Past Work</h4>
 					</div>
-					<div class="span9">
-						<h4>PE Alumni</h4>		
-					</div>
 				</div>
 			</div>
 
 			<div class="span2">
 				<div class="row">
 					<div class="span2 clientHighlights">
-						<img src="/img/{{formatImgName lead}}.png" /><br />
-						Lead Contact:<br />{{lead}}
+						last update:<br />two days ago
+					</div>
+					<div class="span2 clientHighlights">
+						<img src="/img/{{formatImgName lead}}.png" width="30" /><br />
+						PE Lead:<br />{{lead}}<br />
+						Project Mgr:<br />{{lead}}<br />
+						Account Mgr:<br />{{lead}}<br />
+						Tech Lead:<br />{{lead}}<br />
 					</div>
 					<div class="span2 clientHighlights">
 						{{#if isSV}}
@@ -118,7 +170,10 @@
 						views
 					</div>
 					<div class="span2 clientHighlights">
-						regional badges
+						client badges
+					</div>
+					<div class="span2 clientHistory">
+						client history
 					</div>
 				</div>
 			</div>

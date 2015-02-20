@@ -7,6 +7,13 @@ body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 }
+.clientHistory {
+	width: 0;
+	height: 0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 20px solid gray;
+}
 .blue {
 	background-color: #449D44;
 }
